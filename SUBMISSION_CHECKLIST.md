@@ -8,7 +8,9 @@ Invitation deadline: **on or before Sunday, 25 October 2026**, with no stated cu
 - [x] Meaningful synthetic tests and incremental local Git commits.
 - [x] Source data pack kept outside the submission repository.
 - [x] Second review: missing-file/cadence/clock edge cases, elapsed-time pressure evidence and reference sensitivity; 33 tests pass.
-- [x] Incident/reference redesign; 43 tests, bounded recovery/bursts, explicit reference ambiguity and output rollback/manifest.
+- [x] Incident/reference redesign; 49 tests, bounded recovery/bursts, explicit reference ambiguity and output rollback/manifest.
+- [x] Separate raw CSV/NMEA review of all 44 intervals, S04 policy sensitivity and an updated technical walkthrough.
+- [x] Second weather model: matched before/after diagnostics plus 34 reserved cases; remaining misses disclosed.
 - [x] 57 development and 57 unused-seed evaluation scenarios; metrics and misses published in BENCHMARKS.md.
 - [x] Revised climate-use report and four-chart evidence notebook; complete report verified on one A4 page.
 - [ ] Resolve the engineering-review counterexamples and complete independent accuracy evaluation; the current passing regression suite is insufficient evidence of high accuracy.

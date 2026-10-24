@@ -15,6 +15,7 @@ from ridgeline.cli import main
 from ridgeline.model import CHANNELS
 from ridgeline.output import OUTPUTS, publish, sha256
 from ridgeline.peers import Peers
+from ridgeline.report import audit,write_report
 
 
 class BoundedIncidentTests(unittest.TestCase):
@@ -69,6 +70,13 @@ class BoundedIncidentTests(unittest.TestCase):
         pressure_steps(result,Peers(result))
         self.assertFalse(result.flags)
         self.assertTrue(any('initial regime' in u['reason'] for u in result.unresolved))
+        data=audit(result)
+        self.assertEqual(data['stations']['Z0']['climate_use']['state'],'review')
+        self.assertIn('initial regime',data['stations']['Z0']['climate_use']['channels']['pressure_hpa']['restriction'])
+        with tempfile.TemporaryDirectory() as temporary:
+            path=Path(temporary)/'report.html';write_report(result,data,path)
+            self.assertIn('Review needed',path.read_text(encoding='utf-8'))
+            self.assertNotIn('Reference groups disagree',path.read_text(encoding='utf-8'))
 
     def test_initial_wind_fault_is_not_misread_as_later_failure(self):
         result=network(days=12,interval=10)

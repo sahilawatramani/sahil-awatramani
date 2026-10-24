@@ -188,6 +188,10 @@ def review(pack,submission):
                                  caveat='Sensitivity diagnostic only: an available-sample mean is not a complete daily or period mean.'))
     hashes={name:hashlib.sha256((pack/name).read_bytes()).hexdigest() for name in audit['input_hashes']}
     return dict(scope='Independent arithmetic consistency review; not calibrated field truth.',
+                submission_generation_id=audit['generation']['id'],
+                flags_sha256=hashlib.sha256((submission/'flags.csv').read_bytes()).hexdigest(),
+                review_script_sha256=hashlib.sha256(Path(__file__).read_text(encoding='utf-8').encode()).hexdigest(),
+                input_hashes=hashes,
                 source_hashes_unchanged=hashes==audit['input_hashes'],raw_rows=raw_counts,
                 unique_rows={sid:len(v) for sid,v in records.items()},removed_exact_copies=removed,
                 conflicting_times=conflicts,all_flag_intervals_reviewed=len(ledger),ledger=ledger,

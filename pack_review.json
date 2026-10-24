@@ -1,0 +1,1134 @@
+{
+  "scope": "Independent arithmetic consistency review; not calibrated field truth.",
+  "submission_generation_id": "b68974e455f042215c9f",
+  "flags_sha256": "a1f737b47c38f41721732e5c9c3996639d19adf644a466a4cb4023d7c41d9355",
+  "review_script_sha256": "8b9a10b1fdab9f85f6e53f261d609dfd1fb020f9849803e13cbc1b7756872e79",
+  "input_hashes": {
+    "stations.csv": "faab399b4c048374565cee7f658afc989b1b4f6b3cdd97121b9cd5a372ef3ef7",
+    "maintenance_log.md": "786dd016d78d344026efae36abe244d2a342ae133d7796c9eb26365b8962cb02",
+    "data/S01.csv": "63cabbcca544ff5fb1e9406b5998448c972b84096508d143fc57dade5d1e09f5",
+    "data/S02.csv": "c3f2c8a550032eca66f2fa0942b381fea75c22269752b593bc7e7f47bb2e7760",
+    "data/S03.csv": "31d0814c7fbd19e194e191d97bac48902010b4eec8482efe931a9925dc2a813e",
+    "data/S04.csv": "d03a51fe06cabb3aaa4628c4bc789491ea9ff8f3d5b8d311cb21d4230a3dc3fe",
+    "data/S05.csv": "0350f98ff9e6b9b1205316ed3ca0681de8a6048834808427393aae37ca090efa",
+    "data/S06.csv": "49a07c589f2713203229636ab82a3ec1207a4e22d82360b00b65ff6d00f0709c",
+    "data/S07.csv": "7ae9d39dc233d3ce5ea347d90f1f740db17af7ffc7ffe4017868f7cd505c16a0",
+    "data/S08.csv": "04f75bd3b9fd5855becdd2ea8c3a5d3cb6d24765cfb8998640908d25b21d73c1",
+    "gps/S01.nmea": "53819872b43cee2b9d1473c2f0cf11ce512a418a186fd064fc6f86f87b56c3be",
+    "gps/S02.nmea": "3d12b9d8010542cfe92267afcfe8797df3c76731e7f9bb38b90dea1fb4daff91",
+    "gps/S03.nmea": "0de4432afd7e994284abfedcb2f518117e45bce56e827e2cc02bc0f79871d680",
+    "gps/S04.nmea": "12d7a90f7f4b5beed6e95b55fb5c2fc51335a203d26db937f0f802a933e8a295",
+    "gps/S05.nmea": "d846bdd151e7e7c951cc54a1d54bc1f915a3abc3d4a9721a2b823599790a112f",
+    "gps/S06.nmea": "17ea5ecd992187d8fcf7bee4032e66a940309561950c125f11023a1555657c20",
+    "gps/S07.nmea": "06475e7b2da861b905855e58e5c3d62292c64db94cc23729ee90a32c5487bde6",
+    "gps/S08.nmea": "2fdfbfc2a3fa763666d2121e3df0653ebe27f45da70a0afab7613f12d0849283"
+  },
+  "source_hashes_unchanged": true,
+  "raw_rows": {
+    "S01": 6048,
+    "S02": 6048,
+    "S03": 6048,
+    "S04": 6048,
+    "S05": 6048,
+    "S06": 6048,
+    "S07": 6048,
+    "S08": 5978
+  },
+  "unique_rows": {
+    "S01": 6048,
+    "S02": 6048,
+    "S03": 6048,
+    "S04": 6048,
+    "S05": 6048,
+    "S06": 6048,
+    "S07": 6048,
+    "S08": 5834
+  },
+  "removed_exact_copies": {
+    "S01": 0,
+    "S02": 0,
+    "S03": 0,
+    "S04": 0,
+    "S05": 0,
+    "S06": 0,
+    "S07": 0,
+    "S08": 144
+  },
+  "conflicting_times": {
+    "S01": 0,
+    "S02": 0,
+    "S03": 0,
+    "S04": 0,
+    "S05": 0,
+    "S06": 0,
+    "S07": 0,
+    "S08": 0
+  },
+  "all_flag_intervals_reviewed": 44,
+  "ledger": [
+    {
+      "station_id": "S01",
+      "channel": "temp_c",
+      "start_utc": "2025-03-01 00:00",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "coherent mountain cold",
+      "action": "keep",
+      "observed_unique_samples": 6048,
+      "expected_slots": 6048,
+      "minimum": -18.7,
+      "maximum": 14.1,
+      "median": -4.5,
+      "source_first_row": 2,
+      "source_last_row": 6049,
+      "independent_cold_support": {
+        "paired_samples": 6048,
+        "correlation": 0.9206,
+        "median_offset_c": -9.65,
+        "elevation_above_reference_median_m": 1220.0
+      }
+    },
+    {
+      "station_id": "S02",
+      "channel": "pressure_hpa",
+      "start_utc": "2025-03-21 17:20",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "pressure calibration step",
+      "action": "exclude",
+      "observed_unique_samples": 3064,
+      "expected_slots": 3064,
+      "minimum": 821.1,
+      "maximum": 857.6,
+      "median": 840.9,
+      "source_first_row": 2986,
+      "source_last_row": 6049,
+      "independent_pair_changes": [
+        {
+          "peer": "S03",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 6.8
+        },
+        {
+          "peer": "S04",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 7.5
+        },
+        {
+          "peer": "S08",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 8.15
+        },
+        {
+          "peer": "S07",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 8.0
+        },
+        {
+          "peer": "S03",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 6.7
+        },
+        {
+          "peer": "S04",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 6.6
+        },
+        {
+          "peer": "S08",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 7.0
+        },
+        {
+          "peer": "S07",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 6.8
+        },
+        {
+          "peer": "S03",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 6.7
+        },
+        {
+          "peer": "S04",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 6.5
+        },
+        {
+          "peer": "S08",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 7.3
+        },
+        {
+          "peer": "S07",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 7.2
+        }
+      ]
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-03-05 14:20",
+      "end_utc": "2025-03-05 14:20",
+      "issue": "isolated temperature spike",
+      "action": "exclude",
+      "observed_unique_samples": 1,
+      "expected_slots": 1,
+      "minimum": -40.0,
+      "maximum": -40.0,
+      "median": -40.0,
+      "source_first_row": 664,
+      "source_last_row": 664
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-03-12 03:40",
+      "end_utc": "2025-03-12 03:40",
+      "issue": "invalid value",
+      "action": "exclude",
+      "observed_unique_samples": 1,
+      "expected_slots": 1,
+      "minimum": 85.0,
+      "maximum": 85.0,
+      "median": 85.0,
+      "source_first_row": 1608,
+      "source_last_row": 1608
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-03-18 06:00",
+      "end_utc": "2025-03-21 14:00",
+      "issue": "sensor frozen",
+      "action": "exclude",
+      "observed_unique_samples": 481,
+      "expected_slots": 481,
+      "minimum": 6.5,
+      "maximum": 6.5,
+      "median": 6.5,
+      "source_first_row": 2486,
+      "source_last_row": 2966,
+      "distinct_values": 1
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-04-02 22:10",
+      "end_utc": "2025-04-02 22:10",
+      "issue": "isolated temperature spike",
+      "action": "exclude",
+      "observed_unique_samples": 1,
+      "expected_slots": 1,
+      "minimum": -40.0,
+      "maximum": -40.0,
+      "median": -40.0,
+      "source_first_row": 4743,
+      "source_last_row": 4743
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-04-08 09:50",
+      "end_utc": "2025-04-08 09:50",
+      "issue": "invalid value",
+      "action": "exclude",
+      "observed_unique_samples": 1,
+      "expected_slots": 1,
+      "minimum": 85.0,
+      "maximum": 85.0,
+      "median": 85.0,
+      "source_first_row": 5533,
+      "source_last_row": 5533
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-14 00:00",
+      "end_utc": "2025-03-14 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 2,
+      "expected_slots": 2,
+      "minimum": 15.4,
+      "maximum": 16.3,
+      "median": 15.850000000000001,
+      "source_first_row": 1874,
+      "source_last_row": 1875,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-14 15:50",
+      "end_utc": "2025-03-15 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 51,
+      "expected_slots": 51,
+      "minimum": 2.1,
+      "maximum": 4.8,
+      "median": 3.8,
+      "source_first_row": 1969,
+      "source_last_row": 2019,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-15 14:00",
+      "end_utc": "2025-03-16 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 62,
+      "expected_slots": 62,
+      "minimum": -1.9,
+      "maximum": 7.1,
+      "median": 5.85,
+      "source_first_row": 2102,
+      "source_last_row": 2163,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-16 14:10",
+      "end_utc": "2025-03-17 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 62,
+      "expected_slots": 62,
+      "minimum": 1.3,
+      "maximum": 15.2,
+      "median": 13.25,
+      "source_first_row": 2247,
+      "source_last_row": 2308,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-17 14:00",
+      "end_utc": "2025-03-18 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 62,
+      "expected_slots": 62,
+      "minimum": 11.1,
+      "maximum": 20.1,
+      "median": 18.15,
+      "source_first_row": 2390,
+      "source_last_row": 2451,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-18 14:00",
+      "end_utc": "2025-03-18 23:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 57,
+      "expected_slots": 57,
+      "minimum": 3.4,
+      "maximum": 15.6,
+      "median": 13.5,
+      "source_first_row": 2534,
+      "source_last_row": 2590,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-19 14:00",
+      "end_utc": "2025-03-20 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 63,
+      "expected_slots": 63,
+      "minimum": -1.1,
+      "maximum": 6.5,
+      "median": 4.5,
+      "source_first_row": 2678,
+      "source_last_row": 2740,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-20 13:50",
+      "end_utc": "2025-03-21 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 64,
+      "expected_slots": 64,
+      "minimum": -3.7,
+      "maximum": 14.5,
+      "median": 10.100000000000001,
+      "source_first_row": 2821,
+      "source_last_row": 2884,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-21 13:50",
+      "end_utc": "2025-03-22 00:00",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 62,
+      "expected_slots": 62,
+      "minimum": 0.5,
+      "maximum": 14.5,
+      "median": 11.7,
+      "source_first_row": 2965,
+      "source_last_row": 3026,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-22 14:00",
+      "end_utc": "2025-03-23 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 63,
+      "expected_slots": 63,
+      "minimum": 3.1,
+      "maximum": 16.4,
+      "median": 14.7,
+      "source_first_row": 3110,
+      "source_last_row": 3172,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-23 13:50",
+      "end_utc": "2025-03-24 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 64,
+      "expected_slots": 64,
+      "minimum": -2.4,
+      "maximum": 16.2,
+      "median": 12.25,
+      "source_first_row": 3253,
+      "source_last_row": 3316,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-24 14:00",
+      "end_utc": "2025-03-25 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 63,
+      "expected_slots": 63,
+      "minimum": 8.4,
+      "maximum": 21.7,
+      "median": 18.3,
+      "source_first_row": 3398,
+      "source_last_row": 3460,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-25 13:50",
+      "end_utc": "2025-03-26 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 64,
+      "expected_slots": 64,
+      "minimum": 4.6,
+      "maximum": 20.8,
+      "median": 18.95,
+      "source_first_row": 3541,
+      "source_last_row": 3604,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-26 13:50",
+      "end_utc": "2025-03-27 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 64,
+      "expected_slots": 64,
+      "minimum": 2.5,
+      "maximum": 24.4,
+      "median": 21.549999999999997,
+      "source_first_row": 3685,
+      "source_last_row": 3748,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-27 13:40",
+      "end_utc": "2025-03-28 00:30",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 66,
+      "expected_slots": 66,
+      "minimum": 4.7,
+      "maximum": 25.3,
+      "median": 23.1,
+      "source_first_row": 3828,
+      "source_last_row": 3893,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-28 13:50",
+      "end_utc": "2025-03-28 23:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 61,
+      "expected_slots": 61,
+      "minimum": 6.1,
+      "maximum": 25.1,
+      "median": 22.8,
+      "source_first_row": 3973,
+      "source_last_row": 4033,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "rain_mm",
+      "start_utc": "2025-03-29 03:10",
+      "end_utc": "2025-04-02 16:30",
+      "issue": "rain blockage and delayed release",
+      "action": "exclude",
+      "observed_unique_samples": 657,
+      "expected_slots": 657,
+      "minimum": 0.0,
+      "maximum": 11.2,
+      "median": 0.0,
+      "source_first_row": 4053,
+      "source_last_row": 4709,
+      "independent_rain_support": {
+        "zero_duration_hours": 250.16666666666666,
+        "missed_warm_peer_wet_minutes": 1120.0,
+        "release_mm": 33.4,
+        "peer_totals_mm": {
+          "S02": 44.4,
+          "S06": 27.6,
+          "S03": 31.0,
+          "S08": 29.6
+        }
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-29 14:10",
+      "end_utc": "2025-03-30 00:00",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 60,
+      "expected_slots": 60,
+      "minimum": 6.4,
+      "maximum": 14.0,
+      "median": 12.2,
+      "source_first_row": 4119,
+      "source_last_row": 4178,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-30 14:10",
+      "end_utc": "2025-03-30 23:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 59,
+      "expected_slots": 59,
+      "minimum": 2.6,
+      "maximum": 12.1,
+      "median": 9.0,
+      "source_first_row": 4263,
+      "source_last_row": 4321,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-31 13:40",
+      "end_utc": "2025-04-01 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 65,
+      "expected_slots": 65,
+      "minimum": 0.8,
+      "maximum": 15.2,
+      "median": 12.5,
+      "source_first_row": 4404,
+      "source_last_row": 4468,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-01 14:00",
+      "end_utc": "2025-04-02 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 63,
+      "expected_slots": 63,
+      "minimum": 3.1,
+      "maximum": 14.5,
+      "median": 10.4,
+      "source_first_row": 4550,
+      "source_last_row": 4612,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-02 13:40",
+      "end_utc": "2025-04-03 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 67,
+      "expected_slots": 67,
+      "minimum": 0.2,
+      "maximum": 9.4,
+      "median": 8.0,
+      "source_first_row": 4692,
+      "source_last_row": 4758,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-03 13:40",
+      "end_utc": "2025-04-04 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 64,
+      "expected_slots": 64,
+      "minimum": 0.2,
+      "maximum": 6.6,
+      "median": 3.9,
+      "source_first_row": 4836,
+      "source_last_row": 4899,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-04 14:50",
+      "end_utc": "2025-04-04 22:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 48,
+      "expected_slots": 48,
+      "minimum": 0.5,
+      "maximum": 6.6,
+      "median": 4.35,
+      "source_first_row": 4987,
+      "source_last_row": 5034,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-05 14:30",
+      "end_utc": "2025-04-06 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 62,
+      "expected_slots": 62,
+      "minimum": -3.0,
+      "maximum": 5.7,
+      "median": 3.45,
+      "source_first_row": 5129,
+      "source_last_row": 5190,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-06 13:20",
+      "end_utc": "2025-04-07 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 67,
+      "expected_slots": 67,
+      "minimum": -5.3,
+      "maximum": 14.2,
+      "median": 12.1,
+      "source_first_row": 5266,
+      "source_last_row": 5332,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-07 13:20",
+      "end_utc": "2025-04-08 00:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 70,
+      "expected_slots": 70,
+      "minimum": -0.9,
+      "maximum": 20.1,
+      "median": 17.95,
+      "source_first_row": 5410,
+      "source_last_row": 5479,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-08 13:40",
+      "end_utc": "2025-04-09 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 67,
+      "expected_slots": 67,
+      "minimum": 4.4,
+      "maximum": 24.3,
+      "median": 22.1,
+      "source_first_row": 5556,
+      "source_last_row": 5622,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-09 13:20",
+      "end_utc": "2025-04-10 00:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 70,
+      "expected_slots": 70,
+      "minimum": 1.0,
+      "maximum": 24.3,
+      "median": 21.9,
+      "source_first_row": 5698,
+      "source_last_row": 5767,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-10 13:20",
+      "end_utc": "2025-04-11 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 69,
+      "expected_slots": 69,
+      "minimum": 1.6,
+      "maximum": 22.8,
+      "median": 19.3,
+      "source_first_row": 5842,
+      "source_last_row": 5910,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-11 13:10",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "observed_unique_samples": 65,
+      "expected_slots": 65,
+      "minimum": 2.3,
+      "maximum": 31.0,
+      "median": 28.5,
+      "source_first_row": 5985,
+      "source_last_row": 6049,
+      "night_or_low_sun_samples_held": 0
+    },
+    {
+      "station_id": "S05",
+      "channel": "metadata",
+      "start_utc": "2025-03-01 00:00",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "location mismatch",
+      "action": "exclude",
+      "observed_unique_samples": 6048,
+      "expected_slots": 6048
+    },
+    {
+      "station_id": "S05",
+      "channel": "rh_pct",
+      "start_utc": "2025-03-07 12:00",
+      "end_utc": "2025-03-11 00:00",
+      "issue": "humidity saturation failure",
+      "action": "exclude",
+      "observed_unique_samples": 505,
+      "expected_slots": 505,
+      "minimum": 99.0,
+      "maximum": 105.0,
+      "median": 102.0,
+      "source_first_row": 938,
+      "source_last_row": 1442,
+      "above_100_samples": 451
+    },
+    {
+      "station_id": "S06",
+      "channel": "all",
+      "start_utc": "2025-03-24 16:10",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "logger clock offset",
+      "action": "correct",
+      "observed_unique_samples": 2639,
+      "expected_slots": 2639
+    },
+    {
+      "station_id": "S07",
+      "channel": "wind_kmh",
+      "start_utc": "2025-03-26 16:00",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "wind scale discontinuity",
+      "action": "exclude",
+      "observed_unique_samples": 2352,
+      "expected_slots": 2352,
+      "minimum": 0.1,
+      "maximum": 14.4,
+      "median": 1.8,
+      "source_first_row": 3698,
+      "source_last_row": 6049,
+      "independent_pair_changes": [
+        {
+          "peer": "S08",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 0.2863
+        },
+        {
+          "peer": "S03",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 0.4368
+        },
+        {
+          "peer": "S02",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 0.1568
+        },
+        {
+          "peer": "S04",
+          "window_hours": 12,
+          "before_n": 72,
+          "after_n": 72,
+          "change": 0.5045
+        },
+        {
+          "peer": "S08",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 0.2573
+        },
+        {
+          "peer": "S03",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 0.2539
+        },
+        {
+          "peer": "S02",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 0.2322
+        },
+        {
+          "peer": "S04",
+          "window_hours": 48,
+          "before_n": 288,
+          "after_n": 288,
+          "change": 0.2589
+        },
+        {
+          "peer": "S08",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 0.2277
+        },
+        {
+          "peer": "S03",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 0.2524
+        },
+        {
+          "peer": "S02",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 0.3172
+        },
+        {
+          "peer": "S04",
+          "window_hours": 72,
+          "before_n": 432,
+          "after_n": 432,
+          "change": 0.3048
+        }
+      ]
+    },
+    {
+      "station_id": "S08",
+      "channel": "all",
+      "start_utc": "2025-03-16 14:00",
+      "end_utc": "2025-03-18 01:30",
+      "issue": "missing observations",
+      "action": "exclude",
+      "observed_unique_samples": 0,
+      "expected_slots": 214
+    },
+    {
+      "station_id": "S08",
+      "channel": "all",
+      "start_utc": "2025-04-05 00:00",
+      "end_utc": "2025-04-05 23:50",
+      "issue": "exact retransmission",
+      "action": "correct",
+      "observed_unique_samples": 144,
+      "expected_slots": 144
+    }
+  ],
+  "gps": {
+    "S01": {
+      "counts": {
+        "active_checksum_valid_rmc": 990,
+        "quality_admitted_gga": 166,
+        "checksum_rejected": 4,
+        "inactive_or_untrusted_rmc": 14
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 990
+      },
+      "median_lat": 39.894551666666665,
+      "median_lon": -105.56484999999999,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 39.894553333333334,
+      "gga_median_lon": -105.56484999999999,
+      "gga_median_altitude_msl": 2912.8500000000004
+    },
+    "S02": {
+      "counts": {
+        "active_checksum_valid_rmc": 961,
+        "quality_admitted_gga": 166,
+        "inactive_or_untrusted_rmc": 17,
+        "checksum_rejected": 30
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 961
+      },
+      "median_lat": 40.03515,
+      "median_lon": -105.23076,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 40.0351525,
+      "gga_median_lon": -105.23075833333333,
+      "gga_median_altitude_msl": 1623.25
+    },
+    "S03": {
+      "counts": {
+        "active_checksum_valid_rmc": 992,
+        "quality_admitted_gga": 166,
+        "inactive_or_untrusted_rmc": 13,
+        "checksum_rejected": 3
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 992
+      },
+      "median_lat": 40.17574666666667,
+      "median_lon": -105.14724999999999,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 40.17574416666667,
+      "gga_median_lon": -105.14725083333333,
+      "gga_median_altitude_msl": 1522.7
+    },
+    "S04": {
+      "counts": {
+        "active_checksum_valid_rmc": 979,
+        "quality_admitted_gga": 164,
+        "inactive_or_untrusted_rmc": 25,
+        "checksum_rejected": 4
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 979
+      },
+      "median_lat": 39.753951666666666,
+      "median_lon": -105.14604,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 39.753955,
+      "gga_median_lon": -105.14603833333334,
+      "gga_median_altitude_msl": 1763.5
+    },
+    "S05": {
+      "counts": {
+        "active_checksum_valid_rmc": 982,
+        "quality_admitted_gga": 164,
+        "inactive_or_untrusted_rmc": 25,
+        "checksum_rejected": 1
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 982
+      },
+      "median_lat": 39.753951666666666,
+      "median_lon": -104.89569000000002,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 39.75394666666667,
+      "gga_median_lon": -104.89569166666666,
+      "gga_median_altitude_msl": 1644.1
+    },
+    "S06": {
+      "counts": {
+        "active_checksum_valid_rmc": 987,
+        "quality_admitted_gga": 168,
+        "inactive_or_untrusted_rmc": 18,
+        "checksum_rejected": 3
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 552,
+        "-21600": 435
+      },
+      "median_lat": 39.40246,
+      "median_lon": -104.91713,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 39.40246,
+      "gga_median_lon": -104.91713166666665,
+      "gga_median_altitude_msl": 1891.05
+    },
+    "S07": {
+      "counts": {
+        "active_checksum_valid_rmc": 982,
+        "quality_admitted_gga": 164,
+        "inactive_or_untrusted_rmc": 24,
+        "checksum_rejected": 2
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 982
+      },
+      "median_lat": 40.59753833333333,
+      "median_lon": -105.02121166666666,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 40.59753666666666,
+      "gga_median_lon": -105.02121166666666,
+      "gga_median_altitude_msl": 1525.3
+    },
+    "S08": {
+      "counts": {
+        "active_checksum_valid_rmc": 944,
+        "quality_admitted_gga": 160,
+        "inactive_or_untrusted_rmc": 20,
+        "checksum_rejected": 8
+      },
+      "logger_minus_rmc_seconds": {
+        "0": 944
+      },
+      "median_lat": 40.38664333333334,
+      "median_lon": -104.70424,
+      "maximum_receipt_jitter_seconds": 2.0,
+      "gga_median_lat": 40.38664333333334,
+      "gga_median_lon": -104.70423666666666,
+      "gga_median_altitude_msl": 1437.4
+    }
+  },
+  "drift_pair_changes": [
+    {
+      "station_id": "S04",
+      "peer": "S02",
+      "sunny_change_c": 2.3,
+      "night_change_c": -0.1
+    },
+    {
+      "station_id": "S04",
+      "peer": "S06",
+      "sunny_change_c": 4.3,
+      "night_change_c": 0.4
+    },
+    {
+      "station_id": "S04",
+      "peer": "S03",
+      "sunny_change_c": 2.75,
+      "night_change_c": -0.2
+    },
+    {
+      "station_id": "S04",
+      "peer": "S08",
+      "sunny_change_c": 4.2,
+      "night_change_c": -1.3
+    }
+  ],
+  "drift_policy_sensitivity": [
+    {
+      "station_id": "S04",
+      "policy": "full_model",
+      "hold_start": "2025-03-14 00:00:00",
+      "sunlit_samples_held": 1826,
+      "usable_percent": 69.81,
+      "available_sample_mean_c": 3.953,
+      "caveat": "Sensitivity diagnostic only: an available-sample mean is not a complete daily or period mean."
+    },
+    {
+      "station_id": "S04",
+      "policy": "earliest_omission",
+      "hold_start": "2025-03-12 00:00:00",
+      "sunlit_samples_held": 1950,
+      "usable_percent": 67.76,
+      "available_sample_mean_c": 3.674,
+      "caveat": "Sensitivity diagnostic only: an available-sample mean is not a complete daily or period mean."
+    },
+    {
+      "station_id": "S04",
+      "policy": "latest_successful_omission",
+      "hold_start": "2025-04-02 00:00:00",
+      "sunlit_samples_held": 652,
+      "usable_percent": 89.22,
+      "available_sample_mean_c": 5.753,
+      "caveat": "Sensitivity diagnostic only: an available-sample mean is not a complete daily or period mean."
+    },
+    {
+      "station_id": "S04",
+      "policy": "strong_matched_departure",
+      "hold_start": "2025-04-09 00:00:00",
+      "sunlit_samples_held": 209,
+      "usable_percent": 96.54,
+      "available_sample_mean_c": 6.004,
+      "caveat": "Sensitivity diagnostic only: an available-sample mean is not a complete daily or period mean."
+    }
+  ]
+}

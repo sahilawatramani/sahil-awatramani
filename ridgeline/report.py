@@ -93,7 +93,8 @@ def climate_use(flags,channels,unresolved=()):
         if state=='hold':restriction='No supported complete-period use; resolve the missing or invalid observations first.'
         if any(u['channel']==channel for u in unresolved):
             state='review'
-            restriction='Reference groups disagree across a boundary; do not use an unqualified full-period change until an independent anchor resolves the groups.'
+            reasons='; '.join(dict.fromkeys(u['reason'] for u in unresolved if u['channel']==channel))
+            restriction=f'Unresolved change: {reasons}; obtain independent evidence before an unqualified complete-period or cross-boundary summary.'
         use[channel]=dict(state=state,restriction=restriction,coordinate_dependent_use='hold' if spatial else 'available subject to checks')
     overall='hold' if all(v['state']=='hold' for v in use.values()) else ('review' if unresolved else ('partial' if any(v['state'] in ('partial','hold') for v in use.values()) else ('repaired' if repaired else 'full')))
     return dict(state=overall,spatial_hold=spatial,channels=use)
@@ -210,7 +211,7 @@ def write_report(result, data, path):
     for sid,s in data['stations'].items():
         ff=[f for f in result.flags if f.station_id==sid]
         use=s['climate_use']
-        labels={'full':'Full-period use','repaired':'Use after repair','partial':'Partial periods','hold':'Hold','review':'Reference review'}
+        labels={'full':'Full-period use','repaired':'Use after repair','partial':'Partial periods','hold':'Hold','review':'Review needed'}
         affected=[f"{LABELS[c]} {s['channels'][c]['percent']:g}%" if s['channels'][c]['percent'] is not None else f"{LABELS[c]} N/A"
                   for c in CHANNELS if s['channels'][c]['percent'] is None or s['channels'][c]['percent']<100]
         percentages={v['percent'] for v in s['channels'].values()}
@@ -222,6 +223,8 @@ def write_report(result, data, path):
         if any(f.issue=='sunlight-dependent temperature drift' for f in ff):restriction=' No complete daily temperature means or maxima from retained nights.'
         if s['channels']['rain_mm']['percent'] is not None and s['channels']['rain_mm']['percent']<100:restriction+=' No complete-period rain total.'
         advice=station_advice(ff)+restriction
+        if any(u['station_id']==sid for u in result.unresolved):
+            advice='Unresolved change: compare periods separately pending independent verification; see evidence.'+(' '+advice if ff else '')
         rows.append(f"<tr><td class='site'><a href='evidence.html#{esc(sid)}'><strong>{esc(sid)}</strong></a><span>{esc(s['name'])}</span></td><td class='use {use['state']}'><strong>{labels[use['state']]}</strong><span>{esc(detail)}</span></td><td class='advice'>{esc(advice)}</td></tr>")
     uncertain=[f for f in result.flags if f.issue=='sunlight-dependent temperature drift']
     if uncertain:
@@ -240,7 +243,7 @@ def write_report(result, data, path):
     elif ranking:comparison=ranking[0]['reason']
     else:comparison="No ongoing, diagnosable repair outranks the others on available evidence."
     warning=" ".join(data['warnings'])
-    if result.unresolved:warning+=f' {len(result.unresolved)} unresolved reference comparisons require independent review; see evidence.'
+    if result.unresolved:warning+=f' {len(result.unresolved)} unresolved changes require independent review; see evidence.'
     html=f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ridgeline | Network health</title><style>{CSS}</style></head><body><main class="page">
 <div class="eyebrow"><span>Ridgeline / Field notes</span><span>Network health &nbsp; 01</span></div>
 <h1>Use the network selectively.</h1><p class="intro">Keep reliable channels. Apply the supported time and duplicate repairs, then leave uncertain observations out of the six-week summary.</p>
@@ -332,7 +335,7 @@ def write_evidence(result,data,path):
         alternative=f"<p><strong>Strongest alternative: {esc(runner['station_id'])}.</strong> {esc(runner['reason'])}</p>" if runner else ''
         plots.append(f'<section class="card"><h2>One field hour / {esc(visit["station_id"])}</h2><p>{esc(visit["reason"])} {visit["recent_affected_hours"]:g} channel-hours remain affected in the last seven days.</p><p><strong>Before travel:</strong> {esc(visit["remote"])}</p><p><strong>Bring:</strong> {esc(visit["tools"])}</p><p>{esc(visit["plan"])}</p><p><strong>Verification:</strong> {esc(visit["verification"])}</p><p><strong>Contingency:</strong> {esc(visit["contingency"])}</p>{alternative}<p>Ranking assumes safe access, compatible equipment and the stated one-hour work scope; it is an operational policy, not a measured repair probability.</p></section>')
     if result.unresolved:
-        plots.append('<section class="card"><h2>Unresolved reference comparisons</h2><p>No failed group or numerical correction is assigned. These outcomes are separate from a CSV keep decision; cross-boundary summary use needs independent evidence.</p>'+''.join(f"<p><strong>{esc(u['station_id'])} / {esc(u['channel'])} / {esc(u['time_utc'])}</strong><br>{esc(u['reason'])}</p>" for u in result.unresolved)+'</section>')
+        plots.append('<section class="card"><h2>Unresolved changes</h2><p>No failed group or numerical correction is assigned. These outcomes are separate from a CSV keep decision; cross-boundary summary use needs independent evidence.</p>'+''.join(f"<p><strong>{esc(u['station_id'])} / {esc(u['channel'])} / {esc(u['time_utc'])}</strong><br>{esc(u['reason'])}</p>" for u in result.unresolved)+'</section>')
     rows=[]
     seen=set()
     for f in result.flags:

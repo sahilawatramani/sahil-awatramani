@@ -996,6 +996,8 @@
           {
             "time_utc": "2025-03-21 17:20",
             "change": 7.825,
+            "previous_observation_utc": "2025-03-21 17:10",
+            "boundary_caveat": null,
             "robust_noise": 0.834,
             "peers": [
               "S03",
@@ -1851,6 +1853,8 @@
         {
           "time_utc": "2025-03-26 19:50",
           "change": -1.3071,
+          "previous_observation_utc": "2025-03-26 19:40",
+          "boundary_caveat": null,
           "robust_noise": 0.2535,
           "peers": [
             "S02",
@@ -5955,8 +5959,8 @@
     "gps/S08.nmea": "2fdfbfc2a3fa763666d2121e3df0653ebe27f45da70a0afab7613f12d0849283"
   },
   "generation": {
-    "id": "b60852e66af484c05c19",
-    "engine_sha256": "940d50961dbd1cca4e4016417f97f4fec3caf28a8f414a78e320f631a9ec296c",
+    "id": "b68974e455f042215c9f",
+    "engine_sha256": "13513ed5e4c3ef663541c50f4c2bf64ad8d1087bfdc3c6334c38528515b9bf94",
     "contract": "manifest.json is the final commit marker; verify all output hashes after an interrupted run"
   }
 }

@@ -51,17 +51,20 @@ Usable percentages are sample availability after these checks, not certification
 
 The supplied pack credits ERA5 reanalysis (Copernicus Climate Change Service), via the Open-Meteo archive API, CC BY 4.0. Its station names and maintenance narratives are fictional. These derived outputs are for this assignment; the source pack is not included.
 
+The separate [supplied-pack review](PACK_REVIEW.md) checks all 44 intervals directly from raw CSV/NMEA, including per-reference S04 evidence and the cost of alternative holding policies. [DEFENSE_GUIDE.md](DEFENSE_GUIDE.md) explains the main technical tradeoffs for your walkthrough.
+
 ## Validation
 
-The [engineering review](ENGINEERING_REVIEW.md) exposed pressure over-exclusion after recovery, missed temporary wind faults, missed temperature bursts and reference contamination. The redesigned detector closes the three identifiable counterexamples at recovery and records an unanchored two-against-two reference split as unresolved. [BENCHMARKS.md](BENCHMARKS.md) records seeded synthetic evaluation with sample/event metrics, healthy-data loss, small-fault misses and abstention; it is **not a field-accuracy claim**.
+The [engineering review](ENGINEERING_REVIEW.md) exposed pressure over-exclusion after recovery, missed temporary wind faults, missed temperature bursts and reference contamination. The redesigned detector closes the three identifiable counterexamples at recovery and records an unanchored two-against-two reference split as unresolved. [BENCHMARKS.md](BENCHMARKS.md) records seeded synthetic evaluation with sample/event metrics, healthy-data loss, small-fault misses and abstention; it is **not a field-accuracy claim**. A second, different weather model exposed outage/baseline/reference failures that are now addressed; its 34 reserved cases and remaining common-fault misses are reported separately.
 
 ```sh
 python -m unittest discover -s tests -v
 python benchmarks/review_cases.py --output tmp/review_results.json
 python benchmarks/evaluate.py --split evaluation --output tmp/evaluation.json
+python benchmarks/challenge.py --split reserved --output tmp/challenge_reserved.json
 ```
 
-The 43 regression tests cover parser/time-repair provenance, ambiguous clocks, duplicate/cadence behavior, direct/peer checks, bounded recovery and bursts, shared-reference abstention, inventory order, missing sources, invocation-directory output, generation manifests and rollback on write failures. Tests use synthetic fixtures only. On a healthy pack, `flags.csv` contains just its header. [VALIDATION.md](VALIDATION.md) records the observed engineering checks.
+The 49 regression tests cover parser/time-repair provenance, ambiguous clocks, duplicate/cadence behavior, direct/peer checks, bounded recovery and bursts, shared-reference abstention, inventory order, missing sources, invocation-directory output, generation manifests and rollback on write failures. Tests use synthetic fixtures only. On a healthy pack, `flags.csv` contains just its header. [VALIDATION.md](VALIDATION.md) records the observed engineering checks.
 
 ## Scope left open
 

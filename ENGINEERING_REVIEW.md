@@ -13,6 +13,8 @@ The redesign is implemented; the analysis below preserves the findings that moti
 - Evidence is staged before masks within direct/peer stages; incident recovery/source rows, typed thresholds, climate-use restrictions, timed visit procedures, four diagnostic charts and a generation manifest are implemented.
 - Coordinator decisions now foreground usable periods and aggregation restrictions. Remaining scientific limits include faulty majorities, common-mode faults, real terrain diversity, pack-edge/gap events, small shifts and uncertain drift boundaries.
 
+A subsequent raw-data review and second synthetic weather model found additional outage, initial-baseline and faulty-reference problems. Those identified failures are now guarded, with a paired diagnostic replay, 34 reserved cases and six additional regressions. The new model still misses faulty-majority wind cases and cannot provide calibration truth; see BENCHMARKS.md and PACK_REVIEW.md. The preserved baseline assessment below describes the earlier engine.
+
 ## Baseline assessment (preserved)
 
 The project has a useful, reproducible baseline and a presentable coordinator report. It does **not yet have enough evidence to claim high detection accuracy or strong unseen-pack performance**. The existing 33 tests verify selected cases and contracts. They are not an independent accuracy benchmark. Earlier clean-checkout and test results remain valid, but should not be read as scientific validation of the flags.
