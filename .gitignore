@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+tmp/
+data/
+gps/
+ridgeline_data_pack*/
+*.zip
+*.nmea
+.pytest_cache/
+preview.pdf
