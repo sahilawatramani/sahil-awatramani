@@ -61,6 +61,7 @@ def repair_clocks(result: Analysis) -> None:
                 result.add(station, "all", start, end, "logger clock offset", "correct",
                            f"Add {new_correction:+d} seconds to source timestamps from CSV line {station.records[boundary].row}; {len(ff)} valid RMC fixes agree within 3 seconds and the row transition restores cadence.",
                            offset_seconds=new_correction, source_line=station.records[boundary].row,
+                           gps_fixes=len(ff), transition_backed=boundary>0,
                            raw_start=stamp(station.records[boundary].raw), raw_end=stamp(station.records[-1].raw),
                            gps_last_before=stamp(prior) if prior else None, gps_first_after=stamp(ff[0].utc))
         # Refine each corrected incident end at the next correction, when present.
@@ -76,6 +77,11 @@ def repair_clocks(result: Analysis) -> None:
                 segment.append(record)
             if segment:
                 flag.start, flag.end = segment[0].time, segment[-1].time
+                flag.evidence['source_end_line'] = segment[-1].row
+                flag.evidence['raw_end'] = stamp(segment[-1].raw)
+                support = "the row transition restores cadence" if flag.evidence['transition_backed'] else "initial GPS coverage supports this constant offset"
+                flag.note = (f"Add {flag.evidence['offset_seconds']:+d} seconds to source timestamps on CSV lines "
+                             f"{source}-{segment[-1].row}; {flag.evidence['gps_fixes']} valid RMC fixes agree within 3 seconds and {support}.")
 
 
 def inspect_locations(result: Analysis) -> None:

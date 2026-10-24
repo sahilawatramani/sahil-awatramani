@@ -1,0 +1,1422 @@
+{
+  "period_start": "2025-03-01 00:00",
+  "period_end": "2025-04-11 23:50",
+  "version": "1.0.0",
+  "warnings": [],
+  "stations": {
+    "S01": {
+      "name": "Saddle Ridge Hut",
+      "raw_rows": 6048,
+      "unique_rows": 6048,
+      "expected_slots": 6048,
+      "missing_slots": 0,
+      "removed_retransmissions": 0,
+      "clock_corrected_rows": 0,
+      "gps": {
+        "accepted_rmc": 990,
+        "accepted_gga": 166,
+        "checksum_failed": 4,
+        "invalid_fix": 14
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rh_pct": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "pressure_hpa": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_kmh": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_dir_deg": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rain_mm": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "ghi_wm2": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-02",
+          "themes": [
+            "snow/access conditions"
+          ]
+        },
+        {
+          "date": "2025-03-31",
+          "themes": [
+            "snow/access conditions"
+          ]
+        }
+      ],
+      "issues": {
+        "coherent mountain cold": 1
+      }
+    },
+    "S02": {
+      "name": "North Mesa School",
+      "raw_rows": 6048,
+      "unique_rows": 6048,
+      "expected_slots": 6048,
+      "missing_slots": 0,
+      "removed_retransmissions": 0,
+      "clock_corrected_rows": 0,
+      "gps": {
+        "accepted_rmc": 961,
+        "accepted_gga": 166,
+        "invalid_fix": 17,
+        "checksum_failed": 30
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rh_pct": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "pressure_hpa": {
+          "usable": 2984,
+          "expected": 6048,
+          "percent": 49.3
+        },
+        "wind_kmh": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_dir_deg": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rain_mm": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "ghi_wm2": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-21",
+          "themes": [
+            "pressure hardware/calibration note"
+          ]
+        }
+      ],
+      "issues": {
+        "pressure calibration step": 1
+      }
+    },
+    "S03": {
+      "name": "Valley Library",
+      "raw_rows": 6048,
+      "unique_rows": 6048,
+      "expected_slots": 6048,
+      "missing_slots": 0,
+      "removed_retransmissions": 0,
+      "clock_corrected_rows": 0,
+      "gps": {
+        "accepted_rmc": 992,
+        "accepted_gga": 166,
+        "invalid_fix": 13,
+        "checksum_failed": 3
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 5563,
+          "expected": 6048,
+          "percent": 92.0
+        },
+        "rh_pct": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "pressure_hpa": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_kmh": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_dir_deg": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rain_mm": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "ghi_wm2": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-06",
+          "themes": [
+            "routine inspection"
+          ]
+        },
+        {
+          "date": "2025-04-09",
+          "themes": [
+            "routine inspection"
+          ]
+        }
+      ],
+      "issues": {
+        "isolated temperature spike": 2,
+        "invalid value": 2,
+        "sensor frozen": 1
+      }
+    },
+    "S04": {
+      "name": "Foothills Community Garden",
+      "raw_rows": 6048,
+      "unique_rows": 6048,
+      "expected_slots": 6048,
+      "missing_slots": 0,
+      "removed_retransmissions": 0,
+      "clock_corrected_rows": 0,
+      "gps": {
+        "accepted_rmc": 979,
+        "accepted_gga": 164,
+        "invalid_fix": 25,
+        "checksum_failed": 4
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 4222,
+          "expected": 6048,
+          "percent": 69.8
+        },
+        "rh_pct": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "pressure_hpa": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_kmh": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_dir_deg": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rain_mm": {
+          "usable": 5391,
+          "expected": 6048,
+          "percent": 89.1
+        },
+        "ghi_wm2": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-15",
+          "themes": [
+            "exposure or mounting change"
+          ]
+        },
+        {
+          "date": "2025-04-02",
+          "themes": [
+            "rain-gauge inspection"
+          ]
+        }
+      ],
+      "issues": {
+        "sunlight-dependent temperature drift": 30,
+        "rain blockage and delayed release": 1
+      }
+    },
+    "S05": {
+      "name": "Eastside Rec Centre",
+      "raw_rows": 6048,
+      "unique_rows": 6048,
+      "expected_slots": 6048,
+      "missing_slots": 0,
+      "removed_retransmissions": 0,
+      "clock_corrected_rows": 0,
+      "gps": {
+        "accepted_rmc": 982,
+        "accepted_gga": 164,
+        "invalid_fix": 25,
+        "checksum_failed": 1
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rh_pct": {
+          "usable": 5543,
+          "expected": 6048,
+          "percent": 91.7
+        },
+        "pressure_hpa": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_kmh": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_dir_deg": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rain_mm": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "ghi_wm2": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-10",
+          "themes": [
+            "humidity concern"
+          ]
+        }
+      ],
+      "issues": {
+        "location mismatch": 1,
+        "humidity saturation failure": 1
+      }
+    },
+    "S06": {
+      "name": "South Hills Fire Station",
+      "raw_rows": 6048,
+      "unique_rows": 6048,
+      "expected_slots": 6048,
+      "missing_slots": 0,
+      "removed_retransmissions": 0,
+      "clock_corrected_rows": 2639,
+      "gps": {
+        "accepted_rmc": 987,
+        "accepted_gga": 168,
+        "invalid_fix": 18,
+        "checksum_failed": 3
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rh_pct": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "pressure_hpa": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_kmh": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_dir_deg": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rain_mm": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "ghi_wm2": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-24",
+          "themes": [
+            "power intervention"
+          ]
+        }
+      ],
+      "issues": {
+        "logger clock offset": 1
+      }
+    },
+    "S07": {
+      "name": "Riverbend Farm",
+      "raw_rows": 6048,
+      "unique_rows": 6048,
+      "expected_slots": 6048,
+      "missing_slots": 0,
+      "removed_retransmissions": 0,
+      "clock_corrected_rows": 0,
+      "gps": {
+        "accepted_rmc": 982,
+        "accepted_gga": 164,
+        "invalid_fix": 24,
+        "checksum_failed": 2
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rh_pct": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "pressure_hpa": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "wind_kmh": {
+          "usable": 3714,
+          "expected": 6048,
+          "percent": 61.4
+        },
+        "wind_dir_deg": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "rain_mm": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        },
+        "ghi_wm2": {
+          "usable": 6048,
+          "expected": 6048,
+          "percent": 100.0
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-26",
+          "themes": [
+            "wind hardware note"
+          ]
+        }
+      ],
+      "issues": {
+        "wind scale discontinuity": 1
+      }
+    },
+    "S08": {
+      "name": "Plains Grange Hall",
+      "raw_rows": 5978,
+      "unique_rows": 5834,
+      "expected_slots": 6048,
+      "missing_slots": 214,
+      "removed_retransmissions": 144,
+      "clock_corrected_rows": 0,
+      "gps": {
+        "accepted_rmc": 944,
+        "accepted_gga": 160,
+        "invalid_fix": 20,
+        "checksum_failed": 8
+      },
+      "channels": {
+        "temp_c": {
+          "usable": 5834,
+          "expected": 6048,
+          "percent": 96.5
+        },
+        "rh_pct": {
+          "usable": 5834,
+          "expected": 6048,
+          "percent": 96.5
+        },
+        "pressure_hpa": {
+          "usable": 5834,
+          "expected": 6048,
+          "percent": 96.5
+        },
+        "wind_kmh": {
+          "usable": 5834,
+          "expected": 6048,
+          "percent": 96.5
+        },
+        "wind_dir_deg": {
+          "usable": 5834,
+          "expected": 6048,
+          "percent": 96.5
+        },
+        "rain_mm": {
+          "usable": 5834,
+          "expected": 6048,
+          "percent": 96.5
+        },
+        "ghi_wm2": {
+          "usable": 5834,
+          "expected": 6048,
+          "percent": 96.5
+        }
+      },
+      "maintenance_context": [
+        {
+          "date": "2025-03-17",
+          "themes": [
+            "communications intervention"
+          ]
+        },
+        {
+          "date": "2025-04-05",
+          "themes": [
+            "possible retransmission concern"
+          ]
+        }
+      ],
+      "issues": {
+        "missing observations": 1,
+        "exact retransmission": 1
+      }
+    }
+  },
+  "visit_ranking": [
+    {
+      "station_id": "S07",
+      "name": "Riverbend Farm",
+      "issue": "wind scale discontinuity",
+      "priority": 10,
+      "work": "Check the new anemometer's model, output units and logger coefficient first; compare with its specification and a reference instrument, then correct configuration and verify readings.",
+      "reason": "A large continuing wind error may be fixed by checking sensor and logger compatibility within one visit.",
+      "confidence": "medium"
+    },
+    {
+      "station_id": "S02",
+      "name": "North Mesa School",
+      "issue": "pressure calibration step",
+      "priority": 8,
+      "work": "Compare station pressure with a calibrated reference at the same height; check the replacement board configuration and record any adjustment.",
+      "reason": "The continuing pressure discontinuity needs an independent calibration reference.",
+      "confidence": "high"
+    },
+    {
+      "station_id": "S04",
+      "name": "Foothills Community Garden",
+      "issue": "sunlight-dependent temperature drift",
+      "priority": 7,
+      "work": "Inspect shield ventilation, mounting and nearby surfaces; compare with a shaded reference thermometer in sunlight before changing the installation.",
+      "reason": "A probable continuing exposure bias needs a daylight comparison; its exact onset and cause remain uncertain.",
+      "confidence": "medium"
+    },
+    {
+      "station_id": "S05",
+      "name": "Eastside Rec Centre",
+      "issue": "location mismatch",
+      "priority": 3,
+      "work": "Check the installation sheet and logger identity remotely first; verify coordinates at the physical installation if these do not resolve the discrepancy.",
+      "reason": "The location discrepancy affects spatial interpretation; records alone do not establish which location source is wrong.",
+      "confidence": "high"
+    }
+  ],
+  "flags": [
+    {
+      "station_id": "S01",
+      "channel": "temp_c",
+      "start_utc": "2025-03-01 00:00",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "coherent mountain cold",
+      "action": "keep",
+      "note": "The site is over 750 m above comparison stations and its colder temperature tracks regional weather (r=0.92); retain rather than applying lowland limits.",
+      "confidence": "high",
+      "evidence": {
+        "correlation": 0.919,
+        "temperature_difference": -9.55
+      }
+    },
+    {
+      "station_id": "S02",
+      "channel": "pressure_hpa",
+      "start_utc": "2025-03-21 17:20",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "pressure calibration step",
+      "action": "exclude",
+      "note": "Target-minus-peer pressure shifts +6.8 hPa across this boundary with 4 agreeing peers; exclude pending calibration rather than assume an exact offset.",
+      "confidence": "high",
+      "evidence": {
+        "peer_change_hpa": 6.8,
+        "peers": [
+          "S03",
+          "S04",
+          "S08",
+          "S07"
+        ],
+        "onset_method": "adjacent jump plus 48-hour residual windows"
+      }
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-03-05 14:20",
+      "end_utc": "2025-03-05 14:20",
+      "issue": "isolated temperature spike",
+      "action": "exclude",
+      "note": "Temperature differs by over 12 C from at least four nearby readings whose range is under 5 C and immediately returns to baseline.",
+      "confidence": "high",
+      "evidence": {}
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-03-12 03:40",
+      "end_utc": "2025-03-12 03:40",
+      "issue": "invalid value",
+      "action": "exclude",
+      "note": "Values 85 to 85 outside broad sanity range [-90, 60]; do not clip or impute observations.",
+      "confidence": "high",
+      "evidence": {}
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-03-18 06:00",
+      "end_utc": "2025-03-21 14:00",
+      "issue": "sensor frozen",
+      "action": "exclude",
+      "note": "481 consecutive readings are exactly 6.5 while independent conditions vary; exclude this sensor interval.",
+      "confidence": "high",
+      "evidence": {
+        "samples": 481,
+        "value": 6.5
+      }
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-04-02 22:10",
+      "end_utc": "2025-04-02 22:10",
+      "issue": "isolated temperature spike",
+      "action": "exclude",
+      "note": "Temperature differs by over 12 C from at least four nearby readings whose range is under 5 C and immediately returns to baseline.",
+      "confidence": "high",
+      "evidence": {}
+    },
+    {
+      "station_id": "S03",
+      "channel": "temp_c",
+      "start_utc": "2025-04-08 09:50",
+      "end_utc": "2025-04-08 09:50",
+      "issue": "invalid value",
+      "action": "exclude",
+      "note": "Values 85 to 85 outside broad sanity range [-90, 60]; do not clip or impute observations.",
+      "confidence": "high",
+      "evidence": {}
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-14 00:00",
+      "end_utc": "2025-03-14 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-14 15:50",
+      "end_utc": "2025-03-15 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-15 14:00",
+      "end_utc": "2025-03-16 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-16 14:10",
+      "end_utc": "2025-03-17 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-17 14:00",
+      "end_utc": "2025-03-18 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-18 14:00",
+      "end_utc": "2025-03-18 23:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-19 14:00",
+      "end_utc": "2025-03-20 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-20 13:50",
+      "end_utc": "2025-03-21 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-21 13:50",
+      "end_utc": "2025-03-22 00:00",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-22 14:00",
+      "end_utc": "2025-03-23 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-23 13:50",
+      "end_utc": "2025-03-24 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-24 14:00",
+      "end_utc": "2025-03-25 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-25 13:50",
+      "end_utc": "2025-03-26 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-26 13:50",
+      "end_utc": "2025-03-27 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-27 13:40",
+      "end_utc": "2025-03-28 00:30",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-28 13:50",
+      "end_utc": "2025-03-28 23:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "rain_mm",
+      "start_utc": "2025-03-29 03:10",
+      "end_utc": "2025-04-02 16:30",
+      "issue": "rain blockage and delayed release",
+      "action": "exclude",
+      "note": "Zeros span multiple warm peer-wet intervals then 33.4 mm arrives within an hour versus peer median 0.0 mm; exclude uncertain accumulation and timing, without redistributing rainfall.",
+      "confidence": "medium",
+      "evidence": {
+        "release_mm": 33.4,
+        "peer_release_mm": 0.0,
+        "zero_run_start": "2025-03-23 06:00",
+        "first_corroborated_missed_rain": "2025-03-29 03:10",
+        "onset_uncertainty": "blockage may have started earlier during dry weather"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-29 14:10",
+      "end_utc": "2025-03-30 00:00",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-30 14:10",
+      "end_utc": "2025-03-30 23:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-03-31 13:40",
+      "end_utc": "2025-04-01 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-01 14:00",
+      "end_utc": "2025-04-02 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-02 13:40",
+      "end_utc": "2025-04-03 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-03 13:40",
+      "end_utc": "2025-04-04 00:10",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-04 14:50",
+      "end_utc": "2025-04-04 22:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-05 14:30",
+      "end_utc": "2025-04-06 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-06 13:20",
+      "end_utc": "2025-04-07 00:20",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-07 13:20",
+      "end_utc": "2025-04-08 00:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-08 13:40",
+      "end_utc": "2025-04-09 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-09 13:20",
+      "end_utc": "2025-04-10 00:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-10 13:20",
+      "end_utc": "2025-04-11 00:40",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S04",
+      "channel": "temp_c",
+      "start_utc": "2025-04-11 13:10",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "sunlight-dependent temperature drift",
+      "action": "exclude",
+      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "confidence": "medium",
+      "evidence": {
+        "diagnostic_ref": "S04/daylight-temperature-drift"
+      }
+    },
+    {
+      "station_id": "S05",
+      "channel": "metadata",
+      "start_utc": "2025-03-01 00:00",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "location mismatch",
+      "action": "exclude",
+      "note": "Valid GPS median (39.75395, -104.89569) is 20.5 km from inventory; withhold coordinate-dependent use until the install location is verified.",
+      "confidence": "high",
+      "evidence": {
+        "distance_km": 20.454,
+        "gps_lat": 39.753951666666666,
+        "gps_lon": -104.89569,
+        "rmc_fixes": 982,
+        "gga_agreement": true
+      }
+    },
+    {
+      "station_id": "S05",
+      "channel": "rh_pct",
+      "start_utc": "2025-03-07 12:00",
+      "end_utc": "2025-03-11 00:00",
+      "issue": "humidity saturation failure",
+      "action": "exclude",
+      "note": "Humidity remains at least 98% for 84.2 hours, including 451 values above 100%; exclude the whole saturated episode, not just impossible samples.",
+      "confidence": "high",
+      "evidence": {
+        "impossible_samples": 451,
+        "samples": 505,
+        "sunny_peer_difference": 72.5
+      }
+    },
+    {
+      "station_id": "S06",
+      "channel": "all",
+      "start_utc": "2025-03-24 16:10",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "logger clock offset",
+      "action": "correct",
+      "note": "Add +21600 seconds to source timestamps on CSV lines 3411-6049; 435 valid RMC fixes agree within 3 seconds and the row transition restores cadence.",
+      "confidence": "high",
+      "evidence": {
+        "offset_seconds": 21600,
+        "source_line": 3411,
+        "gps_fixes": 435,
+        "transition_backed": true,
+        "raw_start": "2025-03-24 10:10",
+        "raw_end": "2025-04-11 17:50",
+        "gps_last_before": "2025-03-24 16:00",
+        "gps_first_after": "2025-03-24 17:00",
+        "source_end_line": 6049
+      }
+    },
+    {
+      "station_id": "S07",
+      "channel": "wind_kmh",
+      "start_utc": "2025-03-26 19:00",
+      "end_utc": "2025-04-11 23:50",
+      "issue": "wind scale discontinuity",
+      "action": "exclude",
+      "note": "Weather-matched wind ratio changes by a factor of 0.27 with a persistent post-change regime; onset is estimated to the hour and no factory calibration factor is known.",
+      "confidence": "medium",
+      "evidence": {
+        "ratio_factor": 0.273,
+        "loss_reduction": 0.617,
+        "onset_uncertainty": "approximately one hour; inspect raw transition",
+        "peers": [
+          "S08",
+          "S03",
+          "S02",
+          "S04"
+        ]
+      }
+    },
+    {
+      "station_id": "S08",
+      "channel": "all",
+      "start_utc": "2025-03-16 14:00",
+      "end_utc": "2025-03-18 01:30",
+      "issue": "missing observations",
+      "action": "exclude",
+      "note": "214 expected 10-minute records are absent; leave missing and do not treat as zero.",
+      "confidence": "high",
+      "evidence": {
+        "missing_slots": 214
+      }
+    },
+    {
+      "station_id": "S08",
+      "channel": "all",
+      "start_utc": "2025-04-05 00:00",
+      "end_utc": "2025-04-05 23:50",
+      "issue": "exact retransmission",
+      "action": "correct",
+      "note": "Drop 144 extra rows with identical timestamps and all seven identical weather values, retaining the first copy.",
+      "confidence": "high",
+      "evidence": {
+        "extra_rows": 144
+      }
+    }
+  ],
+  "diagnostics": {
+    "S04/daylight-temperature-drift": {
+      "onset_estimate": "2025-03-14 00:00",
+      "drift_c_per_day": 0.11,
+      "early_sunny_residual": -0.65,
+      "late_sunny_residual": 2.62,
+      "night_change": -0.2,
+      "loss_reduction": 0.367,
+      "daily_points": [
+        {
+          "day": "2025-03-01",
+          "sunny_residual": 0.05,
+          "night_residual": -0.45
+        },
+        {
+          "day": "2025-03-02",
+          "sunny_residual": -0.65,
+          "night_residual": 1.7
+        },
+        {
+          "day": "2025-03-03",
+          "sunny_residual": -0.2,
+          "night_residual": 0.25
+        },
+        {
+          "day": "2025-03-04",
+          "sunny_residual": -1.35,
+          "night_residual": -0.3
+        },
+        {
+          "day": "2025-03-05",
+          "sunny_residual": -0.05,
+          "night_residual": 0.2
+        },
+        {
+          "day": "2025-03-06",
+          "sunny_residual": -1.0,
+          "night_residual": -0.3
+        },
+        {
+          "day": "2025-03-07",
+          "sunny_residual": -1.5,
+          "night_residual": -0.1
+        },
+        {
+          "day": "2025-03-08",
+          "sunny_residual": 0.25,
+          "night_residual": 0.75
+        },
+        {
+          "day": "2025-03-09",
+          "sunny_residual": 2.15,
+          "night_residual": 1.65
+        },
+        {
+          "day": "2025-03-10",
+          "sunny_residual": -0.35,
+          "night_residual": 0.35
+        },
+        {
+          "day": "2025-03-11",
+          "sunny_residual": 0.5,
+          "night_residual": 0.175
+        },
+        {
+          "day": "2025-03-12",
+          "sunny_residual": -0.75,
+          "night_residual": 1.35
+        },
+        {
+          "day": "2025-03-13",
+          "sunny_residual": -0.3,
+          "night_residual": 1.0
+        },
+        {
+          "day": "2025-03-14",
+          "sunny_residual": -1.65,
+          "night_residual": 0.625
+        },
+        {
+          "day": "2025-03-15",
+          "sunny_residual": -0.2,
+          "night_residual": -0.2
+        },
+        {
+          "day": "2025-03-16",
+          "sunny_residual": 0.9,
+          "night_residual": 1.025
+        },
+        {
+          "day": "2025-03-17",
+          "sunny_residual": 0.8,
+          "night_residual": 2.0
+        },
+        {
+          "day": "2025-03-18",
+          "sunny_residual": -0.3,
+          "night_residual": 0.05
+        },
+        {
+          "day": "2025-03-19",
+          "sunny_residual": -0.4,
+          "night_residual": -1.7
+        },
+        {
+          "day": "2025-03-20",
+          "sunny_residual": 0.45,
+          "night_residual": 0.5
+        },
+        {
+          "day": "2025-03-21",
+          "sunny_residual": 1.575,
+          "night_residual": 1.4
+        },
+        {
+          "day": "2025-03-22",
+          "sunny_residual": 1.6,
+          "night_residual": -0.5
+        },
+        {
+          "day": "2025-03-23",
+          "sunny_residual": 0.5,
+          "night_residual": 0.7
+        },
+        {
+          "day": "2025-03-24",
+          "sunny_residual": 0.275,
+          "night_residual": -0.55
+        },
+        {
+          "day": "2025-03-25",
+          "sunny_residual": 1.675,
+          "night_residual": 4.2
+        },
+        {
+          "day": "2025-03-26",
+          "sunny_residual": 1.45,
+          "night_residual": 2.0
+        },
+        {
+          "day": "2025-03-27",
+          "sunny_residual": 0.775,
+          "night_residual": 2.7
+        },
+        {
+          "day": "2025-03-28",
+          "sunny_residual": 1.8,
+          "night_residual": -0.25
+        },
+        {
+          "day": "2025-03-29",
+          "sunny_residual": 0.35,
+          "night_residual": 0.25
+        },
+        {
+          "day": "2025-03-30",
+          "sunny_residual": 1.45,
+          "night_residual": -0.2
+        },
+        {
+          "day": "2025-03-31",
+          "sunny_residual": 1.35,
+          "night_residual": -1.2
+        },
+        {
+          "day": "2025-04-01",
+          "sunny_residual": 1.35,
+          "night_residual": -0.3
+        },
+        {
+          "day": "2025-04-02",
+          "sunny_residual": 0.4,
+          "night_residual": -0.1
+        },
+        {
+          "day": "2025-04-03",
+          "sunny_residual": 1.1,
+          "night_residual": -0.4
+        },
+        {
+          "day": "2025-04-04",
+          "sunny_residual": 1.125,
+          "night_residual": -0.65
+        },
+        {
+          "day": "2025-04-05",
+          "sunny_residual": 0.975,
+          "night_residual": -1.2
+        },
+        {
+          "day": "2025-04-06",
+          "sunny_residual": 1.75,
+          "night_residual": -0.55
+        },
+        {
+          "day": "2025-04-07",
+          "sunny_residual": 2.525,
+          "night_residual": -0.3
+        },
+        {
+          "day": "2025-04-08",
+          "sunny_residual": 2.625,
+          "night_residual": -0.05
+        },
+        {
+          "day": "2025-04-09",
+          "sunny_residual": 3.85,
+          "night_residual": -0.425
+        },
+        {
+          "day": "2025-04-10",
+          "sunny_residual": 3.875,
+          "night_residual": -0.075
+        },
+        {
+          "day": "2025-04-11",
+          "sunny_residual": 5.05,
+          "night_residual": 1.5
+        }
+      ]
+    }
+  },
+  "input_hashes": {
+    "stations.csv": "faab399b4c048374565cee7f658afc989b1b4f6b3cdd97121b9cd5a372ef3ef7",
+    "maintenance_log.md": "786dd016d78d344026efae36abe244d2a342ae133d7796c9eb26365b8962cb02",
+    "data/S01.csv": "63cabbcca544ff5fb1e9406b5998448c972b84096508d143fc57dade5d1e09f5",
+    "data/S02.csv": "c3f2c8a550032eca66f2fa0942b381fea75c22269752b593bc7e7f47bb2e7760",
+    "data/S03.csv": "31d0814c7fbd19e194e191d97bac48902010b4eec8482efe931a9925dc2a813e",
+    "data/S04.csv": "d03a51fe06cabb3aaa4628c4bc789491ea9ff8f3d5b8d311cb21d4230a3dc3fe",
+    "data/S05.csv": "0350f98ff9e6b9b1205316ed3ca0681de8a6048834808427393aae37ca090efa",
+    "data/S06.csv": "49a07c589f2713203229636ab82a3ec1207a4e22d82360b00b65ff6d00f0709c",
+    "data/S07.csv": "7ae9d39dc233d3ce5ea347d90f1f740db17af7ffc7ffe4017868f7cd505c16a0",
+    "data/S08.csv": "04f75bd3b9fd5855becdd2ea8c3a5d3cb6d24765cfb8998640908d25b21d73c1",
+    "gps/S01.nmea": "53819872b43cee2b9d1473c2f0cf11ce512a418a186fd064fc6f86f87b56c3be",
+    "gps/S02.nmea": "3d12b9d8010542cfe92267afcfe8797df3c76731e7f9bb38b90dea1fb4daff91",
+    "gps/S03.nmea": "0de4432afd7e994284abfedcb2f518117e45bce56e827e2cc02bc0f79871d680",
+    "gps/S04.nmea": "12d7a90f7f4b5beed6e95b55fb5c2fc51335a203d26db937f0f802a933e8a295",
+    "gps/S05.nmea": "d846bdd151e7e7c951cc54a1d54bc1f915a3abc3d4a9721a2b823599790a112f",
+    "gps/S06.nmea": "17ea5ecd992187d8fcf7bee4032e66a940309561950c125f11023a1555657c20",
+    "gps/S07.nmea": "06475e7b2da861b905855e58e5c3d62292c64db94cc23729ee90a32c5487bde6",
+    "gps/S08.nmea": "2fdfbfc2a3fa763666d2121e3df0653ebe27f45da70a0afab7613f12d0849283"
+  }
+}

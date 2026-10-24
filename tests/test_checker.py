@@ -131,6 +131,16 @@ class IntegrityTests(unittest.TestCase):
         a=Analysis({'X':s});repair_clocks(a)
         self.assertEqual(s.records[0].time,START)
 
+    def test_ambiguous_clock_mapping_is_not_repaired(self):
+        s=make_station(days=3)
+        for hour in range(72):
+            t=START+timedelta(hours=hour)
+            s.gps.append(parse_line(rmc(t-(timedelta(hours=6) if hour>=24 else timedelta(0)),t))[0])
+        a=Analysis({'X':s});repair_clocks(a)
+        self.assertTrue(a.warnings)
+        self.assertTrue(all(r.clock_unsafe for r in s.records))
+        self.assertEqual(a.flags[0].action,'exclude')
+
 
 class SensorTests(unittest.TestCase):
     def test_healthy_dry_nights_and_direction_360(self):
@@ -173,6 +183,39 @@ class SensorTests(unittest.TestCase):
         pressure_steps(a,p);wind_steps(a,p);daylight_temperature_drift(a,p)
         self.assertFalse(a.flags)
 
+    def test_healthy_long_network_has_no_advanced_faults(self):
+        from ridgeline.advanced import pressure_steps,wind_steps,daylight_temperature_drift,rain_blockage
+        a=network();p=Peers(a)
+        pressure_steps(a,p);wind_steps(a,p);daylight_temperature_drift(a,p);rain_blockage(a,p)
+        self.assertFalse(a.flags)
+
+    def test_daylight_drift_preserves_nights(self):
+        from ridgeline.advanced import daylight_temperature_drift
+        a=network();s=a.stations['Z0']
+        for r in s.records:
+            day=(r.time-START).total_seconds()/86400
+            if r.values['ghi_wm2']>100:r.values['temp_c']+=max(0,day-14)*.2
+        daylight_temperature_drift(a,Peers(a))
+        self.assertEqual({f.station_id for f in a.flags},{'Z0'})
+        self.assertTrue(any('temp_c' in r.excluded for r in s.records))
+        self.assertTrue(all('temp_c' not in r.excluded for r in s.records if r.values['ghi_wm2']<=100))
+
+    def test_rain_blockage_requires_missed_peer_events(self):
+        from ridgeline.advanced import rain_blockage
+        a=network(days=8);target=a.stations['Z0']
+        for sid,s in a.stations.items():
+            for r in s.records:r.values['temp_c']=8
+            if sid!='Z0':
+                for r in s.records[144:180]:r.values['rain_mm']=.2
+        target.records[5*72].values['rain_mm']=12
+        rain_blockage(a,Peers(a))
+        self.assertEqual([(f.station_id,f.issue) for f in a.flags],[('Z0','rain blockage and delayed release')])
+
+    def test_local_rain_without_prior_missed_events_is_retained(self):
+        from ridgeline.advanced import rain_blockage
+        a=network(days=8);a.stations['Z0'].records[5*72].values['rain_mm']=12
+        rain_blockage(a,Peers(a));self.assertFalse(a.flags)
+
     def test_solar_longitude_and_utc(self):
         self.assertGreater(solar_elevation(datetime(2024,6,1,19),40,-105),60)
         self.assertLess(solar_elevation(datetime(2024,6,1,7),40,-105),-20)
@@ -200,6 +243,16 @@ class PackTests(unittest.TestCase):
             root=Path(tmp);self.write_pack(root);path=root/'data/RENAMED.csv'
             path.write_text(path.read_text().replace('2024-06-01 00:00','bad date'))
             with self.assertRaisesRegex(ValueError,'invalid timestamp'):analyze(root)
+
+    def test_cli_writes_header_only_in_invocation_directory(self):
+        with tempfile.TemporaryDirectory(prefix='ridgeline pack ') as tmp:
+            root=Path(tmp);self.write_pack(root);output=root/'output';output.mkdir()
+            script=Path(__file__).resolve().parents[1]/'checker.py'
+            run=subprocess.run([sys.executable,str(script),str(root)],cwd=output,capture_output=True,text=True)
+            self.assertEqual(run.returncode,0,run.stderr)
+            self.assertEqual(len((output/'flags.csv').read_text().splitlines()),1)
+            self.assertTrue((output/'report.html').exists())
+            self.assertFalse((root/'flags.csv').exists())
 
 
 if __name__=='__main__':unittest.main()

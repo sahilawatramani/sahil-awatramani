@@ -1,0 +1,21 @@
+# Validation record
+
+Development verification on 24 October 2026, Python 3.13.12 on Windows. This records observed checks, not a claim about the unseen evaluation pack.
+
+| Check | Result |
+|---|---|
+| Synthetic regression suite | 24 tests pass; `python -m unittest discover -s tests -v` |
+| Exact CLI with quoted pack path | Success; outputs generated in invocation directory |
+| Healthy pack, arbitrary station ID/date, optional GPS absent | Header-only flags.csv, explicit GPS warning, successful report |
+| Alternate 20-minute cadence and missing intervals | Correct gap count; no assumed 6,048-record requirement |
+| Changed working directory and path containing spaces | Outputs appear in invocation directory, not the input pack |
+| Supplied-pack reconciliation | 48,314 raw rows - 144 extra copies = 48,170 unique observations; 48,384 expected slots - 214 missing = 48,170 |
+| Renamed every station and reversed inventory order | Identical station/channel/start/end/issue/action tuples after ID mapping |
+| Repeated generation | Byte-identical CSV, HTML and JSON outputs; input file hashes unchanged |
+| Clock provenance | S06 corrected from CSV line 3411; 2,639 rows recovered without deduplicating distinct observations |
+| A4 report | Headless Chrome print verification: one A4 page, including all footnotes; rendered page visually inspected |
+| Evidence browser behavior | Both SVG charts render; all-station ledger has 15 summarized rows; S04 filter returns only its two incident summaries; reset works; no horizontal overflow at 1200 px |
+
+The 44 CSV intervals include 30 individual sunlit windows for S04; the evidence ledger groups those as one incident summary. It does not omit the exact intervals from the CSV.
+
+These tests address correctness and some transfer risks; they do not provide measured precision/recall on independently labeled real faults. Peer-supported temperature/rain/wind diagnoses and estimated boundaries retain medium confidence. Known limitations and threshold assumptions are explicit in METHODS.md.
