@@ -13,7 +13,7 @@ Invitation deadline: **on or before Sunday, 25 October 2026**, with no stated cu
 - [x] Second weather model: matched before/after diagnostics plus 34 reserved cases; remaining misses disclosed.
 - [x] 57 development and 57 unused-seed evaluation scenarios; metrics and misses published in BENCHMARKS.md.
 - [x] Revised climate-use report and four-chart evidence notebook; complete report verified on one A4 page.
-- [ ] Resolve the engineering-review counterexamples and complete independent accuracy evaluation; the current passing regression suite is insufficient evidence of high accuracy.
+- [x] Address the identifiable engineering-review counterexamples and evaluate two synthetic weather models, including reserved seeds; disclose unresolved and missed cases. Independent field calibration truth is unavailable, so these results do not establish field accuracy.
 - [x] Record the invitation date and receipt time; Sunday cutoff remains unspecified, so do not assume a midnight deadline.
 - [ ] Replace DECISIONS.md technical draft with personal reasoning, including the genuinely unaided solar calculation.
 - [ ] Add complete AI exports from all tools under ai_logs/.
