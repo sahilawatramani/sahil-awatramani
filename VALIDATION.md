@@ -6,6 +6,7 @@ Development verification on 24 October 2026, Python 3.13.12 on Windows. This rec
 |---|---|
 | Synthetic regression suite | 33 tests pass; `python -m unittest discover -s tests -v` |
 | Exact CLI with quoted pack path | Success; outputs generated in invocation directory |
+| Clean Git checkout | All 33 tests pass; checker runs independently of the original source directory and reproduces all four committed output files byte for byte |
 | Healthy pack, arbitrary station ID/date, optional GPS absent | Header-only flags.csv, explicit GPS warning, successful report |
 | Alternate 20-minute cadence and missing intervals | Correct gap count; no assumed 6,048-record requirement |
 | Absent/empty weather files | Explicit whole-station exclusion and inferred missing-slot counts |

@@ -73,3 +73,5 @@ There is no attempt to estimate lost rain, certify snow-gauge catch efficiency, 
 Before submission: finish personal reasoning and the unaided calculation in DECISIONS.md, export complete chats to `ai_logs/`, add the real recording link, confirm the invitation deadline, and publish a repository named `sahil-awatramani`. No repository has been published or submission form sent by this implementation.
 
 [VIDEO_GUIDE.md](VIDEO_GUIDE.md) provides a three-minute evidence sequence; [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) tracks remaining submission work. The observed validation results are in [VALIDATION.md](VALIDATION.md).
+
+Before publishing, run `python tools/check_submission.py`. This read-only readiness check identifies obvious missing files/placeholders and source-pack paths in Git history. Human requirements such as complete exports, personal reasoning and the unaided calculation still need verification.
