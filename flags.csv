@@ -1,6 +1,6 @@
 station_id,channel,start_utc,end_utc,issue,action,note
 S01,temp_c,2025-03-01 00:00,2025-04-11 23:50,coherent mountain cold,keep,The site is over 750 m above comparison stations and its colder temperature tracks regional weather (r=0.92); retain rather than applying lowland limits.
-S02,pressure_hpa,2025-03-21 17:20,2025-04-11 23:50,pressure calibration step,exclude,Target-minus-peer pressure shifts +6.8 hPa across this boundary with 4 agreeing peers; exclude pending calibration rather than assume an exact offset.
+S02,pressure_hpa,2025-03-21 17:20,2025-04-11 23:50,pressure calibration step,exclude,Target-minus-peer pressure shifts +7.8 hPa against a larger coherent reference group and continues to pack end without observed recovery; exclude without assuming an exact calibration offset.
 S03,temp_c,2025-03-05 14:20,2025-03-05 14:20,isolated temperature spike,exclude,Temperature differs by over 12 C from at least four nearby readings whose range is under 5 C and immediately returns to baseline.
 S03,temp_c,2025-03-12 03:40,2025-03-12 03:40,invalid value,exclude,"Values 85 to 85 outside broad sanity range [-90, 60]; do not clip or impute observations."
 S03,temp_c,2025-03-18 06:00,2025-03-21 14:00,sensor frozen,exclude,481 consecutive readings are exactly 6.5 while independent conditions vary; exclude this sensor interval.
@@ -40,6 +40,6 @@ S04,temp_c,2025-04-11 13:10,2025-04-11 23:50,sunlight-dependent temperature drif
 S05,metadata,2025-03-01 00:00,2025-04-11 23:50,location mismatch,exclude,"Valid GPS median (39.75395, -104.89569) is 20.5 km from inventory; withhold coordinate-dependent use until the install location is verified."
 S05,rh_pct,2025-03-07 12:00,2025-03-11 00:00,humidity saturation failure,exclude,"Humidity remains at least 98% for 84.2 hours, including 451 values above 100%; exclude the whole saturated episode, not just impossible samples."
 S06,all,2025-03-24 16:10,2025-04-11 23:50,logger clock offset,correct,Add +21600 seconds to source timestamps on CSV lines 3411-6049; 435 valid RMC fixes agree within 3 seconds and the row transition restores cadence.
-S07,wind_kmh,2025-03-26 17:00,2025-04-11 23:50,wind scale discontinuity,exclude,"Wind ratio changes by factor 0.27; hold from the earliest tested onset (2025-03-26 17:00 to 2025-03-26 19:00 across reference choices), with no known calibration factor."
+S07,wind_kmh,2025-03-26 16:00,2025-04-11 23:50,wind scale discontinuity,exclude,Wind ratio changes by factor 0.27 against a larger coherent reference group and no recovery is observed before pack end; exclude pending instrument/configuration verification.
 S08,all,2025-03-16 14:00,2025-03-18 01:30,missing observations,exclude,214 expected 10-minute records are absent; leave missing and do not treat as zero.
 S08,all,2025-04-05 00:00,2025-04-05 23:50,exact retransmission,correct,"Drop 144 extra rows with identical timestamps and all seven identical weather values, retaining the first copy."

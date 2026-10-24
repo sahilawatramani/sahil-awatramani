@@ -2,7 +2,18 @@
 
 Review date: 24 October 2026. Engine baseline: `dd05bd7`.
 
-## Assessment
+## Remediation status
+
+The redesign is implemented; the analysis below preserves the findings that motivated it. See [BENCHMARKS.md](BENCHMARKS.md) for the new evaluation and [VALIDATION.md](VALIDATION.md) for reproducibility checks.
+
+- Pressure and temporary wind incidents now close on supported recovery; bounded temperature bursts are detected.
+- Pairwise coherent-group checks avoid blaming every station in an unanchored equal split. Unresolved outcomes are distinct from a CSV keep claim.
+- Fifty-seven development scenarios and 57 unused-seed evaluation scenarios quantify per-family detection and data loss. The generator remains a limited synthetic model, not field ground truth. Small +2 hPa faults are deliberately reported as missed.
+- A separate matched sunlight/hour time-block model supports S04's later warming but leaves its earlier onset unresolved; precautionary over-exclusion is disclosed and scored.
+- Evidence is staged before masks within direct/peer stages; incident recovery/source rows, typed thresholds, climate-use restrictions, timed visit procedures, four diagnostic charts and a generation manifest are implemented.
+- Coordinator decisions now foreground usable periods and aggregation restrictions. Remaining scientific limits include faulty majorities, common-mode faults, real terrain diversity, pack-edge/gap events, small shifts and uncertain drift boundaries.
+
+## Baseline assessment (preserved)
 
 The project has a useful, reproducible baseline and a presentable coordinator report. It does **not yet have enough evidence to claim high detection accuracy or strong unseen-pack performance**. The existing 33 tests verify selected cases and contracts. They are not an independent accuracy benchmark. Earlier clean-checkout and test results remain valid, but should not be read as scientific validation of the flags.
 

@@ -1,5 +1,7 @@
 """Read-only local checks for obvious submission omissions; no publication."""
 import csv
+import hashlib
+import json
 import re
 import subprocess
 from datetime import datetime
@@ -44,6 +46,15 @@ def main():
         check(valid, 'flags.csv has the required schema and valid decisions/intervals')
     except (OSError, ValueError, KeyError, TypeError):
         check(False, 'flags.csv is readable and has valid required fields')
+    try:
+        manifest=json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
+        audit=json.loads((ROOT/'audit.json').read_text(encoding='utf-8'))
+        hashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest()
+                for name in ('flags.csv','report.html','evidence.html','audit.json')}
+        check(manifest['outputs']==hashes and manifest['generation_id']==audit['generation']['id'],
+              'Output manifest matches one complete generation')
+    except (OSError,ValueError,KeyError,TypeError):
+        check(False,'Output manifest matches one complete generation')
     try:
         tracked = subprocess.check_output(['git','ls-files'], cwd=ROOT, text=True).splitlines()
         history = subprocess.check_output(['git','rev-list','--objects','--all'], cwd=ROOT, text=True).splitlines()

@@ -21,7 +21,10 @@ def source_hashes(pack):
 def generation(inputs):
     root=Path(__file__).resolve().parents[1]
     paths=[root/'checker.py']+sorted((root/'ridgeline').glob('*.py'))
-    engine=hashlib.sha256('\n'.join(p.name+':'+sha256(p) for p in paths).encode()).hexdigest()
+    # Normalize source newlines so Git's Windows CRLF checkout policy does not
+    # change a generation's identity without changing executable source text.
+    engine=hashlib.sha256('\n'.join(p.name+':'+hashlib.sha256(
+        p.read_text(encoding='utf-8').encode()).hexdigest() for p in paths).encode()).hexdigest()
     digest=hashlib.sha256(json.dumps(dict(inputs=inputs,engine=engine),sort_keys=True).encode()).hexdigest()
     return dict(id=digest[:20],engine_sha256=engine,
                 contract='manifest.json is the final commit marker; verify all output hashes after an interrupted run')

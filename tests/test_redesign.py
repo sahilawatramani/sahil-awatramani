@@ -45,6 +45,25 @@ class BoundedIncidentTests(unittest.TestCase):
         wind_steps(result,Peers(result))
         self.assert_exact_mask(result,'wind_kmh',begin,end)
 
+    def multiple_incidents(self,channel,detector,size):
+        result=network(days=18,interval=10)
+        windows=[(START+timedelta(days=a),START+timedelta(days=b)) for a,b in ((4,6),(10,12))]
+        for r in result.stations['Z0'].records:
+            if any(a<=r.time<b for a,b in windows):
+                if channel=='wind_kmh':r.values[channel]*=size
+                else:r.values[channel]+=size
+        detector(result,Peers(result))
+        self.assertEqual([(f.start,f.end) for f in result.flags],[(a,b-result.stations['Z0'].step) for a,b in windows])
+        for sid,s in result.stations.items():
+            for r in s.records:
+                self.assertEqual(channel in r.excluded,sid=='Z0' and any(a<=r.time<b for a,b in windows))
+
+    def test_two_separate_pressure_faults_preserve_the_healthy_middle(self):
+        self.multiple_incidents('pressure_hpa',pressure_steps,7)
+
+    def test_two_separate_wind_faults_preserve_the_healthy_middle(self):
+        self.multiple_incidents('wind_kmh',wind_steps,.28)
+
     def test_temperature_burst_is_bounded(self):
         result,begin,end=self.inject('temp_c',25,duration=2/24)
         basic_checks(result,Peers(result))

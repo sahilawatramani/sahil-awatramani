@@ -1,0 +1,94 @@
+{
+  "engine_commit": "6f18cb716b299c13568754095aa218392d0eb1f8",
+  "stations": 4,
+  "cadence_minutes": 10,
+  "duration_days": 42,
+  "scope": "targeted synthetic counterexamples, not field accuracy",
+  "cases": [
+    {
+      "case": "five_day_pressure_fault_then_recovery",
+      "channel": "pressure_hpa",
+      "tp": 720,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23472,
+      "precision": 1.0,
+      "recall": 1.0,
+      "flags": [
+        {
+          "station_id": "Z0",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-06-13 00:00",
+          "end_utc": "2024-06-17 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa against a larger coherent reference group and ends at a corroborated return to the prior residual; exclude without assuming an exact calibration offset."
+        }
+      ]
+    },
+    {
+      "case": "three_day_wind_scale_fault_then_recovery",
+      "channel": "wind_kmh",
+      "tp": 432,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23760,
+      "precision": 1.0,
+      "recall": 1.0,
+      "flags": [
+        {
+          "station_id": "Z0",
+          "channel": "wind_kmh",
+          "start_utc": "2024-06-21 00:00",
+          "end_utc": "2024-06-23 23:50",
+          "issue": "wind scale discontinuity",
+          "action": "exclude",
+          "note": "Wind ratio changes by factor 0.32 against a larger coherent reference group and a supported return closes the interval; exclude pending instrument/configuration verification."
+        }
+      ]
+    },
+    {
+      "case": "two_hour_temperature_error_burst",
+      "channel": "temp_c",
+      "tp": 12,
+      "fp": 0,
+      "fn": 0,
+      "tn": 24180,
+      "precision": 1.0,
+      "recall": 1.0,
+      "flags": [
+        {
+          "station_id": "Z0",
+          "channel": "temp_c",
+          "start_utc": "2024-06-09 12:00",
+          "end_utc": "2024-06-09 13:50",
+          "issue": "temperature error burst",
+          "action": "exclude",
+          "note": "Temperature residual jumps +30.0 C for 120 minutes then returns within 3 C of its prior peer-relative level, with clean three-hour context on both sides; exclude this bounded excursion."
+        }
+      ]
+    },
+    {
+      "case": "two_of_four_pressure_boards_shift_together",
+      "channel": "pressure_hpa",
+      "tp": 0,
+      "fp": 0,
+      "fn": 8640,
+      "tn": 15552,
+      "precision": null,
+      "recall": 0.0,
+      "flags": []
+    },
+    {
+      "case": "real_regional_temperature_change",
+      "channel": "temp_c",
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 24192,
+      "precision": null,
+      "recall": null,
+      "flags": []
+    }
+  ]
+}
