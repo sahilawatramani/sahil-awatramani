@@ -45,6 +45,56 @@ class BoundedIncidentTests(unittest.TestCase):
         wind_steps(result,Peers(result))
         self.assert_exact_mask(result,'wind_kmh',begin,end)
 
+    def test_pressure_opening_hidden_by_short_gap_is_bracketed(self):
+        result,begin,end=self.inject('pressure_hpa',7)
+        station=result.stations['Z0']
+        station.records=[r for r in station.records if not begin-timedelta(hours=1)<=r.time<begin+timedelta(hours=1)]
+        pressure_steps(result,Peers(result))
+        self.assert_exact_mask(result,'pressure_hpa',begin,end)
+        self.assertEqual(result.flags[0].start,begin+timedelta(hours=1))
+        self.assertIn('gap',result.flags[0].evidence['transitions'][0]['boundary_caveat'])
+
+    def test_wind_recovery_hidden_by_short_gap_does_not_hold_future_data(self):
+        result,begin,end=self.inject('wind_kmh',.28)
+        station=result.stations['Z0']
+        station.records=[r for r in station.records if not end-timedelta(hours=1)<=r.time<end+timedelta(hours=1)]
+        wind_steps(result,Peers(result))
+        self.assert_exact_mask(result,'wind_kmh',begin,end)
+        self.assertEqual(result.flags[0].evidence['status'],'recovered')
+
+    def test_initial_pressure_fault_is_not_misread_as_later_failure(self):
+        result=network(days=12,interval=10)
+        for r in result.stations['Z0'].records:
+            if r.time<START+timedelta(hours=36):r.values['pressure_hpa']+=7
+        pressure_steps(result,Peers(result))
+        self.assertFalse(result.flags)
+        self.assertTrue(any('initial regime' in u['reason'] for u in result.unresolved))
+
+    def test_initial_wind_fault_is_not_misread_as_later_failure(self):
+        result=network(days=12,interval=10)
+        for r in result.stations['Z0'].records:
+            if r.time<START+timedelta(hours=36):r.values['wind_kmh']*=.28
+        wind_steps(result,Peers(result))
+        self.assertFalse(result.flags)
+        self.assertTrue(any('initial regime' in u['reason'] for u in result.unresolved))
+
+    def test_pressure_faulty_majority_does_not_blame_unchanged_station(self):
+        result=network(days=12,interval=10)
+        for sid in ('Z0','Z1','Z2'):
+            for r in result.stations[sid].records:
+                if START+timedelta(days=4)<=r.time<START+timedelta(days=6):r.values['pressure_hpa']+=7
+        pressure_steps(result,Peers(result))
+        self.assertTrue(all('pressure_hpa' not in r.excluded for r in result.stations['Z3'].records))
+        self.assertTrue(any('coincident' in u['reason'] for u in result.unresolved))
+
+    def test_wind_reference_shift_requires_a_target_change(self):
+        result=network(days=12,interval=10)
+        for sid,s in result.stations.items():
+            for r in s.records:
+                r.values['wind_kmh']=2.8 if sid!='Z3' and START+timedelta(days=4)<=r.time<START+timedelta(days=6) else 10
+        wind_steps(result,Peers(result))
+        self.assertTrue(all('wind_kmh' not in r.excluded for r in result.stations['Z3'].records))
+
     def multiple_incidents(self,channel,detector,size):
         result=network(days=18,interval=10)
         windows=[(START+timedelta(days=a),START+timedelta(days=b)) for a,b in ((4,6),(10,12))]

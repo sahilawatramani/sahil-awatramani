@@ -5,7 +5,7 @@ calibration truth. Equal groups are unresolved and do not become CSV 'keep'.
 """
 from bisect import bisect_left
 from dataclasses import dataclass, field
-from datetime import timedelta
+from datetime import datetime, timedelta
 from itertools import combinations
 import math
 from .config import DEFAULTS as CFG
@@ -14,11 +14,12 @@ from .model import mad, med, stamp
 
 @dataclass
 class Transition:
-    time: object
+    time: datetime
     left: float
     right: float
     noise: float
     support: list[str] = field(default_factory=list)
+    previous_observation: datetime | None = None
 
     @property
     def delta(self):
@@ -27,8 +28,8 @@ class Transition:
 
 @dataclass
 class Incident:
-    start: object
-    end: object
+    start: datetime
+    end: datetime
     level_change: float
     recovered: bool
     transitions: list[Transition]
@@ -40,6 +41,8 @@ class Incident:
                     source_row_start=min(r.row for r in records),
                     source_row_end=max(r.row for r in records),
                     transitions=[dict(time_utc=stamp(t.time),change=round(t.delta,4),
+                                      previous_observation_utc=stamp(t.previous_observation) if t.previous_observation else None,
+                                      boundary_caveat='First supported post-gap regime; physical boundary lies in the gap.' if t.previous_observation and t.time-t.previous_observation>station.step else None,
                                       robust_noise=round(t.noise,4),peers=t.support) for t in self.transitions],
                     identification_assumption='faulty group smaller than stable reference group; common faults can escape detection')
 
@@ -110,21 +113,59 @@ def build_incidents(transitions, station, tolerance):
     return incidents
 
 
+def own_change(station, channel, before_time, after_time, logarithmic=False):
+    """Independent temporal evidence prevents a reference jump blaming a target."""
+    index=station.index()
+    if not logarithmic:
+        before=index.get(before_time);after=index.get(after_time)
+        return after.value(channel)-before.value(channel) if before and after else math.nan
+    before=[r.value(channel) for t,r in index.items() if before_time<=t<before_time+timedelta(hours=1)]
+    after=[r.value(channel) for t,r in index.items() if after_time<=t<after_time+timedelta(hours=1)]
+    a,b=med(before),med(after)
+    return math.log((b+.5)/(a+.5)) if a>=0 and b>=0 else math.nan
+
+
 def abrupt_transitions(station, peers, channel, times, values, hours, minimum,
                        jump, noise_floor, logarithmic=False, omit=None, result=None):
     candidates=[]
-    interval=(times[1]-times[0]).total_seconds()/60 if len(times)>1 else station.interval
+    interval=60 if logarithmic else station.interval
     # Caller supplies regular hourly summaries for wind, actual rows for pressure.
     for i in range(1,len(times)):
-        if times[i]-times[i-1]>timedelta(minutes=interval*1.5):continue
+        # Short gaps are bracketed, not treated as precise physical boundaries.
+        # The context coverage gate independently limits the allowable gap.
+        if times[i]-times[i-1]>timedelta(hours=hours*(1-CFG.required_window_coverage)):continue
         if not math.isfinite(values[i]-values[i-1]) or abs(values[i]-values[i-1])<jump:continue
+        own=own_change(station,channel,times[i-1],times[i],logarithmic)
         left,right=windows(times,values,times[i],hours,interval)
-        if not left:continue
+        if not left:
+            # Missing context is not itself an anomaly. Surface only a large,
+            # low-noise shift with >=3 h each side and one complete context side.
+            a=bisect_left(times,times[i]-timedelta(hours=hours))
+            b=bisect_left(times,times[i]+timedelta(hours=hours))
+            partial_left=[v for v in values[a:i] if math.isfinite(v)]
+            partial_right=[v for v in values[i:b] if math.isfinite(v)]
+            enough=min(len(partial_left),len(partial_right))*interval>=180 and max(len(partial_left),len(partial_right))*interval>=hours*60*CFG.required_window_coverage
+            delta=med(partial_right)-med(partial_left)
+            noise=max(noise_floor,1.4826*med([mad(partial_left),mad(partial_right)]))
+            stable=not logarithmic or mad([v for t,v in zip(times,values) if times[i]-timedelta(days=3)<=t<times[i]])<=.15
+            if result is not None and enough and stable and math.isfinite(own) and abs(own)>=jump and own*delta>0 and abs(delta)>=max(minimum,CFG.robust_noise_multiplier*noise):
+                result.abstain(station,channel,times[i],'insufficient physical-time context to validate an abrupt change',
+                               policy='No sensor-failure claim or numerical correction; review the boundary with independent evidence.')
+            continue
         a,b=med(left),med(right)
         noise=max(noise_floor,1.4826*med([mad(left),mad(right)]))
         if abs(b-a)<max(minimum,CFG.robust_noise_multiplier*noise):continue
         if (b-a)*(values[i]-values[i-1])<=0:continue
-        candidates.append(Transition(times[i],a,b,noise))
+        if not math.isfinite(own) or abs(own)<jump or own*(b-a)<=0:
+            continue  # target did not jump: reference contamination is not target failure
+        # Three days are a minimum baseline policy, not proof of calibration.
+        # A change before that cannot safely be oriented as failure vs recovery.
+        if times[i]-times[0]<timedelta(days=3):
+            if result is not None:
+                result.abstain(station,channel,times[i],'initial regime not established; failure versus recovery is unresolved',
+                               minimum_baseline_hours=72,policy='Do not hold the later regime merely because it differs from a short initial segment.')
+            continue
+        candidates.append(Transition(times[i],a,b,noise,previous_observation=times[i-1]))
     # One transition per local discontinuity; robust windows reject most noise.
     accepted=[]
     for t in sorted(candidates,key=lambda t:(-abs(t.delta)/t.noise,t.time)):
@@ -133,6 +174,7 @@ def abrupt_transitions(station, peers, channel, times, values, hours, minimum,
         if support:
             t.support=support;accepted.append(t)
         elif result is not None and 'equally supported' in reason:
-            result.abstain(station,channel,t.time,reason,groups=groups,
-                           climate_policy='Do not assign a failed group or treat this as validated data; seek an independent reference before using cross-boundary changes.')
+            for sid in sorted({sid for group in groups for sid in group}):
+                result.abstain(result.stations[sid],channel,t.time,reason,groups=groups,
+                               climate_policy='Do not assign a failed group or treat this as validated data; seek an independent reference before using cross-boundary changes.')
     return sorted(accepted,key=lambda t:t.time)

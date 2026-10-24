@@ -16,14 +16,19 @@ import random
 import sys
 
 ROOT=Path(__file__).resolve().parents[1]
-sys.path.insert(0,str(ROOT))
-from ridgeline.model import Analysis, Record, Station, CHANNELS
-from ridgeline.basic import basic_checks
-from ridgeline.advanced import pressure_steps, wind_steps, daylight_temperature_drift
-from ridgeline.peers import Peers
+def load_engine(root):
+    global Analysis,Record,Station,CHANNELS,basic_checks,pressure_steps,wind_steps,daylight_temperature_drift,Peers
+    sys.path.insert(0,str(root))
+    from ridgeline.model import Analysis,Record,Station,CHANNELS
+    from ridgeline.basic import basic_checks
+    from ridgeline.advanced import pressure_steps,wind_steps,daylight_temperature_drift
+    from ridgeline.peers import Peers
+
+
+if __name__!='__main__':load_engine(ROOT)
 
 START=datetime(2024,9,1)
-SEEDS={'diagnostic':(8273,9281),'reserved':(10301,11411)}
+SEEDS={'diagnostic':(8273,9282),'reserved':(10301,11412)}
 
 
 def weather(seed,days=18,terrain=False):
@@ -124,7 +129,7 @@ CASES=(
 )
 
 
-def run(split):
+def run(split,engine_root=ROOT):
     rows=[]
     for seed in SEEDS[split]:
         for name,channel,size,onset,duration in CASES:
@@ -170,14 +175,16 @@ def run(split):
     return dict(split=split,seeds=SEEDS[split],scenarios=len(rows),aggregate=aggregate,cases=rows,
                 scope='Different synthetic weather model; still no independent field calibration truth.',
                 benchmark_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-                source_hashes={p.name:hashlib.sha256(p.read_text(encoding='utf-8').encode()).hexdigest() for p in sorted((ROOT/'ridgeline').glob('*.py'))})
+                source_hashes={p.name:hashlib.sha256(p.read_text(encoding='utf-8').encode()).hexdigest() for p in sorted((engine_root/'ridgeline').glob('*.py'))})
 
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--split',choices=SEEDS,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--engine-root',type=Path,default=ROOT,help='Optional separate checkout, for reproducible before/after comparison')
     args=parser.parse_args()
-    data=run(args.split)
+    load_engine(args.engine_root)
+    data=run(args.split,args.engine_root)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n',encoding='utf-8')

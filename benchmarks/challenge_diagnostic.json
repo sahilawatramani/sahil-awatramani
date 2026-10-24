@@ -1,0 +1,2797 @@
+{
+  "split": "diagnostic",
+  "seeds": [
+    8273,
+    9282
+  ],
+  "scenarios": 34,
+  "aggregate": {
+    "healthy_pressure_storms": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23328,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "unresolved_cases": 0
+    },
+    "healthy_wind_exposure": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23328,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "unresolved_cases": 0
+    },
+    "healthy_temperature_coldpool": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23328,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "unresolved_cases": 0
+    },
+    "pressure_12h": {
+      "tp": 108,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23220,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "unresolved_cases": 0
+    },
+    "pressure_gap_open": {
+      "tp": 639,
+      "fp": 0,
+      "fn": 0,
+      "tn": 22671,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "unresolved_cases": 0
+    },
+    "pressure_gap_recovery": {
+      "tp": 639,
+      "fp": 0,
+      "fn": 0,
+      "tn": 22671,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "unresolved_cases": 0
+    },
+    "pressure_at_start": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 324,
+      "tn": 23004,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "unresolved_cases": 2
+    },
+    "pressure_at_end": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 54,
+      "tn": 23274,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "unresolved_cases": 2
+    },
+    "pressure_faulty_majority": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 2592,
+      "tn": 20736,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "unresolved_cases": 2
+    },
+    "pressure_all_common": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 3888,
+      "tn": 19440,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "unresolved_cases": 2
+    },
+    "wind_12h": {
+      "tp": 108,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23220,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "unresolved_cases": 0
+    },
+    "wind_gap_recovery": {
+      "tp": 639,
+      "fp": 0,
+      "fn": 0,
+      "tn": 22671,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "unresolved_cases": 0
+    },
+    "wind_at_start": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 324,
+      "tn": 23004,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "unresolved_cases": 2
+    },
+    "wind_at_end": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 54,
+      "tn": 23274,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "unresolved_cases": 2
+    },
+    "wind_faulty_majority": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 2592,
+      "tn": 20736,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "unresolved_cases": 0
+    },
+    "burst_in_storm": {
+      "tp": 18,
+      "fp": 0,
+      "fn": 0,
+      "tn": 23310,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "unresolved_cases": 0
+    },
+    "drift_with_weather": {
+      "tp": 2256,
+      "fp": 0,
+      "fn": 0,
+      "tn": 52176,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "unresolved_cases": 0
+    }
+  },
+  "cases": [
+    {
+      "case": "healthy_pressure_storms",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15552,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "healthy_wind_exposure",
+      "seed": 8273,
+      "channel": "wind_kmh",
+      "identifiable": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15552,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "healthy_temperature_coldpool",
+      "seed": 8273,
+      "channel": "temp_c",
+      "identifiable": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15552,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "pressure_12h",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 72,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15480,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-08 11:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa against a larger coherent reference group and ends at a corroborated return to the prior residual; exclude without assuming an exact calibration offset."
+        }
+      ]
+    },
+    {
+      "case": "pressure_gap_open",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 426,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15114,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-09-08 01:00",
+          "end_utc": "2024-09-10 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa against a larger coherent reference group and ends at a corroborated return to the prior residual; exclude without assuming an exact calibration offset."
+        }
+      ]
+    },
+    {
+      "case": "pressure_gap_recovery",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 426,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15114,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-11 00:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa against a larger coherent reference group and ends at a corroborated return to the prior residual; exclude without assuming an exact calibration offset."
+        }
+      ]
+    },
+    {
+      "case": "pressure_at_start",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 216,
+      "tn": 15336,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-02 12:00",
+          "reason": "initial regime not established; failure versus recovery is unresolved",
+          "evidence": {
+            "minimum_baseline_hours": 72,
+            "policy": "Do not hold the later regime merely because it differs from a short initial segment."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "pressure_at_end",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 36,
+      "tn": 15516,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-18 18:00",
+          "reason": "insufficient physical-time context to validate an abrupt change",
+          "evidence": {
+            "policy": "No sensor-failure claim or numerical correction; review the boundary with independent evidence."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "pressure_faulty_majority",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1728,
+      "tn": 13824,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q0",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q1",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q3",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "pressure_all_common",
+      "seed": 8273,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 2592,
+      "tn": 12960,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q0",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q1",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q3",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q4",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q5",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q4",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q5",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q4",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q5",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "wind_12h",
+      "seed": 8273,
+      "channel": "wind_kmh",
+      "identifiable": true,
+      "tp": 72,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15480,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-08 11:50",
+          "issue": "wind scale discontinuity",
+          "action": "exclude",
+          "note": "Wind ratio changes by factor 0.32 against a larger coherent reference group and a supported return closes the interval; exclude pending instrument/configuration verification."
+        }
+      ]
+    },
+    {
+      "case": "wind_gap_recovery",
+      "seed": 8273,
+      "channel": "wind_kmh",
+      "identifiable": true,
+      "tp": 426,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15114,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-11 00:50",
+          "issue": "wind scale discontinuity",
+          "action": "exclude",
+          "note": "Wind ratio changes by factor 0.32 against a larger coherent reference group and a supported return closes the interval; exclude pending instrument/configuration verification."
+        }
+      ]
+    },
+    {
+      "case": "wind_at_start",
+      "seed": 8273,
+      "channel": "wind_kmh",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 216,
+      "tn": 15336,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "time_utc": "2024-09-02 12:00",
+          "reason": "initial regime not established; failure versus recovery is unresolved",
+          "evidence": {
+            "minimum_baseline_hours": 72,
+            "policy": "Do not hold the later regime merely because it differs from a short initial segment."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "wind_at_end",
+      "seed": 8273,
+      "channel": "wind_kmh",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 36,
+      "tn": 15516,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "time_utc": "2024-09-18 18:00",
+          "reason": "insufficient physical-time context to validate an abrupt change",
+          "evidence": {
+            "policy": "No sensor-failure claim or numerical correction; review the boundary with independent evidence."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "wind_faulty_majority",
+      "seed": 8273,
+      "channel": "wind_kmh",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1728,
+      "tn": 13824,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q0",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q1",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q3",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "burst_in_storm",
+      "seed": 8273,
+      "channel": "temp_c",
+      "identifiable": true,
+      "tp": 12,
+      "fp": 0,
+      "fn": 0,
+      "tn": 15540,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-05 00:00",
+          "end_utc": "2024-09-05 01:50",
+          "issue": "temperature error burst",
+          "action": "exclude",
+          "note": "Temperature residual jumps +22.1 C for 120 minutes then returns within 3 C of its prior peer-relative level, with clean three-hour context on both sides; exclude this bounded excursion."
+        }
+      ]
+    },
+    {
+      "case": "drift_with_weather",
+      "seed": 8273,
+      "channel": "temp_c",
+      "identifiable": true,
+      "tp": 1501,
+      "fp": 0,
+      "fn": 0,
+      "tn": 34787,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-15 14:40",
+          "end_utc": "2024-09-15 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-16 14:30",
+          "end_utc": "2024-09-16 23:30",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-17 14:30",
+          "end_utc": "2024-09-17 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-18 14:40",
+          "end_utc": "2024-09-18 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-19 14:40",
+          "end_utc": "2024-09-19 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-20 14:40",
+          "end_utc": "2024-09-20 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-21 14:40",
+          "end_utc": "2024-09-21 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-22 14:40",
+          "end_utc": "2024-09-22 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-23 14:40",
+          "end_utc": "2024-09-23 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-24 14:40",
+          "end_utc": "2024-09-24 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-25 14:30",
+          "end_utc": "2024-09-25 23:30",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-26 14:40",
+          "end_utc": "2024-09-26 23:30",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-27 14:40",
+          "end_utc": "2024-09-27 23:30",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-28 14:40",
+          "end_utc": "2024-09-28 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-29 14:30",
+          "end_utc": "2024-09-29 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-30 14:40",
+          "end_utc": "2024-09-30 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-01 14:30",
+          "end_utc": "2024-10-01 23:30",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-02 14:30",
+          "end_utc": "2024-10-02 23:30",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-03 14:40",
+          "end_utc": "2024-10-03 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-04 14:30",
+          "end_utc": "2024-10-04 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-05 14:40",
+          "end_utc": "2024-10-05 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-06 14:30",
+          "end_utc": "2024-10-06 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-07 14:30",
+          "end_utc": "2024-10-07 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-08 14:30",
+          "end_utc": "2024-10-08 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-09 14:40",
+          "end_utc": "2024-10-09 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-10 14:40",
+          "end_utc": "2024-10-10 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-11 14:40",
+          "end_utc": "2024-10-11 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-12 14:40",
+          "end_utc": "2024-10-12 23:30",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from +0.0 to +6.1 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        }
+      ]
+    },
+    {
+      "case": "healthy_pressure_storms",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7776,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "healthy_wind_exposure",
+      "seed": 9282,
+      "channel": "wind_kmh",
+      "identifiable": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7776,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "healthy_temperature_coldpool",
+      "seed": 9282,
+      "channel": "temp_c",
+      "identifiable": true,
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7776,
+      "collateral": 0,
+      "precision": null,
+      "recall": null,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "pressure_12h",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 36,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7740,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-08 11:40",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa against a larger coherent reference group and ends at a corroborated return to the prior residual; exclude without assuming an exact calibration offset."
+        }
+      ]
+    },
+    {
+      "case": "pressure_gap_open",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 213,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7557,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-09-08 01:00",
+          "end_utc": "2024-09-10 23:40",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa against a larger coherent reference group and ends at a corroborated return to the prior residual; exclude without assuming an exact calibration offset."
+        }
+      ]
+    },
+    {
+      "case": "pressure_gap_recovery",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": true,
+      "tp": 213,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7557,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-11 00:40",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa against a larger coherent reference group and ends at a corroborated return to the prior residual; exclude without assuming an exact calibration offset."
+        }
+      ]
+    },
+    {
+      "case": "pressure_at_start",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 108,
+      "tn": 7668,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-02 12:00",
+          "reason": "initial regime not established; failure versus recovery is unresolved",
+          "evidence": {
+            "minimum_baseline_hours": 72,
+            "policy": "Do not hold the later regime merely because it differs from a short initial segment."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "pressure_at_end",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 18,
+      "tn": 7758,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-18 18:00",
+          "reason": "insufficient physical-time context to validate an abrupt change",
+          "evidence": {
+            "policy": "No sensor-failure claim or numerical correction; review the boundary with independent evidence."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "pressure_faulty_majority",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 864,
+      "tn": 6912,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q0",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q1",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q3",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "pressure_all_common",
+      "seed": 9282,
+      "channel": "pressure_hpa",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1296,
+      "tn": 6480,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q0",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q1",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q3",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q4",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q5",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q4",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q5",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-08 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q0",
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q4",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        },
+        {
+          "station_id": "Q5",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-09-11 00:00",
+          "reason": "coincident large pressure changes lack an independent stable anchor",
+          "evidence": {
+            "changed_stations": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ],
+            "policy": "Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "wind_12h",
+      "seed": 9282,
+      "channel": "wind_kmh",
+      "identifiable": true,
+      "tp": 36,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7740,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-08 11:40",
+          "issue": "wind scale discontinuity",
+          "action": "exclude",
+          "note": "Wind ratio changes by factor 0.32 against a larger coherent reference group and a supported return closes the interval; exclude pending instrument/configuration verification."
+        }
+      ]
+    },
+    {
+      "case": "wind_gap_recovery",
+      "seed": 9282,
+      "channel": "wind_kmh",
+      "identifiable": true,
+      "tp": 213,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7557,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "start_utc": "2024-09-08 00:00",
+          "end_utc": "2024-09-11 00:40",
+          "issue": "wind scale discontinuity",
+          "action": "exclude",
+          "note": "Wind ratio changes by factor 0.32 against a larger coherent reference group and a supported return closes the interval; exclude pending instrument/configuration verification."
+        }
+      ]
+    },
+    {
+      "case": "wind_at_start",
+      "seed": 9282,
+      "channel": "wind_kmh",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 108,
+      "tn": 7668,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "time_utc": "2024-09-02 12:00",
+          "reason": "initial regime not established; failure versus recovery is unresolved",
+          "evidence": {
+            "minimum_baseline_hours": 72,
+            "policy": "Do not hold the later regime merely because it differs from a short initial segment."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "wind_at_end",
+      "seed": 9282,
+      "channel": "wind_kmh",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 18,
+      "tn": 7758,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [
+        {
+          "station_id": "Q2",
+          "channel": "wind_kmh",
+          "time_utc": "2024-09-18 18:00",
+          "reason": "insufficient physical-time context to validate an abrupt change",
+          "evidence": {
+            "policy": "No sensor-failure claim or numerical correction; review the boundary with independent evidence."
+          }
+        }
+      ],
+      "flags": []
+    },
+    {
+      "case": "wind_faulty_majority",
+      "seed": 9282,
+      "channel": "wind_kmh",
+      "identifiable": false,
+      "tp": 0,
+      "fp": 0,
+      "fn": 864,
+      "tn": 6912,
+      "collateral": 0,
+      "precision": null,
+      "recall": 0.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q0",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q1",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q2",
+          "detected": false,
+          "iou": 0
+        },
+        {
+          "station": "Q3",
+          "detected": false,
+          "iou": 0
+        }
+      ],
+      "unresolved": [],
+      "flags": []
+    },
+    {
+      "case": "burst_in_storm",
+      "seed": 9282,
+      "channel": "temp_c",
+      "identifiable": true,
+      "tp": 6,
+      "fp": 0,
+      "fn": 0,
+      "tn": 7770,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-05 00:00",
+          "end_utc": "2024-09-05 01:40",
+          "issue": "temperature error burst",
+          "action": "exclude",
+          "note": "Temperature residual jumps +22.0 C for 120 minutes then returns within 3 C of its prior peer-relative level, with clean three-hour context on both sides; exclude this bounded excursion."
+        }
+      ]
+    },
+    {
+      "case": "drift_with_weather",
+      "seed": 9282,
+      "channel": "temp_c",
+      "identifiable": true,
+      "tp": 755,
+      "fp": 0,
+      "fn": 0,
+      "tn": 17389,
+      "collateral": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "false_exclusions_per_1000_healthy": 0.0,
+      "events": [
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        },
+        {
+          "station": "Q2",
+          "detected": true,
+          "iou": 1.0,
+          "onset_error_minutes": 0.0,
+          "end_error_minutes": 0.0
+        }
+      ],
+      "unresolved": [],
+      "flags": [
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-15 14:40",
+          "end_utc": "2024-09-15 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-16 14:40",
+          "end_utc": "2024-09-16 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-17 14:40",
+          "end_utc": "2024-09-17 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-18 14:40",
+          "end_utc": "2024-09-18 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-19 14:40",
+          "end_utc": "2024-09-19 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-20 14:40",
+          "end_utc": "2024-09-20 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-21 14:40",
+          "end_utc": "2024-09-21 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-22 14:40",
+          "end_utc": "2024-09-22 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-23 14:40",
+          "end_utc": "2024-09-23 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-24 14:40",
+          "end_utc": "2024-09-24 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-25 14:40",
+          "end_utc": "2024-09-25 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-26 14:40",
+          "end_utc": "2024-09-26 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-27 14:40",
+          "end_utc": "2024-09-27 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-28 14:40",
+          "end_utc": "2024-09-28 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-29 14:40",
+          "end_utc": "2024-09-29 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-09-30 15:00",
+          "end_utc": "2024-09-30 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-01 14:40",
+          "end_utc": "2024-10-01 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-02 14:40",
+          "end_utc": "2024-10-02 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-03 14:40",
+          "end_utc": "2024-10-03 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-04 14:40",
+          "end_utc": "2024-10-04 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-05 14:40",
+          "end_utc": "2024-10-05 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-06 14:40",
+          "end_utc": "2024-10-06 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-07 14:40",
+          "end_utc": "2024-10-07 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-08 14:40",
+          "end_utc": "2024-10-08 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-09 14:40",
+          "end_utc": "2024-10-09 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-10 14:40",
+          "end_utc": "2024-10-10 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-11 14:40",
+          "end_utc": "2024-10-11 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        },
+        {
+          "station_id": "Q2",
+          "channel": "temp_c",
+          "start_utc": "2024-10-12 14:40",
+          "end_utc": "2024-10-12 23:20",
+          "issue": "sunlight-dependent temperature drift",
+          "action": "exclude",
+          "note": "Sunny residual rises from -0.1 to +6.3 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction."
+        }
+      ]
+    }
+  ],
+  "scope": "Different synthetic weather model; still no independent field calibration truth.",
+  "benchmark_sha256": "96f9d45b259348dee4605f91c682fc6ece14aa6e8e289d177201ed57ac530da6",
+  "source_hashes": {
+    "__init__.py": "e62c2429425c51d56d5945d0a63d003bc1400218b821a16a9406f64dff1f362a",
+    "advanced.py": "32415782b729d8a5182c1f6a74f6fb5c56df9b8ad92472b51ca57eda60915f39",
+    "analyze.py": "a5083e802bd1dbb3685762d9173ea14f68c5a02228534a7f97291aaa931d3a78",
+    "basic.py": "0a1803b58ea1594fa6f54b6af9f49965ac5fdee14cf3e14f7de26d51c6c060e3",
+    "cli.py": "75c63f1e0ccf65b325ffeff622cb74a8d1c09e8fcf526d2aab3c01a118f07e1e",
+    "config.py": "114fb72ee1dd6af6ecde601eacd16a89f4c68b11dfd48535c358dbbc4186e915",
+    "gps.py": "64981b754c98fe6479545a23cb7820a6a93686a825d55570c5eb2512ff664afa",
+    "incidents.py": "0cb07537e6fb267259e48e9776953bef08e40f70598c49333d246c25fe3494f4",
+    "integrity.py": "9c3ea8c785a1ff14f5aab7e2631ec0ce77cca8a43f96abcc0effc3a7f4e0ff60",
+    "load.py": "7adf06367d5fc61dedabed3451131b526328139d8652c3e502df65617250d71b",
+    "model.py": "1c442267d5487782f2d3735546e00f7ff5c81677cf713c21ba0cea99df13ea15",
+    "output.py": "4dbbb6dd17bda5769056e9c4b43cd3da48cd9fd3e3757701d7b0487b4b46c7f3",
+    "peers.py": "69656b90dc469bd51c6ee5087f420f07761f623ba242fc1c9ffe600c2150c0a9",
+    "report.py": "e6d5553e48cd8f7720cf0b85d01ba68b6f7dbf8800e6c443ae95ba93acc104e9",
+    "temperature_validation.py": "def659f419778cc31e3fdbfa33064858f9d32047c6c69960acd27e792cd243c5"
+  }
+}

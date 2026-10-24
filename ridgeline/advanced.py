@@ -1,7 +1,6 @@
 """Conservative peer-supported incident detection; all thresholds documented."""
 from __future__ import annotations
 from collections import defaultdict
-from bisect import bisect_left
 from datetime import datetime, timedelta
 import math
 from .model import Analysis, correlation, mad, med, runs, stamp
@@ -28,6 +27,24 @@ def pressure_steps(result: Analysis, peers) -> None:
                 result.add(station,'pressure_hpa',incident.start,incident.end,'pressure calibration step','exclude',
                            f"Target-minus-peer pressure shifts {incident.level_change:+.1f} hPa against a larger coherent reference group and {recovery}; exclude without assuming an exact calibration offset.",
                            **evidence)
+    # A large simultaneous raw change cannot be resolved by a faulty majority
+    # or an all-common reference network. Surface it without blaming unchanged
+    # stations or asserting whether the cause is hardware or regional weather.
+    shared=defaultdict(dict)
+    for station in result.stations.values():
+        records=sorted(station.index().values(),key=lambda r:r.time)
+        for a,b in zip(records,records[1:]):
+            change=b.value('pressure_hpa')-a.value('pressure_hpa')
+            if b.time-a.time==station.step and math.isfinite(change) and abs(change)>=cfg.pressure_shift_hpa:
+                shared[b.time][station.id]=change
+    for time,changes in shared.items():
+        for sid,change in changes.items():
+            station=result.stations[sid]
+            local={sid}|{s.id for s in peers.select(station)}
+            aligned=sorted(other for other in local&changes.keys() if changes[other]*change>0)
+            if len(aligned)>=3:
+                result.abstain(station,'pressure_hpa',time,'coincident large pressure changes lack an independent stable anchor',
+                               changed_stations=aligned,policy='Regional weather and correlated sensor changes are unresolved; do not infer a calibration correction from agreement.')
 
 
 def long_wind_profile(station, peers, omit=None):
@@ -76,10 +93,10 @@ def long_wind_profile(station, peers, omit=None):
             'loss_reduction':round(1-loss/baseline_loss,3)}
 
 
-def wind_profile(station, peers, omit=None):
+def wind_profile(station, peers, omit=None, result=None):
     """Multiple sustained scale changes; short middle episodes need no 7-day split."""
     from .config import DEFAULTS as cfg
-    from .incidents import abrupt_transitions, build_incidents, reference_group, Transition
+    from .incidents import abrupt_transitions, build_incidents, reference_group, Transition, own_change
     records=sorted(station.index().values(),key=lambda r:r.time)
     hourly=defaultdict(list); raw=[]
     for r in records:
@@ -92,7 +109,7 @@ def wind_profile(station, peers, omit=None):
     if len(points)<48:return None
     times=[t for t,v in points]; values=[v for t,v in points]
     transitions=abrupt_transitions(station,peers,'wind_kmh',times,values,
-                                  cfg.wind_window_hours,cfg.wind_log_shift,.25,.055,True,omit)
+                                  cfg.wind_window_hours,cfg.wind_log_shift,.25,.055,True,omit,result)
     # Short-event claims need a stable proportional relationship before entry.
     # Highly variable terrain/exposure ratios need the longer-regime evidence.
     transitions=[t for t in transitions if mad([v for tt,v in points
@@ -102,7 +119,10 @@ def wind_profile(station, peers, omit=None):
     long_fit=long_wind_profile(station,peers,omit)
     if long_fit and not any(abs(t.time-long_fit['onset'])<=timedelta(days=3) for t in transitions):
         support,reason,groups=reference_group(station,peers,'wind_kmh',long_fit['onset'],72,True,omit)
-        if support:
+        # No independent target change means a reference cohort may have moved.
+        # For noisy wind accept an aligned step within the hourly uncertainty.
+        own_candidates=[own_change(station,'wind_kmh',long_fit['onset']+timedelta(hours=h-1),long_fit['onset']+timedelta(hours=h),True) for h in range(-3,4)]
+        if support and any(math.isfinite(v) and abs(v)>=.25 and v*math.log(long_fit['ratio_factor'])>0 for v in own_candidates):
             before=[v for t,v in points if long_fit['onset']-timedelta(days=3)<=t<long_fit['onset']]
             after=[v for t,v in points if long_fit['onset']<=t<long_fit['onset']+timedelta(days=3)]
             transitions.append(Transition(long_fit['onset'],med(before),med(after),max(.055,mad(before)),support))
@@ -113,6 +133,7 @@ def wind_profile(station, peers, omit=None):
         if candidates:
             transition.time=min(candidates,key=lambda boundary:(
                 sum(abs(v-(transition.left if t<boundary else transition.right)) for t,v in nearby),boundary))
+        transition.previous_observation=max((t for t,v in raw if t<transition.time and math.isfinite(v)),default=None)
     incidents=build_incidents(transitions,station,.22)
     if not incidents:return None
     dominant=max(incidents,key=lambda i:abs(i.level_change))
@@ -139,7 +160,7 @@ def omission_check(station, peers, profile, initial):
 def wind_steps(result: Analysis, peers) -> None:
     with result.stage():
         for station in result.stations.values():
-            fit=wind_profile(station,peers)
+            fit=wind_profile(station,peers,result=result)
             if not fit:continue
             sensitivity=omission_check(station,peers,wind_profile,fit)
             for incident in fit['incidents']:
