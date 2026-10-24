@@ -60,6 +60,8 @@ The supplied pack credits ERA5 reanalysis (Copernicus Climate Change Service), v
 
 ## Validation
 
+An independent [engineering review](ENGINEERING_REVIEW.md) has exposed unresolved generalization failures, including recovered pressure faults, temporary wind faults, temperature bursts and shared-reference contamination. The passing regression suite is not a measured accuracy score. Reproduce the diagnostic baseline with `python benchmarks/review_cases.py --output tmp/review_results.json`.
+
 ```sh
 python -m unittest discover -s tests -v
 ```

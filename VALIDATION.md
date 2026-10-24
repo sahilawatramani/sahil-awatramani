@@ -2,6 +2,8 @@
 
 Development verification on 24 October 2026, Python 3.13.12 on Windows. This records observed checks, not a claim about the unseen evaluation pack.
 
+**New engineering-review finding:** passing the 33 regression tests did not establish detection accuracy. Five independent counterexample/control scenarios exposed pressure over-exclusion after recovery, missed temporary wind faults, missed temperature bursts and shared-reference contamination. These require remediation before calling the engine fully validated. See [ENGINEERING_REVIEW.md](ENGINEERING_REVIEW.md) and the saved [baseline](benchmarks/baseline_review.json).
+
 | Check | Result |
 |---|---|
 | Synthetic regression suite | 33 tests pass; `python -m unittest discover -s tests -v` |

@@ -1,0 +1,120 @@
+{
+  "engine_commit": "dd05bd7084b5fe1151fabeee82110b6bcf4645fe",
+  "stations": 4,
+  "cadence_minutes": 10,
+  "duration_days": 42,
+  "scope": "targeted synthetic counterexamples, not field accuracy",
+  "cases": [
+    {
+      "case": "five_day_pressure_fault_then_recovery",
+      "channel": "pressure_hpa",
+      "tp": 720,
+      "fp": 3600,
+      "fn": 0,
+      "tn": 19872,
+      "precision": 0.16666666666666666,
+      "recall": 1.0,
+      "flags": [
+        {
+          "station_id": "Z0",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-06-13 00:00",
+          "end_utc": "2024-07-12 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa across this boundary with 3 agreeing peers; exclude pending calibration rather than assume an exact offset."
+        },
+        {
+          "station_id": "Z0",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-06-18 00:00",
+          "end_utc": "2024-07-12 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts -7.0 hPa across this boundary with 3 agreeing peers; exclude pending calibration rather than assume an exact offset."
+        }
+      ]
+    },
+    {
+      "case": "three_day_wind_scale_fault_then_recovery",
+      "channel": "wind_kmh",
+      "tp": 0,
+      "fp": 0,
+      "fn": 432,
+      "tn": 23760,
+      "precision": null,
+      "recall": 0.0,
+      "flags": []
+    },
+    {
+      "case": "two_hour_temperature_error_burst",
+      "channel": "temp_c",
+      "tp": 0,
+      "fp": 0,
+      "fn": 12,
+      "tn": 24180,
+      "precision": null,
+      "recall": 0.0,
+      "flags": []
+    },
+    {
+      "case": "two_of_four_pressure_boards_shift_together",
+      "channel": "pressure_hpa",
+      "tp": 8640,
+      "fp": 8640,
+      "fn": 0,
+      "tn": 6912,
+      "precision": 0.5,
+      "recall": 1.0,
+      "flags": [
+        {
+          "station_id": "Z0",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-06-13 00:00",
+          "end_utc": "2024-07-12 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts -7.0 hPa across this boundary with 2 agreeing peers; exclude pending calibration rather than assume an exact offset."
+        },
+        {
+          "station_id": "Z1",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-06-13 00:00",
+          "end_utc": "2024-07-12 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa across this boundary with 2 agreeing peers; exclude pending calibration rather than assume an exact offset."
+        },
+        {
+          "station_id": "Z2",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-06-13 00:00",
+          "end_utc": "2024-07-12 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts +7.0 hPa across this boundary with 2 agreeing peers; exclude pending calibration rather than assume an exact offset."
+        },
+        {
+          "station_id": "Z3",
+          "channel": "pressure_hpa",
+          "start_utc": "2024-06-13 00:00",
+          "end_utc": "2024-07-12 23:50",
+          "issue": "pressure calibration step",
+          "action": "exclude",
+          "note": "Target-minus-peer pressure shifts -7.0 hPa across this boundary with 2 agreeing peers; exclude pending calibration rather than assume an exact offset."
+        }
+      ]
+    },
+    {
+      "case": "real_regional_temperature_change",
+      "channel": "temp_c",
+      "tp": 0,
+      "fp": 0,
+      "fn": 0,
+      "tn": 24192,
+      "precision": null,
+      "recall": null,
+      "flags": []
+    }
+  ]
+}
