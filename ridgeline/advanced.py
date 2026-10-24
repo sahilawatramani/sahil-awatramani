@@ -8,49 +8,29 @@ from .model import Analysis, correlation, mad, med, runs, stamp
 
 
 def pressure_steps(result: Analysis, peers) -> None:
-    candidates = []
-    for station in result.stations.values():
-        records = sorted(station.index().values(), key=lambda r: r.time)
-        times = [r.time for r in records]
-        residuals = [peers.pressure_residual(station, r) for r in records]
-        for i in range(1, len(records)):
-            if records[i].time - records[i-1].time != station.step:
-                continue
-            jump = residuals[i] - residuals[i-1]
-            if not math.isfinite(jump) or abs(jump) < 2.5:
-                continue
-            lower = bisect_left(times, records[i].time-timedelta(hours=48))
-            upper = bisect_left(times, records[i].time+timedelta(hours=48))
-            before = [v for v in residuals[lower:i] if math.isfinite(v)]
-            after = [v for v in residuals[i:upper] if math.isfinite(v)]
-            if min(len(before), len(after)) < 1440 / station.interval:
-                continue
-            delta = med(after) - med(before)
-            noise = max(.2, 1.4826 * med([mad(before), mad(after)]))
-            if abs(delta) < max(4, 6 * noise) or jump * delta <= 0:
-                continue
-            # Real regional pressure changes should appear in peers too.
-            corroboration = []
-            for peer in peers.select(station):
-                index = peers.indices[peer.id]
-                a = [r.value('pressure_hpa') - index[r.time].value('pressure_hpa') for r in records[lower:i] if r.time in index]
-                b = [r.value('pressure_hpa') - index[r.time].value('pressure_hpa') for r in records[i:upper] if r.time in index]
-                change = med(b) - med(a)
-                if math.isfinite(change) and change * delta > 0 and abs(change) > 3:
-                    corroboration.append(peer.id)
-            if len(corroboration) >= 2:
-                candidates.append((abs(delta), station, records[i], delta, corroboration))
-    accepted = defaultdict(list)
-    for _, station, record, delta, support in sorted(candidates, key=lambda x: (-x[0], x[1].id, x[2].time)):
-        if any(abs(record.time - t) < timedelta(days=3) for t in accepted[station.id]):
-            continue
-        accepted[station.id].append(record.time)
-        result.add(station, 'pressure_hpa', record.time, station.bounds[1], 'pressure calibration step', 'exclude',
-                   f"Target-minus-peer pressure shifts {delta:+.1f} hPa across this boundary with {len(support)} agreeing peers; exclude pending calibration rather than assume an exact offset.",
-                   peer_change_hpa=round(delta,3), peers=support, onset_method='adjacent jump plus 48-hour residual windows')
+    """Detect abrupt sustained pressure offsets, including a supported recovery."""
+    from .config import DEFAULTS as cfg
+    from .incidents import abrupt_transitions, build_incidents
+    with result.stage():
+        for station in result.stations.values():
+            records=sorted(station.index().values(),key=lambda r:r.time)
+            times=[r.time for r in records]
+            values=[peers.pressure_residual(station,r) for r in records]
+            transitions=abrupt_transitions(station,peers,'pressure_hpa',times,values,
+                                          cfg.pressure_window_hours,cfg.pressure_shift_hpa,
+                                          cfg.pressure_jump_hpa,.15,result=result)
+            for incident in build_incidents(transitions,station,1.5):
+                evidence=incident.evidence(station)
+                evidence.update(peer_change_hpa=round(incident.level_change,3),
+                                peers=incident.transitions[0].support,
+                                onset_method='adjacent discontinuity, 12-hour residual windows and pairwise reference groups')
+                recovery='ends at a corroborated return to the prior residual' if incident.recovered else 'continues to pack end without observed recovery'
+                result.add(station,'pressure_hpa',incident.start,incident.end,'pressure calibration step','exclude',
+                           f"Target-minus-peer pressure shifts {incident.level_change:+.1f} hPa against a larger coherent reference group and {recovery}; exclude without assuming an exact calibration offset.",
+                           **evidence)
 
 
-def wind_profile(station, peers, omit=None):
+def long_wind_profile(station, peers, omit=None):
     """Fit without mutating masks, so reference omissions share one baseline."""
     records = sorted(station.index().values(), key=lambda r: r.time)
     hourly = defaultdict(list)
@@ -96,6 +76,50 @@ def wind_profile(station, peers, omit=None):
             'loss_reduction':round(1-loss/baseline_loss,3)}
 
 
+def wind_profile(station, peers, omit=None):
+    """Multiple sustained scale changes; short middle episodes need no 7-day split."""
+    from .config import DEFAULTS as cfg
+    from .incidents import abrupt_transitions, build_incidents, reference_group, Transition
+    records=sorted(station.index().values(),key=lambda r:r.time)
+    hourly=defaultdict(list); raw=[]
+    for r in records:
+        reference=med(peers.values(station,r,'wind_kmh',omit=omit))
+        value=r.value('wind_kmh')
+        ratio=math.log((value+.5)/(reference+.5)) if math.isfinite(value) and value>=0 and reference>=1 else math.nan
+        raw.append((r.time,ratio))
+        if math.isfinite(ratio):hourly[r.time.replace(minute=0,second=0,microsecond=0)].append(ratio)
+    points=sorted((t,med(v)) for t,v in hourly.items() if len(v)>=max(1,30/station.interval))
+    if len(points)<48:return None
+    times=[t for t,v in points]; values=[v for t,v in points]
+    transitions=abrupt_transitions(station,peers,'wind_kmh',times,values,
+                                  cfg.wind_window_hours,cfg.wind_log_shift,.25,.055,True,omit)
+    # Short-event claims need a stable proportional relationship before entry.
+    # Highly variable terrain/exposure ratios need the longer-regime evidence.
+    transitions=[t for t in transitions if mad([v for tt,v in points
+                    if t.time-timedelta(days=3)<=tt<t.time])<=.15]
+    # A second time scale retains sensitivity when hourly local wind is noisy.
+    # It is corroborated against pairwise 72-hour reference changes before use.
+    long_fit=long_wind_profile(station,peers,omit)
+    if long_fit and not any(abs(t.time-long_fit['onset'])<=timedelta(days=3) for t in transitions):
+        support,reason,groups=reference_group(station,peers,'wind_kmh',long_fit['onset'],72,True,omit)
+        if support:
+            before=[v for t,v in points if long_fit['onset']-timedelta(days=3)<=t<long_fit['onset']]
+            after=[v for t,v in points if long_fit['onset']<=t<long_fit['onset']+timedelta(days=3)]
+            transitions.append(Transition(long_fit['onset'],med(before),med(after),max(.055,mad(before)),support))
+    # Hourly screening, then raw-cadence boundary refinement using clean levels.
+    for transition in transitions:
+        nearby=[(t,v) for t,v in raw if abs(t-transition.time)<=timedelta(hours=3) and math.isfinite(v)]
+        candidates=[t for t,v in nearby if abs(t-transition.time)<=timedelta(hours=1)]
+        if candidates:
+            transition.time=min(candidates,key=lambda boundary:(
+                sum(abs(v-(transition.left if t<boundary else transition.right)) for t,v in nearby),boundary))
+    incidents=build_incidents(transitions,station,.22)
+    if not incidents:return None
+    dominant=max(incidents,key=lambda i:abs(i.level_change))
+    return dict(onset=dominant.start,ratio_factor=round(math.exp(dominant.level_change),3),
+                incidents=incidents,points=[dict(time_utc=stamp(t),log_ratio=round(v,4)) for t,v in points])
+
+
 def omission_check(station, peers, profile, initial):
     """Empirical sensitivity, not a statistical confidence interval."""
     checks=[]
@@ -113,27 +137,31 @@ def omission_check(station, peers, profile, initial):
 
 
 def wind_steps(result: Analysis, peers) -> None:
-    pending=[]
-    for station in result.stations.values():
-        fit=wind_profile(station,peers)
-        if not fit:
-            continue
-        sensitivity=omission_check(station,peers,wind_profile,fit)
-        # Conservatively hold from the earliest tested boundary; do not invent
-        # minute-level onset precision from an hourly estimator.
-        onset=datetime.fromisoformat(sensitivity['tested_onset_start'])
-        evidence={k:v for k,v in fit.items() if k!='onset'}
-        evidence.update(sensitivity)
-        evidence.update(nominal_onset=stamp(fit['onset']),peers=[s.id for s in peers.select(station)])
-        pending.append((station,onset,evidence))
-    for station,onset,evidence in pending:
-        if evidence['omission_tests']:
-            boundary=f"hold from the earliest tested onset ({evidence['tested_onset_start']} to {evidence['tested_onset_end']} across reference choices)"
-        else:
-            boundary='hold from the hourly model onset, with reference sensitivity untested because fewer than three peers are available'
-        result.add(station, 'wind_kmh', onset, station.bounds[1], 'wind scale discontinuity', 'exclude',
-                   f"Wind ratio changes by factor {evidence['ratio_factor']:.2f}; {boundary}, with no known calibration factor.",
-                   'medium', **evidence)
+    with result.stage():
+        for station in result.stations.values():
+            fit=wind_profile(station,peers)
+            if not fit:continue
+            sensitivity=omission_check(station,peers,wind_profile,fit)
+            for incident in fit['incidents']:
+                evidence=incident.evidence(station)
+                evidence.update(sensitivity)
+                evidence.update(ratio_factor=round(math.exp(incident.level_change),3),
+                                nominal_onset=stamp(incident.start),peers=incident.transitions[0].support,
+                                hourly_points=fit['points'])
+                # Match nearby opening boundaries only; a different incident's
+                # dominant split must not extend this bounded event.
+                evidence['tested_onset_start']=stamp(min([incident.start]+[
+                    datetime.fromisoformat(c['onset']) for c in sensitivity['peer_omissions'] if c['detected']
+                    and abs(datetime.fromisoformat(c['onset'])-incident.start)<=timedelta(hours=12)]))
+                status='a supported return closes the interval' if incident.recovered else 'no recovery is observed before pack end'
+                sensitivity_note='' if sensitivity['omission_tests'] else ', with reference sensitivity untested because fewer than three peers are available'
+                onset=datetime.fromisoformat(evidence['tested_onset_start'])
+                evidence['nominal_source_row_start']=evidence['source_row_start']
+                evidence['source_row_start']=min(r.row for r in station.records if onset<=r.time<=incident.end and not r.removed)
+                evidence['boundary_policy']='hold from earliest nearby reference-tested onset; nominal cadence refinement is not a known physical onset'
+                result.add(station,'wind_kmh',onset,incident.end,'wind scale discontinuity','exclude',
+                           f"Wind ratio changes by factor {evidence['ratio_factor']:.2f} against a larger coherent reference group and {status}{sensitivity_note}; exclude pending instrument/configuration verification.",
+                           'medium',**evidence)
 
 
 def temperature_profile(station, peers, omit=None):
@@ -177,11 +205,14 @@ def temperature_profile(station, peers, omit=None):
 
 
 def daylight_temperature_drift(result: Analysis, peers) -> None:
+    from .temperature_validation import matched_validation
     pending=[]
     for station in result.stations.values():
         fit=temperature_profile(station,peers)
         if fit:
             sensitivity=omission_check(station,peers,temperature_profile,fit)
+            fit['matched_time_block_validation']=matched_validation(station,peers)
+            fit['climate_policy']='Hold GHI>100 windows from the full-model onset as a precaution; early held samples may be valid; retained nights do not support complete daily means.'
             pending.append((station,fit,sensitivity))
     # Commit masks after every station is fitted, avoiding inventory-order effects.
     for station,fit,sensitivity in pending:

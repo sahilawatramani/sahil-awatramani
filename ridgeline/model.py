@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from statistics import median
 from typing import Iterable
+from contextlib import contextmanager
 import math
 
 CHANNELS = ("temp_c", "rh_pct", "pressure_hpa", "wind_kmh", "wind_dir_deg", "rain_mm", "ghi_wm2")
@@ -114,17 +115,44 @@ class Analysis:
     stations: dict[str, Station]
     flags: list[Flag] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    unresolved: list[dict] = field(default_factory=list)
+    _defer_masks: bool = field(default=False, repr=False)
 
     def add(self, station: Station, channel: str, start: datetime, end: datetime,
             issue: str, action: str, note: str, confidence: str = "high", **evidence) -> Flag:
         flag = Flag(station.id, channel, start, end, issue, action, note, confidence, evidence)
         self.flags.append(flag)
-        if action == "exclude" and channel != "metadata":
-            channels = CHANNELS if channel == "all" else (channel,)
-            for record in station.records:
-                if start <= record.time <= end:
-                    record.excluded.update(channels)
+        if not self._defer_masks:
+            self.apply(flag)
         return flag
+
+    def apply(self, flag: Flag) -> None:
+        """Adjudication is separate from detection; raw values never change."""
+        if flag.action == "exclude" and flag.channel != "metadata":
+            channels = CHANNELS if flag.channel == "all" else (flag.channel,)
+            for record in self.stations[flag.station_id].records:
+                if flag.start <= record.time <= flag.end:
+                    record.excluded.update(channels)
+
+    @contextmanager
+    def stage(self):
+        """All candidates in a stage see the same prior quality masks."""
+        start, previous = len(self.flags), self._defer_masks
+        self._defer_masks = True
+        try:
+            yield
+        finally:
+            self._defer_masks = previous
+        if not previous:
+            for flag in self.flags[start:]:
+                self.apply(flag)
+
+    def abstain(self, station, channel, time, reason, **evidence):
+        """Unresolved is not CSV 'keep': no claim that an oddity is real."""
+        if not any(u['station_id']==station.id and u['channel']==channel and
+                   u['time_utc']==stamp(time) for u in self.unresolved):
+            self.unresolved.append(dict(station_id=station.id,channel=channel,
+                                        time_utc=stamp(time),reason=reason,evidence=evidence))
 
 
 def network_bounds(result: Analysis) -> tuple[datetime, datetime]:

@@ -21,17 +21,21 @@ def load_pack(root: Path) -> Analysis:
             raise ValueError("stations.csv is missing required columns")
         for row in reader:
             sid = row['station_id']
-            if not sid or Path(sid).name != sid or sid in result.stations:
+            if not sid or not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*',sid) or sid in result.stations:
                 raise ValueError(f"Invalid or duplicate station ID: {sid!r}")
+            if not row.get('name'):
+                raise ValueError(f"Missing station name for {sid}")
             try:
                 station = Station(sid, row['name'], float(row['lat']), float(row['lon']),
                                   float(row['elevation_m']), int(row['logger_interval_min']),
                                   datetime.fromisoformat(row['installed']))
-            except ValueError as error:
+            except (ValueError,TypeError) as error:
                 raise ValueError(f"Invalid inventory for {sid}: {error}") from error
             if not (-90 <= station.lat <= 90 and -180 <= station.lon <= 180 and
                     math.isfinite(station.elevation) and 0 < station.interval <= 1440):
                 raise ValueError(f"Invalid location or cadence for {sid}")
+            if station.installed.tzinfo is not None:
+                raise ValueError(f"Invalid installed timestamp for {sid}: expected naive UTC")
             result.stations[sid] = station
     if not result.stations:
         raise ValueError("No stations in inventory")

@@ -9,3 +9,4 @@ ridgeline_data_pack*/
 *.nmea
 .pytest_cache/
 preview.pdf
+.ridgeline-*/

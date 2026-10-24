@@ -36,6 +36,7 @@ def measure(name, result, channel, truth, detector):
     return {'case': name, 'channel': channel, 'tp': tp, 'fp': fp, 'fn': fn, 'tn': tn,
             'precision': tp/(tp+fp) if tp+fp else None,
             'recall': tp/(tp+fn) if tp+fn else None,
+            'unresolved_checks':result.unresolved,
             'flags': [f.as_row() for f in result.flags]}
 
 
