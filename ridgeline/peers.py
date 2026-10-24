@@ -10,8 +10,12 @@ class Peers:
         self.indices = {sid: s.index() for sid, s in result.stations.items()}
         self.disputed = {f.station_id for f in result.flags if f.issue == "location mismatch"}
         self.offsets = {}
+        self.selections = {}
 
     def select(self, station: Station, elevation_limit: float = 700, count: int = 4) -> list[Station]:
+        key = station.id, elevation_limit, count
+        if key in self.selections:
+            return self.selections[key]
         choices = []
         for other in self.result.stations.values():
             if other.id == station.id or other.id in self.disputed or not other.records:
@@ -20,11 +24,14 @@ class Peers:
             elevation = abs(station.elevation - other.elevation)
             if km <= 180 and elevation <= elevation_limit:
                 choices.append((km + elevation / 50, other.id, other))
-        return [item[2] for item in sorted(choices)[:count]]
+        self.selections[key] = [item[2] for item in sorted(choices)[:count]]
+        return self.selections[key]
 
-    def values(self, station: Station, record: Record, channel: str, minimum: int = 2) -> list[float]:
+    def values(self, station: Station, record: Record, channel: str, minimum: int = 2, omit: str | None = None) -> list[float]:
         vals = []
         for peer in self.select(station):
+            if peer.id == omit:
+                continue
             other = self.indices[peer.id].get(record.time)
             if other:
                 value = other.value(channel)
@@ -32,8 +39,8 @@ class Peers:
                     vals.append(value)
         return vals if len(vals) >= minimum else []
 
-    def residual(self, station: Station, record: Record, channel: str) -> float:
-        vals = self.values(station, record, channel)
+    def residual(self, station: Station, record: Record, channel: str, omit: str | None = None) -> float:
+        vals = self.values(station, record, channel, omit=omit)
         value = record.value(channel)
         return value - med(vals) if vals and math.isfinite(value) else math.nan
 

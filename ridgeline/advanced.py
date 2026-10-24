@@ -50,100 +50,149 @@ def pressure_steps(result: Analysis, peers) -> None:
                    peer_change_hpa=round(delta,3), peers=support, onset_method='adjacent jump plus 48-hour residual windows')
 
 
+def wind_profile(station, peers, omit=None):
+    """Fit without mutating masks, so reference omissions share one baseline."""
+    records = sorted(station.index().values(), key=lambda r: r.time)
+    hourly = defaultdict(list)
+    for r in records:
+        reference = med(peers.values(station, r, 'wind_kmh', omit=omit))
+        value = r.value('wind_kmh')
+        if math.isfinite(value) and reference >= 5 and value >= 0:
+            hourly[r.time.replace(minute=0)].append(math.log((value + .5) / (reference + .5)))
+    points = sorted((t, med(v)) for t,v in hourly.items() if len(v) >= max(1, 20/station.interval))
+    if len(points) < 24 * 14:
+        return None
+    daily = defaultdict(list)
+    for t,v in points:
+        daily[t.date()].append(v)
+    days = sorted((d, med(v)) for d,v in daily.items() if len(v) >= 6)
+    if len(days) < 21:
+        return None
+    middle = med(v for _,v in days)
+    baseline_loss = sum(abs(v-middle) for _,v in days)
+    best = None
+    for k in range(7, len(days)-6):
+        a, b = [v for _,v in days[:k]], [v for _,v in days[k:]]
+        left, right = med(a), med(b)
+        loss = sum(abs(v-left) for v in a) + sum(abs(v-right) for v in b)
+        if best is None or loss < best[0]:
+            best = loss,k,left,right
+    loss,k,left,right = best
+    factor = math.exp(right-left)
+    if .5 < factor < 2 or baseline_loss <= 0 or loss / baseline_loss > .6:
+        return None
+    coarse = datetime.combine(days[k][0], datetime.min.time())
+    nearby = [(t,v) for t,v in points if abs(t-coarse) <= timedelta(days=4)]
+    splits = []
+    for t,_ in nearby:
+        if abs(t-coarse) > timedelta(days=1):
+            continue
+        a = [v for tt,v in nearby if tt < t]
+        b = [v for tt,v in nearby if tt >= t]
+        if min(len(a),len(b)) >= 24:
+            score = sum(abs(v-left) for v in a) + sum(abs(v-right) for v in b)
+            splits.append((score,t))
+    return {'onset':min(splits)[1] if splits else coarse,'ratio_factor':round(factor,3),
+            'loss_reduction':round(1-loss/baseline_loss,3)}
+
+
+def omission_check(station, peers, profile, initial):
+    """Empirical sensitivity, not a statistical confidence interval."""
+    checks=[]
+    references=peers.select(station)
+    if len(references) >= 3:
+        for reference in references:
+            fit=profile(station,peers,omit=reference.id)
+            checks.append({'omitted_peer':reference.id,'detected':fit is not None,
+                           'onset':stamp(fit['onset']) if fit else None})
+    onsets=[initial['onset']]+[datetime.fromisoformat(c['onset']) for c in checks if c['detected']]
+    return {'peer_omissions':checks,'omission_detections':sum(c['detected'] for c in checks),
+            'omission_tests':len(checks),'tested_onset_start':stamp(min(onsets)),
+            'tested_onset_end':stamp(max(onsets)),
+            'uncertainty_kind':'reference sensitivity only, not a statistical confidence interval'}
+
+
 def wind_steps(result: Analysis, peers) -> None:
+    pending=[]
     for station in result.stations.values():
-        records = sorted(station.index().values(), key=lambda r: r.time)
-        hourly = defaultdict(list)
-        for r in records:
-            vals = peers.values(station, r, 'wind_kmh')
-            reference = med(vals)
-            value = r.value('wind_kmh')
-            if math.isfinite(value) and reference >= 5 and value >= 0:
-                hourly[r.time.replace(minute=0)].append(math.log((value + .5) / (reference + .5)))
-        points = sorted((t, med(v)) for t,v in hourly.items() if len(v) >= max(1, 20/station.interval))
-        if len(points) < 24 * 14:
+        fit=wind_profile(station,peers)
+        if not fit:
             continue
-        daily = defaultdict(list)
-        for t,v in points:
-            daily[t.date()].append(v)
-        days = sorted((d, med(v)) for d,v in daily.items() if len(v) >= 6)
-        if len(days) < 21:
-            continue
-        baseline_loss = sum(abs(v-med(vv for _,vv in days)) for _,v in days)
-        best = None
-        for k in range(7, len(days)-6):
-            a, b = [v for _,v in days[:k]], [v for _,v in days[k:]]
-            left, right = med(a), med(b)
-            loss = sum(abs(v-left) for v in a) + sum(abs(v-right) for v in b)
-            if best is None or loss < best[0]:
-                best = loss,k,left,right
-        loss,k,left,right = best
-        factor = math.exp(right-left)
-        if .5 < factor < 2 or baseline_loss <= 0 or loss / baseline_loss > .6:
-            continue
-        coarse = datetime.combine(days[k][0], datetime.min.time())
-        # Refine to an hour; the flag honestly states the onset is estimated.
-        nearby = [(t,v) for t,v in points if abs(t-coarse) <= timedelta(days=4)]
-        splits = []
-        for t,_ in nearby:
-            if abs(t-coarse) > timedelta(days=1):
-                continue
-            a = [v for tt,v in nearby if tt < t]
-            b = [v for tt,v in nearby if tt >= t]
-            if min(len(a),len(b)) >= 24:
-                score = sum(abs(v-left) for v in a) + sum(abs(v-right) for v in b)
-                splits.append((score,t))
-        onset = min(splits)[1] if splits else coarse
+        sensitivity=omission_check(station,peers,wind_profile,fit)
+        # Conservatively hold from the earliest tested boundary; do not invent
+        # minute-level onset precision from an hourly estimator.
+        onset=datetime.fromisoformat(sensitivity['tested_onset_start'])
+        evidence={k:v for k,v in fit.items() if k!='onset'}
+        evidence.update(sensitivity)
+        evidence.update(nominal_onset=stamp(fit['onset']),peers=[s.id for s in peers.select(station)])
+        pending.append((station,onset,evidence))
+    for station,onset,evidence in pending:
+        if evidence['omission_tests']:
+            boundary=f"hold from the earliest tested onset ({evidence['tested_onset_start']} to {evidence['tested_onset_end']} across reference choices)"
+        else:
+            boundary='hold from the hourly model onset, with reference sensitivity untested because fewer than three peers are available'
         result.add(station, 'wind_kmh', onset, station.bounds[1], 'wind scale discontinuity', 'exclude',
-                   f"Weather-matched wind ratio changes by a factor of {factor:.2f} with a persistent post-change regime; onset is estimated to the hour and no factory calibration factor is known.",
-                   'medium', ratio_factor=round(factor,3), loss_reduction=round(1-loss/baseline_loss,3),
-                   onset_uncertainty='approximately one hour; inspect raw transition', peers=[s.id for s in peers.select(station)])
+                   f"Wind ratio changes by factor {evidence['ratio_factor']:.2f}; {boundary}, with no known calibration factor.",
+                   'medium', **evidence)
+
+
+def temperature_profile(station, peers, omit=None):
+    if station.id in peers.disputed:
+        return None
+    days = defaultdict(list)
+    for r in station.index().values():
+        residual = peers.residual(station, r, 'temp_c', omit=omit)
+        if math.isfinite(residual):
+            days[r.time.date()].append((r, residual))
+    points, nights = [], []
+    for day, values in sorted(days.items()):
+        daylight = [v for r,v in values if r.values['ghi_wm2'] > 300]
+        dark = [v for r,v in values if r.values['ghi_wm2'] < 5]
+        if len(daylight) * station.interval >= 120 and len(dark) * station.interval >= 120:
+            points.append((day, med(daylight))); nights.append(med(dark))
+    if len(points) < 28:
+        return None
+    x = [(d-points[0][0]).days for d,_ in points]
+    y = [v for _,v in points]
+    early, late = med(y[:7]), med(y[-7:])
+    night_change = med(nights[-7:])-med(nights[:7])
+    if late-early < 2.5 or abs(night_change) > 1.5 or correlation(x,y) < .65:
+        return None
+    flat_loss = sum(abs(v-med(y)) for v in y)
+    options = []
+    for k in range(7, len(points)-9):
+        slopes = [(y[j]-y[i])/(x[j]-x[i]) for i in range(k,len(x)) for j in range(i+1,len(x)) if x[j]-x[i] >= 7]
+        slope = med(slopes)
+        intercept = med(v-slope*max(0,xx-x[k]) for xx,v in zip(x,y))
+        loss = sum(abs(v-intercept-slope*max(0,xx-x[k])) for xx,v in zip(x,y))
+        options.append((loss,k,slope,intercept))
+    loss,k,slope,intercept = min(options)
+    if slope < .06 or flat_loss <= 0 or loss / flat_loss > .7:
+        return None
+    onset = datetime.combine(points[k][0], datetime.min.time())
+    return dict(onset=onset,onset_estimate=stamp(onset), drift_c_per_day=round(slope,3),
+                early_sunny_residual=round(early,2), late_sunny_residual=round(late,2),
+                night_change=round(night_change,2), loss_reduction=round(1-loss/flat_loss,3),
+                daily_points=[{'day':str(d),'sunny_residual':round(v,3),'night_residual':round(n,3)} for (d,v),n in zip(points,nights)])
 
 
 def daylight_temperature_drift(result: Analysis, peers) -> None:
+    pending=[]
     for station in result.stations.values():
-        if station.id in peers.disputed:
-            continue
-        days = defaultdict(list)
-        for r in station.index().values():
-            residual = peers.residual(station, r, 'temp_c')
-            if math.isfinite(residual):
-                days[r.time.date()].append((r, residual))
-        points, nights = [], []
-        for day, values in sorted(days.items()):
-            daylight = [v for r,v in values if r.values['ghi_wm2'] > 300]
-            dark = [v for r,v in values if r.values['ghi_wm2'] < 5]
-            if len(daylight) * station.interval >= 120 and len(dark) * station.interval >= 120:
-                points.append((day, med(daylight))); nights.append(med(dark))
-        if len(points) < 28:
-            continue
-        x = [(d-points[0][0]).days for d,_ in points]
-        y = [v for _,v in points]
-        early, late = med(y[:7]), med(y[-7:])
-        night_change = med(nights[-7:])-med(nights[:7])
-        if late-early < 2.5 or abs(night_change) > 1.5 or correlation(x,y) < .65:
-            continue
-        flat_loss = sum(abs(v-med(y)) for v in y)
-        options = []
-        for k in range(7, len(points)-9):
-            slopes = [(y[j]-y[i])/(x[j]-x[i]) for i in range(k,len(x)) for j in range(i+1,len(x)) if x[j]-x[i] >= 7]
-            slope = med(slopes)
-            intercept = med(v-slope*max(0,xx-x[k]) for xx,v in zip(x,y))
-            loss = sum(abs(v-intercept-slope*max(0,xx-x[k])) for xx,v in zip(x,y))
-            options.append((loss,k,slope,intercept))
-        loss,k,slope,intercept = min(options)
-        if slope < .06 or flat_loss <= 0 or loss / flat_loss > .7:
-            continue
-        onset = datetime.combine(points[k][0], datetime.min.time())
+        fit=temperature_profile(station,peers)
+        if fit:
+            sensitivity=omission_check(station,peers,temperature_profile,fit)
+            pending.append((station,fit,sensitivity))
+    # Commit masks after every station is fitted, avoiding inventory-order effects.
+    for station,fit,sensitivity in pending:
         records = sorted(station.index().values(),key=lambda r:r.time)
-        selected = [r.time >= onset and r.values['ghi_wm2'] > 100 and 'temp_c' not in r.excluded for r in records]
-        evidence = dict(onset_estimate=stamp(onset), drift_c_per_day=round(slope,3),
-                        early_sunny_residual=round(early,2), late_sunny_residual=round(late,2),
-                        night_change=round(night_change,2), loss_reduction=round(1-loss/flat_loss,3),
-                        daily_points=[{'day':str(d),'sunny_residual':round(v,3),'night_residual':round(n,3)} for (d,v),n in zip(points,nights)])
+        selected = [r.time >= fit['onset'] and r.values['ghi_wm2'] > 100 and 'temp_c' not in r.excluded for r in records]
+        evidence={k:v for k,v in fit.items() if k!='onset'}
+        evidence.update(sensitivity)
+        evidence['peers']=[s.id for s in peers.select(station)]
         for group in runs(records, selected, station.step):
             result.add(station, 'temp_c', group[0].time, group[-1].time, 'sunlight-dependent temperature drift', 'exclude',
-                       f"Sunny peer residual rises from {early:+.1f} to {late:+.1f} C while night residual changes {night_change:+.1f} C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+                       f"Sunny residual rises from {fit['early_sunny_residual']:+.1f} to {fit['late_sunny_residual']:+.1f} C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
                        'medium', **evidence)
 
 

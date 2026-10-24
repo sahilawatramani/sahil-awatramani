@@ -14,11 +14,11 @@ The runner-up is **S02**, whose pressure changes by about +6.8 hPa against peers
 
 The exclusion of **S04's sunlit temperatures** is less certain than the clock repair or frozen sensor. The first/last-week sunny temperature residual rises from -0.65 to +2.62 C, while the night residual changes about -0.2 C. That pattern and the exposure-related maintenance note support a sunlight-dependent bias.
 
-Against it: no co-located truth exists; local weather and reference-station differences can affect residuals. The fitted onset is around March 14 and is approximate, not proof of a fault at midnight or proof that repainting caused it. A shielded, co-located reference thermometer compared through a sunny period would be the single most useful observation. Exclude the flagged sunlit windows conservatively, retain nights, and avoid a speculative numerical correction.
+Against it: no co-located truth exists; local weather and reference differences affect residuals. Only three of four reference-omission checks detect the pattern; successful fitted onsets range from March 12 to April 2. The full-model March 14 boundary is a cautious holding decision, not a known physical start or proof that repainting caused it. A shielded, co-located reference thermometer compared through a sunny period would be the single most useful observation. Retain nights and avoid a speculative numerical correction.
 
 ## 3. Where AI was wrong - complete personally
 
-Use an actual moment from the full chat history, quote it briefly, and explain how you checked it. One real development issue available for review: an initial clock fallback selected rows using `r.raw >= ff[0].logger.replace(second=0, microsecond=0)`. After a backward clock change, raw times overlap earlier observations, so this selection was unsafe. The implementation now withholds an ambiguously timed station instead of pretending to localize it. Explain this in your own words; do not claim an observation or action you did not make.
+Use an actual moment from the full chat history and explain how you checked it. Two real issues available for review: the initial fallback selected clock-affected rows using `r.raw >= ff[0].logger.replace(second=0, microsecond=0)`, which was unsafe for overlapping raw times; the first wind audit claimed “approximately one hour” onset uncertainty, but reference omissions moved the estimate across two hours. Both were corrected. Explain a case in your own words without claiming observations or actions you did not make.
 
 ## 4. Running unattended at 500 stations
 

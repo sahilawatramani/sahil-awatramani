@@ -50,9 +50,9 @@ No station IDs, fault dates or known fault magnitudes are encoded. Maintenance d
 
 The checker flags **44 intervals**, including **30 separate sunlit windows for one probable temperature-drift incident**. The count is not a station health score. There are 48,314 raw weather rows, 144 proven extra copies, and 48,170 unique observations after clock repair. Across 48,384 expected time slots, 214 are absent.
 
-Supported repairs recover S06's timing and remove S08 retransmissions. Exclusions affect S02 pressure, S03 temperature, S04 sunlit temperature/rain, S05 humidity and S07 wind speed in the intervals recorded in `flags.csv`. S05's location remains disputed. S01's cold is retained.
+Supported repairs recover S06's timing and remove S08 retransmissions. Exclusions affect S02 pressure, S03 temperature, S04 sunlit temperature/rain, S05 humidity and S07 wind speed in the intervals recorded in `flags.csv`. S07's conservative hold begins March 26 17:00 UTC, the earliest boundary found across tested reference choices. S05's location remains disputed. S01's cold is retained.
 
-The first visit is **S07**, with **S02** the runner-up. S07 has a large continuing wind discontinuity after a hardware change; checking model, units and logger coefficient is a practical first task. S04's warming is the least certain diagnosis, with estimated onset and no claim that repainting proves causation. These judgments are explained in the report and the technical draft of [DECISIONS.md](DECISIONS.md).
+The first visit is **S07**, with **S02** the runner-up. S07's fault survives 4/4 reference omissions; fitted starts span March 26 17:00-19:00 UTC. Checking model, units and logger coefficient is a practical first task. S04's warming is the least certain diagnosis: 3/4 omissions detect it, with fitted starts from March 12 to April 2. That reference sensitivity is not a confidence interval or proof that repainting caused the problem. These judgments are explained in the report and the technical draft of [DECISIONS.md](DECISIONS.md).
 
 Usable percentages are sample availability after these checks, not certification of accuracy. Climate comparisons need shared valid periods; partial rain totals cannot be treated as complete. No whole-spring climatology can be inferred from six weeks alone.
 
@@ -64,7 +64,7 @@ The supplied pack credits ERA5 reanalysis (Copernicus Climate Change Service), v
 python -m unittest discover -s tests -v
 ```
 
-The suite uses synthetic fixtures only. It covers GPS parsing/status/checksums, midnight and fractional time, supported and ambiguous clock transitions, a return to the original clock regime, exact/conflicting duplicates, cadence changes, healthy night/dry conditions, pressure/wind changes, temperature spikes/freezes/daylight drift, rainfall alternatives, missing GPS, renamed stations, malformed timestamps, and invocation-directory outputs. On a healthy pack, `flags.csv` contains just its header.
+The 33-test suite uses synthetic fixtures only. It covers GPS parsing/status/checksums, midnight and fractional time, supported and ambiguous clock transitions, a return to the original clock regime, exact/conflicting duplicates, cadence changes, healthy night/dry conditions, pressure/wind changes, temperature spikes/freezes/daylight drift, rainfall alternatives, missing GPS/files, empty files, installation-date conflicts, off-grid coverage, stale pressure evidence across outages, reference sensitivity, inventory order, malformed timestamps, and invocation-directory outputs. On a healthy pack, `flags.csv` contains just its header.
 
 ## Scope left open
 

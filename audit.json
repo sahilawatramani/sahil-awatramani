@@ -8,6 +8,8 @@
       "name": "Saddle Ridge Hut",
       "raw_rows": 6048,
       "unique_rows": 6048,
+      "present_slots": 6048,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 0,
       "removed_retransmissions": 0,
@@ -77,6 +79,8 @@
       "name": "North Mesa School",
       "raw_rows": 6048,
       "unique_rows": 6048,
+      "present_slots": 6048,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 0,
       "removed_retransmissions": 0,
@@ -140,6 +144,8 @@
       "name": "Valley Library",
       "raw_rows": 6048,
       "unique_rows": 6048,
+      "present_slots": 6048,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 0,
       "removed_retransmissions": 0,
@@ -211,6 +217,8 @@
       "name": "Foothills Community Garden",
       "raw_rows": 6048,
       "unique_rows": 6048,
+      "present_slots": 6048,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 0,
       "removed_retransmissions": 0,
@@ -281,6 +289,8 @@
       "name": "Eastside Rec Centre",
       "raw_rows": 6048,
       "unique_rows": 6048,
+      "present_slots": 6048,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 0,
       "removed_retransmissions": 0,
@@ -345,6 +355,8 @@
       "name": "South Hills Fire Station",
       "raw_rows": 6048,
       "unique_rows": 6048,
+      "present_slots": 6048,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 0,
       "removed_retransmissions": 0,
@@ -408,6 +420,8 @@
       "name": "Riverbend Farm",
       "raw_rows": 6048,
       "unique_rows": 6048,
+      "present_slots": 6048,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 0,
       "removed_retransmissions": 0,
@@ -435,9 +449,9 @@
           "percent": 100.0
         },
         "wind_kmh": {
-          "usable": 3714,
+          "usable": 3702,
           "expected": 6048,
-          "percent": 61.4
+          "percent": 61.2
         },
         "wind_dir_deg": {
           "usable": 6048,
@@ -471,6 +485,8 @@
       "name": "Plains Grange Hall",
       "raw_rows": 5978,
       "unique_rows": 5834,
+      "present_slots": 5834,
+      "off_grid_rows": 0,
       "expected_slots": 6048,
       "missing_slots": 214,
       "removed_retransmissions": 144,
@@ -676,7 +692,7 @@
       "end_utc": "2025-03-14 00:10",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -689,7 +705,7 @@
       "end_utc": "2025-03-15 00:10",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -702,7 +718,7 @@
       "end_utc": "2025-03-16 00:10",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -715,7 +731,7 @@
       "end_utc": "2025-03-17 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -728,7 +744,7 @@
       "end_utc": "2025-03-18 00:10",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -741,7 +757,7 @@
       "end_utc": "2025-03-18 23:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -754,7 +770,7 @@
       "end_utc": "2025-03-20 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -767,7 +783,7 @@
       "end_utc": "2025-03-21 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -780,7 +796,7 @@
       "end_utc": "2025-03-22 00:00",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -793,7 +809,7 @@
       "end_utc": "2025-03-23 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -806,7 +822,7 @@
       "end_utc": "2025-03-24 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -819,7 +835,7 @@
       "end_utc": "2025-03-25 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -832,7 +848,7 @@
       "end_utc": "2025-03-26 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -845,7 +861,7 @@
       "end_utc": "2025-03-27 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -858,7 +874,7 @@
       "end_utc": "2025-03-28 00:30",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -871,7 +887,7 @@
       "end_utc": "2025-03-28 23:50",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -901,7 +917,7 @@
       "end_utc": "2025-03-30 00:00",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -914,7 +930,7 @@
       "end_utc": "2025-03-30 23:50",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -927,7 +943,7 @@
       "end_utc": "2025-04-01 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -940,7 +956,7 @@
       "end_utc": "2025-04-02 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -953,7 +969,7 @@
       "end_utc": "2025-04-03 00:40",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -966,7 +982,7 @@
       "end_utc": "2025-04-04 00:10",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -979,7 +995,7 @@
       "end_utc": "2025-04-04 22:40",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -992,7 +1008,7 @@
       "end_utc": "2025-04-06 00:40",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -1005,7 +1021,7 @@
       "end_utc": "2025-04-07 00:20",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -1018,7 +1034,7 @@
       "end_utc": "2025-04-08 00:50",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -1031,7 +1047,7 @@
       "end_utc": "2025-04-09 00:40",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -1044,7 +1060,7 @@
       "end_utc": "2025-04-10 00:50",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -1057,7 +1073,7 @@
       "end_utc": "2025-04-11 00:40",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -1070,7 +1086,7 @@
       "end_utc": "2025-04-11 23:50",
       "issue": "sunlight-dependent temperature drift",
       "action": "exclude",
-      "note": "Sunny peer residual rises from -0.7 to +2.6 C while night residual changes -0.2 C; quarantine sunlit values after estimated drift onset, with no defensible correction.",
+      "note": "Sunny residual rises from -0.7 to +2.6 C; cautiously hold sunlit values after the reference-sensitive model onset, retaining nights and applying no numerical correction.",
       "confidence": "medium",
       "evidence": {
         "diagnostic_ref": "S04/daylight-temperature-drift"
@@ -1132,16 +1148,43 @@
     {
       "station_id": "S07",
       "channel": "wind_kmh",
-      "start_utc": "2025-03-26 19:00",
+      "start_utc": "2025-03-26 17:00",
       "end_utc": "2025-04-11 23:50",
       "issue": "wind scale discontinuity",
       "action": "exclude",
-      "note": "Weather-matched wind ratio changes by a factor of 0.27 with a persistent post-change regime; onset is estimated to the hour and no factory calibration factor is known.",
+      "note": "Wind ratio changes by factor 0.27; hold from the earliest tested onset (2025-03-26 17:00 to 2025-03-26 19:00 across reference choices), with no known calibration factor.",
       "confidence": "medium",
       "evidence": {
         "ratio_factor": 0.273,
         "loss_reduction": 0.617,
-        "onset_uncertainty": "approximately one hour; inspect raw transition",
+        "peer_omissions": [
+          {
+            "omitted_peer": "S08",
+            "detected": true,
+            "onset": "2025-03-26 17:00"
+          },
+          {
+            "omitted_peer": "S03",
+            "detected": true,
+            "onset": "2025-03-26 17:00"
+          },
+          {
+            "omitted_peer": "S02",
+            "detected": true,
+            "onset": "2025-03-26 19:00"
+          },
+          {
+            "omitted_peer": "S04",
+            "detected": true,
+            "onset": "2025-03-26 19:00"
+          }
+        ],
+        "omission_detections": 4,
+        "omission_tests": 4,
+        "tested_onset_start": "2025-03-26 17:00",
+        "tested_onset_end": "2025-03-26 19:00",
+        "uncertainty_kind": "reference sensitivity only, not a statistical confidence interval",
+        "nominal_onset": "2025-03-26 19:00",
         "peers": [
           "S08",
           "S03",
@@ -1396,6 +1439,39 @@
           "sunny_residual": 5.05,
           "night_residual": 1.5
         }
+      ],
+      "peer_omissions": [
+        {
+          "omitted_peer": "S02",
+          "detected": true,
+          "onset": "2025-04-02 00:00"
+        },
+        {
+          "omitted_peer": "S06",
+          "detected": false,
+          "onset": null
+        },
+        {
+          "omitted_peer": "S03",
+          "detected": true,
+          "onset": "2025-03-13 00:00"
+        },
+        {
+          "omitted_peer": "S08",
+          "detected": true,
+          "onset": "2025-03-12 00:00"
+        }
+      ],
+      "omission_detections": 3,
+      "omission_tests": 4,
+      "tested_onset_start": "2025-03-12 00:00",
+      "tested_onset_end": "2025-04-02 00:00",
+      "uncertainty_kind": "reference sensitivity only, not a statistical confidence interval",
+      "peers": [
+        "S02",
+        "S06",
+        "S03",
+        "S08"
       ]
     }
   },

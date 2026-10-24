@@ -4,10 +4,17 @@ Development verification on 24 October 2026, Python 3.13.12 on Windows. This rec
 
 | Check | Result |
 |---|---|
-| Synthetic regression suite | 24 tests pass; `python -m unittest discover -s tests -v` |
+| Synthetic regression suite | 33 tests pass; `python -m unittest discover -s tests -v` |
 | Exact CLI with quoted pack path | Success; outputs generated in invocation directory |
 | Healthy pack, arbitrary station ID/date, optional GPS absent | Header-only flags.csv, explicit GPS warning, successful report |
 | Alternate 20-minute cadence and missing intervals | Correct gap count; no assumed 6,048-record requirement |
+| Absent/empty weather files | Explicit whole-station exclusion and inferred missing-slot counts |
+| Off-grid observations / impossible installation history | Coverage cannot exceed 100%; empty eligible periods display N/A |
+| Outage adjacent to pressure step | Old observations outside the actual 48-hour window do not establish a step |
+| Unresolved clock ambiguity | No duplicate correction is applied to unsupported timestamps |
+| Multiple drift targets | Detector outputs do not depend on inventory order |
+| Reference omissions | S07 detected in 4/4 checks, onset 26 March 17:00-19:00; S04 detected in 3/4, onset 12 March-2 April |
+| Only two usable peers | Wind evidence explicitly marks omission sensitivity untested rather than claiming unsupported robustness |
 | Changed working directory and path containing spaces | Outputs appear in invocation directory, not the input pack |
 | Supplied-pack reconciliation | 48,314 raw rows - 144 extra copies = 48,170 unique observations; 48,384 expected slots - 214 missing = 48,170 |
 | Renamed every station and reversed inventory order | Identical station/channel/start/end/issue/action tuples after ID mapping |

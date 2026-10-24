@@ -1,5 +1,6 @@
 """Regression cases found during the second correctness review."""
 import csv
+import copy
 import tempfile
 import unittest
 from datetime import timedelta
@@ -7,7 +8,7 @@ from pathlib import Path
 
 import test_checker as fixtures
 from test_checker import START, make_station, network
-from ridgeline.advanced import pressure_steps
+from ridgeline.advanced import pressure_steps, wind_steps, daylight_temperature_drift
 from ridgeline.analyze import analyze
 from ridgeline.integrity import inspect_cadence, inspect_duplicates
 from ridgeline.model import Analysis, CHANNELS, Record
@@ -73,3 +74,39 @@ class PressureWindowTests(unittest.TestCase):
         s.records=s.records[:72]+s.records[boundary-1:]
         pressure_steps(result,Peers(result))
         self.assertFalse(any(f.station_id=='Z0' for f in result.flags))
+
+
+class SensitivityTests(unittest.TestCase):
+    def test_two_peers_do_not_claim_omission_support(self):
+        result=network();del result.stations['Z3'];s=result.stations['Z0']
+        for r in s.records[24*72:]:r.values['wind_kmh']*=.28
+        wind_steps(result,Peers(result))
+        flag=next(f for f in result.flags if f.station_id=='Z0')
+        self.assertEqual(flag.evidence['omission_tests'],0)
+        self.assertIn('sensitivity untested',flag.note)
+
+    def test_wind_hold_starts_at_earliest_tested_boundary(self):
+        result=network();s=result.stations['Z0']
+        for r in s.records[24*72:]:r.values['wind_kmh']*=.28
+        wind_steps(result,Peers(result))
+        flag=next(f for f in result.flags if f.station_id=='Z0')
+        evidence=flag.evidence
+        self.assertEqual(evidence['omission_tests'],3)
+        self.assertEqual(evidence['omission_detections'],3)
+        self.assertEqual(flag.start.isoformat(sep=' ',timespec='minutes'),evidence['tested_onset_start'])
+        self.assertIn('not a statistical confidence interval',evidence['uncertainty_kind'])
+
+    def test_two_drift_targets_are_independent_of_inventory_order(self):
+        original=network()
+        for sid in ('Z0','Z1'):
+            for r in original.stations[sid].records:
+                day=(r.time-START).total_seconds()/86400
+                if r.values['ghi_wm2']>100:r.values['temp_c']+=max(0,day-14)*.2
+        reversed_result=copy.deepcopy(original)
+        reversed_result.stations=dict(reversed(list(reversed_result.stations.items())))
+        daylight_temperature_drift(original,Peers(original))
+        daylight_temperature_drift(reversed_result,Peers(reversed_result))
+        def signature(result):
+            return sorted((f.station_id,f.start,f.end,f.issue,f.note) for f in result.flags)
+        self.assertTrue(original.flags)
+        self.assertEqual(signature(original),signature(reversed_result))

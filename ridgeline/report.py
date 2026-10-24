@@ -159,7 +159,12 @@ def write_report(result, data, path):
     uncertain=[f for f in result.flags if f.issue=='sunlight-dependent temperature drift']
     if uncertain:
         f=uncertain[0]
-        uncertainty=f"{f.station_id}'s daylight warming is probable, not a proven paint effect. Its onset is estimated; a shaded reference thermometer beside the shield would test the diagnosis."
+        evidence=f.evidence
+        if evidence.get('omission_tests'):
+            start=evidence['tested_onset_start'][:10];end=evidence['tested_onset_end'][:10]
+            uncertainty=f"{f.station_id}: {evidence['omission_detections']}/{evidence['omission_tests']} reference-omission checks detect warming; fitted starts range {start} to {end}. Keep the daytime hold pending a shielded reference comparison."
+        else:
+            uncertainty=f"{f.station_id}'s daylight warming is probable, not a proven paint effect; compare with a shielded reference before treating the estimated onset as fact."
     else:
         uncertainty="Peer checks can miss common faults or confuse local weather with sensor changes; unflagged data is not certified accuracy."
     if len(ranking)>1:
@@ -222,7 +227,11 @@ def write_evidence(result,data,path):
     if drift:
         points=drift.evidence['daily_points']
         chart=line_chart([('Sunny residual',[p['sunny_residual'] for p in points],'#b15e32'),('Night residual',[p['night_residual'] for p in points],'#11675e')],f'{drift.station_id} temperature residuals','degrees C, target minus peer median',[p['day'] for p in points])
-        plots.append(f'<section class="card"><h2>{esc(drift.station_id)} / least certain: sunlight-dependent warming</h2><p><span style="color:#b15e32">Orange: GHI &gt;300 W/m2</span>; <span style="color:#11675e">green: GHI &lt;5 W/m2</span>. Daily residuals use suitable peers after confirmed exclusions. A rising sunny residual with little first/last-week night change supports exposure bias, but does not prove paint caused it. The hinge-model onset is approximate. Settle it with a co-located, shielded reference comparison in sunlight.</p>{chart}</section>')
+        detail=''
+        if drift.evidence.get('omission_tests'):
+            d=drift.evidence
+            detail=f"<p><strong>Reference sensitivity:</strong> {d['omission_detections']}/{d['omission_tests']} single-reference omissions still detect warming, with fitted starts from {d['tested_onset_start']} to {d['tested_onset_end']} UTC; this range is not a statistical confidence interval, and the earliest true fault time remains unresolved.</p>"
+        plots.append(f'<section class="card"><h2>{esc(drift.station_id)} / least certain: sunlight-dependent warming</h2><p><span style="color:#b15e32">Orange: GHI &gt;300 W/m2</span>; <span style="color:#11675e">green: GHI &lt;5 W/m2</span>. Daily residuals use suitable peers after confirmed exclusions. A rising sunny residual with little first/last-week night change supports exposure bias, but does not prove paint caused it. The hinge-model onset is approximate. Settle it with a co-located, shielded reference comparison in sunlight.</p>{detail}{chart}</section>')
     rows=[]
     seen=set()
     for f in result.flags:
