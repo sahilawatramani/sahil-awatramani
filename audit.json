@@ -1510,7 +1510,7 @@
       "evidence": {
         "impossible_samples": 451,
         "samples": 505,
-        "sunny_peer_difference": 72.5
+        "sunny_peer_difference": null
       }
     },
     {
@@ -5955,8 +5955,8 @@
     "gps/S08.nmea": "2fdfbfc2a3fa763666d2121e3df0653ebe27f45da70a0afab7613f12d0849283"
   },
   "generation": {
-    "id": "1d836b45a65944b59fb4",
-    "engine_sha256": "140f27fdf6efb81d968166874ea640986eed7adc50df797e54ae84f98688a6f5",
+    "id": "b60852e66af484c05c19",
+    "engine_sha256": "940d50961dbd1cca4e4016417f97f4fec3caf28a8f414a78e320f631a9ec296c",
     "contract": "manifest.json is the final commit marker; verify all output hashes after an interrupted run"
   }
 }

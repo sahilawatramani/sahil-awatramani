@@ -61,7 +61,7 @@ python benchmarks/review_cases.py --output tmp/review_results.json
 python benchmarks/evaluate.py --split evaluation --output tmp/evaluation.json
 ```
 
-The 42 regression tests cover parser/time-repair provenance, ambiguous clocks, duplicate/cadence behavior, direct/peer checks, bounded recovery and bursts, shared-reference abstention, inventory order, missing sources, invocation-directory output, generation manifests and rollback on write failures. Tests use synthetic fixtures only. On a healthy pack, `flags.csv` contains just its header. [VALIDATION.md](VALIDATION.md) records the observed engineering checks.
+The 43 regression tests cover parser/time-repair provenance, ambiguous clocks, duplicate/cadence behavior, direct/peer checks, bounded recovery and bursts, shared-reference abstention, inventory order, missing sources, invocation-directory output, generation manifests and rollback on write failures. Tests use synthetic fixtures only. On a healthy pack, `flags.csv` contains just its header. [VALIDATION.md](VALIDATION.md) records the observed engineering checks.
 
 ## Scope left open
 

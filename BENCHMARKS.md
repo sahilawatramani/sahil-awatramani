@@ -1,6 +1,6 @@
 # Synthetic evaluation: results and limits
 
-The detector was frozen at commit `41b940e` before running the evaluation seeds. Subsequent output-hash normalization and report-layout changes do not change detection. Source hashes in each JSON result identify the detector and benchmark text. There are **57 development and 57 evaluation scenarios**, with disjoint seeds. All are synthetic; both splits use the same disclosed generator and scenario families. These are new random realizations, not an independent field dataset or hidden organizer test.
+The detector was frozen at commit `41b940e` before running the evaluation seeds. After evaluation, output-hash normalization and report layout were improved, and spatial reference use was disabled for targets whose own location is disputed (a separate regression covers this guard). Evaluation stations have undisputed locations, so the guard does not change any scored case. The preserved JSON hashes identify the evaluated core; these scenarios do not validate the new guard. Source hashes in each JSON result identify the detector and benchmark text. There are **57 development and 57 evaluation scenarios**, with disjoint seeds. All are synthetic; both splits use the same disclosed generator and scenario families. These are new random realizations, not an independent field dataset or hidden organizer test.
 
 Run:
 

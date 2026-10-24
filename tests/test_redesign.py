@@ -79,6 +79,14 @@ class BoundedIncidentTests(unittest.TestCase):
         self.assertEqual(len(result.unresolved),4)
         self.assertTrue(all(not r.excluded for s in result.stations.values() for r in s.records))
 
+    def test_disputed_target_location_cannot_support_a_spatial_wind_claim(self):
+        result,begin,end=self.inject('wind_kmh',.28)
+        station=result.stations['Z0']
+        result.add(station,'metadata',*station.bounds,'location mismatch','exclude','Unresolved inventory/GPS location.')
+        peers=Peers(result);wind_steps(result,peers)
+        self.assertFalse(any(f.issue=='wind scale discontinuity' for f in result.flags))
+        self.assertTrue(all(not r.excluded for s in result.stations.values() for r in s.records))
+
     def test_station_iteration_order_does_not_change_decisions(self):
         a,_,_=self.inject('pressure_hpa',7)
         b=copy.deepcopy(a);b.stations=dict(reversed(list(b.stations.items())))

@@ -13,6 +13,10 @@ class Peers:
         self.selections = {}
 
     def select(self, station: Station, elevation_limit: float = 700, count: int = 4) -> list[Station]:
+        if station.id in self.disputed:
+            # Geographic suitability is undefined for an unresolved target too,
+            # not only when that station would be somebody else's reference.
+            return []
         key = station.id, elevation_limit, count
         if key in self.selections:
             return self.selections[key]
