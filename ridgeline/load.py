@@ -41,7 +41,8 @@ def load_pack(root: Path) -> Analysis:
         station.notes = [line for line in lines if re.search(r'(?<!\w)' + re.escape(sid) + r'(?!\w)', line)]
         path = root / "data" / f"{sid}.csv"
         if not path.exists():
-            result.warnings.append(f"{sid}: missing weather file; availability cannot be established")
+            station.source_status = 'missing'
+            result.warnings.append(f"{sid}: missing weather file; expected period inferred from other stations")
             continue
         with path.open(encoding="utf-8-sig", newline="") as stream:
             reader = csv.DictReader(stream)
@@ -63,6 +64,7 @@ def load_pack(root: Path) -> Analysis:
                 station.records.append(Record(number, time, time, values))
         station.gps, station.gps_stats = read_gps(root / "gps" / f"{sid}.nmea")
         if not station.records:
+            station.source_status = 'empty'
             result.warnings.append(f"{sid}: empty weather file")
         if not station.gps:
             result.warnings.append(f"{sid}: no trustworthy GPS fixes; no automatic time or location correction")

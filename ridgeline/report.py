@@ -3,10 +3,9 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from datetime import timedelta
 from html import escape as esc
-import json
 import math
 import re
-from .model import CHANNELS, med, stamp
+from .model import CHANNELS, med, network_bounds, stamp
 
 LABELS = {'temp_c':'Temp','rh_pct':'RH','pressure_hpa':'Press','wind_kmh':'Wind',
           'wind_dir_deg':'Dir','rain_mm':'Rain','ghi_wm2':'Sun'}
@@ -42,20 +41,21 @@ def rank_visits(result):
 
 
 def audit(result):
-    populated=[s for s in result.stations.values() if s.records]
-    begin=min(s.bounds[0] for s in populated);end=max(s.bounds[1] for s in populated)
+    begin,end=network_bounds(result)
     out={'period_start':stamp(begin),'period_end':stamp(end),'version':'1.0.0',
          'warnings':result.warnings,'stations':{},'visit_ranking':rank_visits(result)}
     for s in result.stations.values():
         flags=[f for f in result.flags if f.station_id==s.id]
         unique={r.time:r for r in s.records if not r.removed}
-        safe={t:r for t,r in unique.items() if not r.clock_unsafe}
-        expected=max(0,int((end-max(begin,s.installed))/s.step)+1)
+        first,last,expected=s.grid(begin,end)
+        safe={t:r for t,r in unique.items() if not r.clock_unsafe and first <= t <= last
+              and (t-first) % s.step == timedelta(0)}
         channels={}
         for c in CHANNELS:
             usable=sum(math.isfinite(r.value(c)) for r in safe.values())
-            channels[c]={'usable':usable,'expected':expected,'percent':round(usable/expected*100,1) if expected else 0}
+            channels[c]={'usable':usable,'expected':expected,'percent':round(usable/expected*100,1) if expected else None}
         out['stations'][s.id]={'name':s.name,'raw_rows':len(s.records),'unique_rows':len(unique),
+                              'present_slots':len(safe),'off_grid_rows':sum(not r.clock_unsafe and (t-first) % s.step != timedelta(0) for t,r in unique.items()),
                               'expected_slots':expected,'missing_slots':sum(f.evidence.get('missing_slots',0) for f in flags),
                               'removed_retransmissions':sum(r.removed for r in s.records),
                               'clock_corrected_rows':sum(r.time!=r.raw for r in s.records),
@@ -100,16 +100,18 @@ def station_advice(flags):
         ff=[f for f in flags if f.issue==issue];f=ff[0]
         if issue=='coherent mountain cold':notes.append('Keep cold conditions; consistent with elevation and regional weather.')
         elif issue=='pressure calibration step':notes.append(f"Pressure: omit from {short_date(f.start)}; calibrate replacement board.")
-        elif issue=='sensor frozen':notes.append(f"Temperature: omit {f.start:%d %b}-{f.end:%d %b} freeze.")
+        elif issue=='sensor frozen':notes.append(f"{LABELS.get(f.channel,f.channel)}: omit {f.start:%d %b}-{f.end:%d %b} freeze.")
         elif issue in ('invalid value','isolated temperature spike'):
             if not any('spike' in n for n in notes):notes.append('Omit isolated bad values/spikes.')
         elif issue=='sunlight-dependent temperature drift':notes.append(f"Temperature: omit sunlit windows from about {f.start:%d %b}; retain nights.")
         elif issue=='rain blockage and delayed release':notes.append(f"Rain: omit {f.start:%d %b}-{f.end:%d %b}; lost timing cannot be reconstructed.")
-        elif issue=='humidity saturation failure':notes.append(f"RH: omit {f.start:%d %b}-{f.end:%d %b}; later readings recover.")
+        elif issue=='humidity saturation failure':notes.append(f"RH: omit saturated episode {f.start:%d %b}-{f.end:%d %b}.")
         elif issue=='location mismatch':notes.append('Verify location before mapping or elevation-based comparisons.')
         elif issue=='logger clock offset':notes.append(f"Add {f.evidence['offset_seconds']/3600:+g} h from {short_date(f.start)} (corrected UTC); retain observations.")
         elif issue=='wind scale discontinuity':notes.append(f"Wind speed: omit from about {short_date(f.start)}; verify calibration.")
         elif issue=='missing observations':notes.append(f"{f.evidence['missing_slots']} missing samples; do not fill or call zero.")
+        elif issue in ('missing weather file','empty weather file'):notes.append('No weather file observations; omit this station from the summary.')
+        elif issue=='installation date conflict':notes.append('Verify installation history before using records that predate the inventory.')
         elif issue=='exact retransmission':notes.append(f"Remove {f.evidence['extra_rows']} repeated rows; retain one copy.")
         else:notes.append(issue.capitalize()+'.')
     return ' '.join(notes) or 'No fault detected by these checks; retain with normal limitations.'
@@ -134,7 +136,8 @@ h1{font-size:36px;line-height:1.1;letter-spacing:-1.2px;margin:18px 0 10px;max-w
 
 def write_report(result, data, path):
     total=sum(s['expected_slots'] for s in data['stations'].values())
-    unique=sum(s['unique_rows'] for s in data['stations'].values())
+    present=sum(s['present_slots'] for s in data['stations'].values())
+    presence=f'{100*present/total:.1f}%' if total else 'N/A'
     missing=sum(s['missing_slots'] for s in data['stations'].values())
     corrected=sum(s['clock_corrected_rows'] for s in data['stations'].values())
     ranking=data['visit_ranking']
@@ -148,8 +151,10 @@ def write_report(result, data, path):
         ff=[f for f in result.flags if f.station_id==sid]
         cells=[]
         for c in CHANNELS:
-            pct=s['channels'][c]['percent'];level='good' if pct>=99.95 else ('partial' if pct>=90 else 'hold')
-            cells.append(f"<td class='pct {level}'>{pct:g}</td>")
+            pct=s['channels'][c]['percent']
+            level='good' if pct is not None and pct>=99.95 else ('partial' if pct is not None and pct>=90 else 'hold')
+            text=f'{pct:g}' if pct is not None else 'N/A'
+            cells.append(f"<td class='pct {level}'>{text}</td>")
         rows.append(f"<tr><td class='site'><strong>{esc(sid)}</strong><span>{esc(s['name'])}</span></td>{''.join(cells)}<td class='advice'>{esc(station_advice(ff))}</td></tr>")
     uncertain=[f for f in result.flags if f.issue=='sunlight-dependent temperature drift']
     if uncertain:
@@ -167,7 +172,7 @@ def write_report(result, data, path):
 <div class="eyebrow"><span>Ridgeline / Field notes</span><span>Network health &nbsp; 01</span></div>
 <h1>Use the network<br>selectively.</h1><p class="intro">Keep reliable channels. Apply the supported time and duplicate repairs, then leave uncertain observations out of the six-week summary.</p>
 <div class="period">{esc(data['period_start'])} - {esc(data['period_end'])} UTC &nbsp; | &nbsp; {len(data['stations'])} stations</div>{dispatch}
-<div class="stats"><div class="stat"><strong>{100*unique/total:.1f}%</strong><span>Expected observations present<br>after clock repair and deduplication</span></div><div class="stat"><strong>{missing:,}</strong><span>Missing time slots<br>leave missing, never treat as zero</span></div><div class="stat"><strong>{corrected:,}</strong><span>Observations with repaired time<br>preserve the measurements</span></div></div>
+<div class="stats"><div class="stat"><strong>{presence}</strong><span>Expected observations present<br>after clock repair and deduplication</span></div><div class="stat"><strong>{missing:,}</strong><span>Missing time slots<br>leave missing, never treat as zero</span></div><div class="stat"><strong>{corrected:,}</strong><span>Observations with repaired time<br>preserve the measurements</span></div></div>
 <h2 class="section-label">What can enter the summary</h2><table><thead><tr><th>Station</th>{''.join(f'<th class="pct">{LABELS[c]}</th>' for c in CHANNELS)}<th style="padding-left:10px">Decision / UTC</th></tr></thead><tbody>{''.join(rows)}</tbody></table>
 <p class="legend">Numbers = usable % of expected samples after exclusions and supported repairs. 100 = no exclusion by these checks. Metadata restrictions still apply; see station notes. Sun = sunlight; RH = humidity.</p>
 <div class="bottom"><section><h3>Why this visit comes first</h3><p>{esc(comparison)}</p></section><section><h3>The call to verify</h3><p>{esc(uncertainty)}</p></section></div>

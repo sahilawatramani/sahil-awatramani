@@ -1,6 +1,7 @@
 """Conservative peer-supported incident detection; all thresholds documented."""
 from __future__ import annotations
 from collections import defaultdict
+from bisect import bisect_left
 from datetime import datetime, timedelta
 import math
 from .model import Analysis, correlation, mad, med, runs, stamp
@@ -10,6 +11,7 @@ def pressure_steps(result: Analysis, peers) -> None:
     candidates = []
     for station in result.stations.values():
         records = sorted(station.index().values(), key=lambda r: r.time)
+        times = [r.time for r in records]
         residuals = [peers.pressure_residual(station, r) for r in records]
         for i in range(1, len(records)):
             if records[i].time - records[i-1].time != station.step:
@@ -17,8 +19,10 @@ def pressure_steps(result: Analysis, peers) -> None:
             jump = residuals[i] - residuals[i-1]
             if not math.isfinite(jump) or abs(jump) < 2.5:
                 continue
-            before = [v for r,v in zip(records[max(0,i-int(2880/station.interval)):i], residuals[max(0,i-int(2880/station.interval)):i]) if math.isfinite(v)]
-            after = [v for v in residuals[i:i+int(2880/station.interval)] if math.isfinite(v)]
+            lower = bisect_left(times, records[i].time-timedelta(hours=48))
+            upper = bisect_left(times, records[i].time+timedelta(hours=48))
+            before = [v for v in residuals[lower:i] if math.isfinite(v)]
+            after = [v for v in residuals[i:upper] if math.isfinite(v)]
             if min(len(before), len(after)) < 1440 / station.interval:
                 continue
             delta = med(after) - med(before)
@@ -29,8 +33,8 @@ def pressure_steps(result: Analysis, peers) -> None:
             corroboration = []
             for peer in peers.select(station):
                 index = peers.indices[peer.id]
-                a = [r.values['pressure_hpa'] - index[r.time].value('pressure_hpa') for r in records[max(0,i-int(2880/station.interval)):i] if r.time in index]
-                b = [r.values['pressure_hpa'] - index[r.time].value('pressure_hpa') for r in records[i:i+int(2880/station.interval)] if r.time in index]
+                a = [r.value('pressure_hpa') - index[r.time].value('pressure_hpa') for r in records[lower:i] if r.time in index]
+                b = [r.value('pressure_hpa') - index[r.time].value('pressure_hpa') for r in records[i:upper] if r.time in index]
                 change = med(b) - med(a)
                 if math.isfinite(change) and change * delta > 0 and abs(change) > 3:
                     corroboration.append(peer.id)

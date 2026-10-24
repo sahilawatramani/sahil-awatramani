@@ -69,6 +69,7 @@ class Station:
     gps: list = field(default_factory=list)
     gps_stats: dict = field(default_factory=dict)
     notes: list[str] = field(default_factory=list)
+    source_status: str = "available"
 
     @property
     def step(self) -> timedelta:
@@ -81,6 +82,14 @@ class Station:
 
     def index(self) -> dict[datetime, Record]:
         return {r.time: r for r in self.records if not r.removed and not r.clock_unsafe}
+
+    def grid(self, begin: datetime, end: datetime) -> tuple[datetime, datetime, int]:
+        """Nominal slots, preserving observed phase and respecting installation."""
+        times = self.index()
+        anchor = min(times) if times else begin
+        first = anchor + math.ceil((max(begin, self.installed) - anchor) / self.step) * self.step
+        last = anchor + math.floor((end - anchor) / self.step) * self.step
+        return first, last, max(0, int((last - first) / self.step) + 1)
 
 
 @dataclass
@@ -116,6 +125,17 @@ class Analysis:
                 if start <= record.time <= end:
                     record.excluded.update(channels)
         return flag
+
+
+def network_bounds(result: Analysis) -> tuple[datetime, datetime]:
+    times = [r.time for s in result.stations.values() for r in s.records
+             if not r.removed and not r.clock_unsafe]
+    if not times:
+        # Still allow a withheld pack to be reported, without claiming valid UTC.
+        times = [r.time for s in result.stations.values() for r in s.records if not r.removed]
+    if not times:
+        raise ValueError("No weather observations in the pack")
+    return min(times), max(times)
 
 
 def runs(records: list[Record], selected: Iterable[bool], step: timedelta) -> list[list[Record]]:

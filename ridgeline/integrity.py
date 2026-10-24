@@ -1,9 +1,8 @@
 """Clock repair precedes duplicate detection and chronological comparisons."""
 from collections import defaultdict
 from datetime import timedelta
-from statistics import median
 import math
-from .model import Analysis, CHANNELS, distance, med, runs, stamp
+from .model import Analysis, CHANNELS, distance, med, network_bounds, runs, stamp
 
 
 def repair_clocks(result: Analysis) -> None:
@@ -107,7 +106,8 @@ def inspect_duplicates(result: Analysis) -> None:
     for station in result.stations.values():
         groups = defaultdict(list)
         for record in station.records:
-            groups[record.time].append(record)
+            if not record.clock_unsafe:
+                groups[record.time].append(record)
         exact, conflict = [], []
         for time, records in groups.items():
             if len(records) < 2:
@@ -132,38 +132,47 @@ def inspect_duplicates(result: Analysis) -> None:
 
 
 def inspect_cadence(result: Analysis) -> None:
-    populated = [s for s in result.stations.values() if s.records]
-    if not populated:
-        raise ValueError("No weather observations in the pack")
     # Pack-wide bounds are an explicit assumption for leading/trailing outages.
-    start = min(s.bounds[0] for s in populated)
-    end = max(s.bounds[1] for s in populated)
-    for station in populated:
-        times = sorted({r.time for r in station.records if not r.removed and not r.clock_unsafe})
-        if not times:
+    start, end = network_bounds(result)
+    for station in result.stations.values():
+        times = sorted(station.index())
+        first, last, count = station.grid(start, end)
+        if not station.records:
+            if count:
+                issue = 'missing weather file' if station.source_status == 'missing' else 'empty weather file'
+                result.add(station, 'all', first, last, issue, 'exclude',
+                           f"{count} nominal slots unavailable because the weather file is {station.source_status}; period and phase are inferred from the network and inventory.",
+                           missing_slots=count, inferred_grid=True)
             continue
-        lower = max(start, station.installed)
-        gaps = []
-        if times[0] - lower >= station.step:
-            # Preserve this station's cadence phase when reporting endpoint gaps.
-            slots = int((times[0] - lower) / station.step)
-            gaps.append((times[0] - slots * station.step, times[0] - station.step))
+        if not times:  # Unsupported clock transitions already withhold the station.
+            continue
+        before_install = [t for t in times if t < station.installed]
+        if before_install:
+            result.add(station, 'metadata', min(before_install), max(before_install),
+                       'installation date conflict', 'exclude',
+                       'Observations predate the inventory installation date; verify station history before assigning climate coverage.')
+        positions = sorted({int((t-first)/station.step) for t in times
+                            if first <= t <= last and (t-first) % station.step == timedelta(0)})
+        previous = -1
+        for position in positions + [count]:
+            if position - previous > 1:
+                a, b = first + (previous+1)*station.step, first + (position-1)*station.step
+                missing = position - previous - 1
+                result.add(station, 'all', a, b, 'missing observations', 'exclude',
+                           f"{missing} expected {station.interval}-minute records are absent; leave missing and do not treat as zero.", missing_slots=missing)
+            previous = position
+        irregular = []
         for a, b in zip(times, times[1:]):
-            if b - a > station.step:
-                if (b - a) % station.step == timedelta(0):
-                    gaps.append((a + station.step, b - station.step))
+            if (b-a) % station.step != timedelta(0):
+                if irregular and a <= irregular[-1][1] + station.step:
+                    irregular[-1] = (irregular[-1][0], b)
                 else:
-                    result.add(station, "metadata", a, b, "irregular cadence", "keep",
-                               "Adjacent timestamps are off the inventory cadence; review timestamp semantics before aggregation.", "medium")
-        if end - times[-1] >= station.step:
-            slots = int((end - times[-1]) / station.step)
-            gaps.append((times[-1] + station.step, times[-1] + slots * station.step))
-        for a, b in gaps:
-            count = int((b - a) / station.step) + 1
-            result.add(station, "all", a, b, "missing observations", "exclude",
-                       f"{count} expected {station.interval}-minute records are absent; leave missing and do not treat as zero.", missing_slots=count)
+                    irregular.append((a,b))
+        for a,b in irregular:
+            result.add(station, 'metadata', a, b, 'irregular cadence', 'keep',
+                       'Timestamps depart from the inventory grid; retain observations for review but do not aggregate off-grid rows as expected samples.', 'medium')
         for a, b in zip(station.records, station.records[1:]):
-            if b.time < a.time and not b.removed and not a.removed:
+            if b.time < a.time and not b.removed and not a.removed and not b.clock_unsafe and not a.clock_unsafe:
                 # A reverse delivery order with unique corrected times is sortable.
                 result.add(station, "metadata", min(a.time, b.time), max(a.time, b.time),
                            "out-of-order delivery", "correct", "Sort unique observations by corrected UTC while retaining original source row numbers.")
