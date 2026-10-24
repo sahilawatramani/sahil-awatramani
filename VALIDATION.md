@@ -1,31 +1,42 @@
 # Validation record
 
-Development verification on 24 October 2026, Python 3.13.12 on Windows. This records observed checks, not a claim about the unseen evaluation pack.
+Verified on 24 October 2026 using Python 3.13.12 on Windows. These are observed engineering checks, not organizer scores or calibrated field accuracy. Detector redesign: `41b940e`; output/report improvements: `2912976`; disputed-target location guard: `e08737f`.
 
-**New engineering-review finding:** passing the 33 regression tests did not establish detection accuracy. Five independent counterexample/control scenarios exposed pressure over-exclusion after recovery, missed temporary wind faults, missed temperature bursts and shared-reference contamination. These require remediation before calling the engine fully validated. See [ENGINEERING_REVIEW.md](ENGINEERING_REVIEW.md) and the saved [baseline](benchmarks/baseline_review.json).
-
-| Check | Result |
+| Check | Observed result |
 |---|---|
-| Synthetic regression suite | 33 tests pass; `python -m unittest discover -s tests -v` |
-| Exact CLI with quoted pack path | Success; outputs generated in invocation directory |
-| Clean Git checkout | All 33 tests pass; checker runs independently of the original source directory and reproduces all four committed output files byte for byte |
-| Healthy pack, arbitrary station ID/date, optional GPS absent | Header-only flags.csv, explicit GPS warning, successful report |
-| Alternate 20-minute cadence and missing intervals | Correct gap count; no assumed 6,048-record requirement |
-| Absent/empty weather files | Explicit whole-station exclusion and inferred missing-slot counts |
-| Off-grid observations / impossible installation history | Coverage cannot exceed 100%; empty eligible periods display N/A |
-| Outage adjacent to pressure step | Old observations outside the actual 48-hour window do not establish a step |
-| Unresolved clock ambiguity | No duplicate correction is applied to unsupported timestamps |
-| Multiple drift targets | Detector outputs do not depend on inventory order |
-| Reference omissions | S07 detected in 4/4 checks, onset 26 March 17:00-19:00; S04 detected in 3/4, onset 12 March-2 April |
-| Only two usable peers | Wind evidence explicitly marks omission sensitivity untested rather than claiming unsupported robustness |
-| Changed working directory and path containing spaces | Outputs appear in invocation directory, not the input pack |
-| Supplied-pack reconciliation | 48,314 raw rows - 144 extra copies = 48,170 unique observations; 48,384 expected slots - 214 missing = 48,170 |
-| Renamed every station and reversed inventory order | Identical station/channel/start/end/issue/action tuples after ID mapping |
-| Repeated generation | Byte-identical CSV, HTML and JSON outputs; input file hashes unchanged |
-| Clock provenance | S06 corrected from CSV line 3411; 2,639 rows recovered without deduplicating distinct observations |
-| A4 report | Headless Chrome print verification: one A4 page, including all footnotes; rendered page visually inspected |
-| Evidence browser behavior | Both SVG charts render; all-station ledger has 15 summarized rows; S04 filter returns only its two incident summaries; reset works; no horizontal overflow at 1200 px |
+| Regression suite | **43 tests pass**, in the working repository and a clean local clone; `python -m unittest discover -s tests -v` |
+| Independent-seed synthetic evaluation | 57 development and 57 evaluation cases; scenario definitions, hashes, metrics and limitations in [BENCHMARKS.md](BENCHMARKS.md) |
+| Identifiable severe faults | All 30 abrupt/frozen/shared-minority evaluation cases have 100% sample precision/recall and exact cadence boundaries in the disclosed generator |
+| Drift holding cost | All three evaluation drift cases detected; 97.27% sample precision, 100% recall, 154 healthy samples withheld; gradual onset remains uncertain |
+| Sensitivity limits | All three +2 hPa faults missed; all three unanchored equal-group cases unresolved with 0% exclusion recall; no false claim of perfect accuracy |
+| Healthy controls / collateral loss | 18 evaluation controls retain 311,040 scored healthy samples; no unrelated-channel exclusions in the 57 evaluation scenarios |
+| Original counterexamples | Five-day pressure, three-day wind and two-hour temperature incidents now exclude exactly the faulty interval; equal reference groups are unresolved rather than all blamed |
+| Separate recovered incidents | Two pressure and two wind episodes preserve the healthy middle period and all data after supported recovery |
+| Shared reference quality snapshot | Direct and advanced stage decisions do not depend on inventory iteration order |
+| Disputed target coordinates | Geographic peer selection is withheld for a disputed target as well as for a disputed reference; direct physical checks still apply |
+| GPS/time parsing | Checksums, inactive/poor fixes, hemisphere signs, fractional seconds and midnight dates covered |
+| Supported / ambiguous clock regimes | Supported backward/initial/returning offsets preserve distinct observations; unresolved mappings withhold rather than deduplicate unsupported time |
+| Duplicate/cadence contracts | Exact retransmissions retain one copy; conflicts are held; alternate cadence, gaps, missing/empty files and off-grid records covered |
+| Pack/schema edge cases | Missing GPS, malformed timestamps, installation-date conflicts and arbitrary IDs covered; an empty eligible period displays N/A |
+| Elapsed-time pressure evidence | An outage cannot supply old observations to satisfy the new 12-hour context window |
+| Exact CLI / working directory | Quoted paths with spaces work; outputs are written in the invocation directory |
+| Clean checkout reproducibility | Latest code passes 43 tests; `flags.csv`, `report.html`, `evidence.html`, `audit.json` and `manifest.json` reproduce byte for byte |
+| Cross-checkout source hashing | Source text hashes normalize Git's LF/CRLF differences; input hashes remain hashes of original bytes |
+| Renamed / reversed inventory | All 44 station/channel/start/end/issue/action tuples match after mapping renamed station IDs back; maintenance notes do not trigger the detections |
+| Output failure handling | Simulated rendering and rename failures preserve the previous generation; readiness check verifies manifest hashes |
+| Supplied-pack accounting | 48,314 raw rows - 144 extra copies = 48,170 unique observations; 48,384 expected slots - 214 absent = 48,170 |
+| Clock provenance | S06 +21,600 seconds from source CSV line 3411 recovers 2,639 rows, without removing distinct physical observations |
+| Input protection | All 18 source-file SHA-256 hashes match the frozen baseline |
+| Full baseline interval comparison | 43 of 44 interval/action tuples unchanged; S07 wind hold moves from March 26 17:00 to 16:00 to cover nearby tested reference uncertainty |
+| Reference sensitivity | S07 detected in 4/4 omissions, tested openings March 26 16:00-19:50; S04 3/4, March 12-April 2; ranges are not confidence intervals |
+| Alternate S04 time-block model | First week trains sunlight/hour residual cells; second-week median absolute error 0.775 C; late sunny change +2.925 C; three-day strong departure first April 9; early hinge onset remains a precaution |
+| Climate-summary eligibility | Audit/report distinguish full, repaired, partial, held and review use; retained S04 nights do not support complete daily temperature means/maxima; missing rain is not a complete-period total |
+| A4 print check | **One A4 page**, including all footer text, rendered with headless Chrome and visually inspected; no font-size reduction was needed for the final footer fix |
+| Evidence browser check | Four SVG charts render; ledger has 15 summaries; S04 filter shows only its two summaries; reset and S07 deep link work; no horizontal overflow at 1200 px |
+| Publication audit | No obvious source-pack files in tracked paths or Git history; no repository publication or submission form has been performed |
 
-The 44 CSV intervals include 30 individual sunlit windows for S04; the evidence ledger groups those as one incident summary. It does not omit the exact intervals from the CSV.
+The 44 CSV intervals include 30 separate sunlit windows for one S04 drift hypothesis. The evidence ledger groups those windows without dropping the exact CSV intervals. S07 remains the first visit, S02 the strongest alternative. S04's early holding boundary remains less certain than its later sunny-warming pattern; no historical temperature, rain or wind calibration is invented.
 
-These tests address correctness and some transfer risks; they do not provide measured precision/recall on independently labeled real faults. Peer-supported temperature/rain/wind diagnoses and estimated boundaries retain medium confidence. Known limitations and threshold assumptions are explicit in METHODS.md.
+The evaluation JSON preserves the frozen core's hashes. The subsequent disputed-target guard has its own regression; the synthetic evaluation stations have undisputed coordinates, so those scores do not measure that guard's effectiveness. The source pack has no independent calibration labels. Real precision/recall, common faults, faulty majorities, terrain diversity, small shifts and missing transition evidence remain limitations.
+
+The read-only submission check currently passes engineering/schema/manifest/history checks and reports three human requirements outstanding: the real narrated video link, the personal DECISIONS.md including the unaided calculation, and complete genuine chat exports. It does not pretend to verify those requirements or submit the application.

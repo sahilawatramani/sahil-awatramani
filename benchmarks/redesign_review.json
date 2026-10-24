@@ -1,5 +1,5 @@
 {
-  "engine_commit": "6f18cb716b299c13568754095aa218392d0eb1f8",
+  "engine_commit": "e08737f4882eb24294fab31754f8e767b5e6ba5c",
   "stations": 4,
   "cadence_minutes": 10,
   "duration_days": 42,
@@ -14,6 +14,7 @@
       "tn": 23472,
       "precision": 1.0,
       "recall": 1.0,
+      "unresolved_checks": [],
       "flags": [
         {
           "station_id": "Z0",
@@ -35,6 +36,7 @@
       "tn": 23760,
       "precision": 1.0,
       "recall": 1.0,
+      "unresolved_checks": [],
       "flags": [
         {
           "station_id": "Z0",
@@ -56,6 +58,7 @@
       "tn": 24180,
       "precision": 1.0,
       "recall": 1.0,
+      "unresolved_checks": [],
       "flags": [
         {
           "station_id": "Z0",
@@ -77,6 +80,84 @@
       "tn": 15552,
       "precision": null,
       "recall": 0.0,
+      "unresolved_checks": [
+        {
+          "station_id": "Z0",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-06-13 00:00",
+          "reason": "equally supported reference groups; trusted anchor required",
+          "evidence": {
+            "groups": [
+              [
+                "Z0",
+                "Z3"
+              ],
+              [
+                "Z1",
+                "Z2"
+              ]
+            ],
+            "climate_policy": "Do not assign a failed group or treat this as validated data; seek an independent reference before using cross-boundary changes."
+          }
+        },
+        {
+          "station_id": "Z1",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-06-13 00:00",
+          "reason": "equally supported reference groups; trusted anchor required",
+          "evidence": {
+            "groups": [
+              [
+                "Z0",
+                "Z3"
+              ],
+              [
+                "Z1",
+                "Z2"
+              ]
+            ],
+            "climate_policy": "Do not assign a failed group or treat this as validated data; seek an independent reference before using cross-boundary changes."
+          }
+        },
+        {
+          "station_id": "Z2",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-06-13 00:00",
+          "reason": "equally supported reference groups; trusted anchor required",
+          "evidence": {
+            "groups": [
+              [
+                "Z0",
+                "Z3"
+              ],
+              [
+                "Z1",
+                "Z2"
+              ]
+            ],
+            "climate_policy": "Do not assign a failed group or treat this as validated data; seek an independent reference before using cross-boundary changes."
+          }
+        },
+        {
+          "station_id": "Z3",
+          "channel": "pressure_hpa",
+          "time_utc": "2024-06-13 00:00",
+          "reason": "equally supported reference groups; trusted anchor required",
+          "evidence": {
+            "groups": [
+              [
+                "Z0",
+                "Z3"
+              ],
+              [
+                "Z1",
+                "Z2"
+              ]
+            ],
+            "climate_policy": "Do not assign a failed group or treat this as validated data; seek an independent reference before using cross-boundary changes."
+          }
+        }
+      ],
       "flags": []
     },
     {
@@ -88,6 +169,7 @@
       "tn": 24192,
       "precision": null,
       "recall": null,
+      "unresolved_checks": [],
       "flags": []
     }
   ]
