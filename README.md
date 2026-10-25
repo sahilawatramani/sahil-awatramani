@@ -1,6 +1,6 @@
 Sahil Awatramani
 sahil.awatramani.btech2023@sitpune.edu.in
-Video: TO ADD - three-minute narrated recording
+Video: https://drive.google.com/file/d/12FyeNxtcgp1WBgzT2KzrgGsHCSqmywkG/view?usp=sharing
 Run: python checker.py "../ridgeline_data_pack (2)"
 
 # Ridgeline network checker
@@ -45,7 +45,7 @@ The checker flags **44 intervals**, including **30 separate sunlit windows for o
 
 Supported repairs recover S06's timing and remove S08 retransmissions. Exclusions affect S02 pressure, S03 temperature, S04 sunlit temperature/rain, S05 humidity and S07 wind speed in the intervals recorded in `flags.csv`. S07's conservative hold begins March 26 16:00 UTC, the earliest boundary found across tested reference choices. S05's location remains disputed. S01's cold is retained.
 
-The first visit is **S07**, with **S02** the runner-up. S07's fault survives 4/4 reference omissions; fitted starts span March 26 16:00-19:50 UTC. Checking model, units and logger coefficient is a practical first task. S04's warming is the least certain diagnosis: 3/4 omissions detect it, with fitted starts from March 12 to April 2. That reference sensitivity is not a confidence interval or proof that repainting caused the problem. These judgments are explained in the report and the technical draft of [DECISIONS.md](DECISIONS.md).
+The first visit is **S07**, with **S02** the runner-up. S07's fault survives 4/4 reference omissions; fitted starts span March 26 16:00-19:50 UTC. Checking model, units and logger coefficient is a practical first task. S04's warming is the least certain diagnosis: 3/4 omissions detect it, with fitted starts from March 12 to April 2. That reference sensitivity is not a confidence interval or proof that repainting caused the problem. These judgments are explained in the report and [DECISIONS.md](DECISIONS.md).
 
 Usable percentages are sample availability after these checks, not certification of accuracy. Climate comparisons need shared valid periods; partial rain totals cannot be treated as complete. No whole-spring climatology can be inferred from six weeks alone.
 
@@ -70,8 +70,8 @@ The 49 regression tests cover parser/time-repair provenance, ambiguous clocks, d
 
 There is no attempt to estimate lost rain, certify snow-gauge catch efficiency, derive an exact anemometer conversion from neighboring stations, or identify the physical cause of warming from a maintenance coincidence. The implementation detects multiple abrupt pressure/wind incidents with recovery, plus one dominant noisy-wind split and one daylight-drift regime. Small faults, sparse coverage, pack-edge events and shared network faults remain limitations. Sparse peers cause abstention rather than false precision. See METHODS.md for details.
 
-Before submission: finish personal reasoning and the unaided calculation in DECISIONS.md, export complete chats to `ai_logs/`, add the real recording link, and publish a repository named `sahil-awatramani`. No repository has been published or submission form sent by this implementation.
+Before submission: publish a repository named `sahil-awatramani` and submit the official form. The personal decisions, unaided calculation, AI export and recording link are included locally; verify the public repository and recording access before submitting.
 
 [VIDEO_GUIDE.md](VIDEO_GUIDE.md) provides a three-minute evidence sequence; [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) tracks remaining submission work. The observed validation results are in [VALIDATION.md](VALIDATION.md).
 
-Before publishing, run `python tools/check_submission.py`. This read-only readiness check identifies obvious missing files/placeholders and source-pack paths in Git history. Human requirements such as complete exports, personal reasoning and the unaided calculation still need verification.
+Before publishing, run `python tools/check_submission.py`. This read-only readiness check identifies obvious missing files/placeholders and source-pack paths in Git history. Human requirements such as recording access, personal authorship and the unaided calculation still need a final review.

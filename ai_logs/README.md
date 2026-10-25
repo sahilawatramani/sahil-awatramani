@@ -1,7 +1,9 @@
-# Complete AI conversation exports
+# AI conversation exports
 
-Add the complete exports from the first prompt onward before submission. This folder currently contains instructions only, not the required exports.
+The complete conversation export for this project is stored in:
 
-Use the chat application's export/share function and retain the full sequence, including unsuccessful approaches and corrections. Do not substitute a reconstructed transcript, curated summary, or invented conversation. Include chats from every AI tool used. The assignment accepts share links, PDFs or native chat exports.
+- [codex-session-full-export.md](codex-session-full-export.md)
 
-The supplied data pack must remain private. Do not attach source CSVs, GPS files or the archive to the public repository. Complete logs already include discussion of derived evidence and some displayed source excerpts; inspect the export against the assignment's privacy requirements and resolve any ambiguity with the organizer rather than silently altering the record.
+It contains the initial assignment review, implementation, debugging, validation, decision-writing and submission preparation, including unsuccessful approaches and corrections.
+
+The export contains derived evidence and source excerpts needed to explain the work. The private source data pack, ZIP archive and raw GPS/weather files are not included in this repository.

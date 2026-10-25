@@ -15,15 +15,15 @@ Invitation deadline: **on or before Sunday, 25 October 2026**, with no stated cu
 - [x] Revised climate-use report and four-chart evidence notebook; complete report verified on one A4 page.
 - [x] Address the identifiable engineering-review counterexamples and evaluate two synthetic weather models, including reserved seeds; disclose unresolved and missed cases. Independent field calibration truth is unavailable, so these results do not establish field accuracy.
 - [x] Record the invitation date and receipt time; Sunday cutoff remains unspecified, so do not assume a midnight deadline.
-- [ ] Replace DECISIONS.md technical draft with personal reasoning, including the genuinely unaided solar calculation.
-- [ ] Add complete AI exports from all tools under ai_logs/.
-- [ ] Record and add the three-minute narrated video link to README line three.
+- [x] Replace DECISIONS.md technical draft with personal reasoning, including the genuinely unaided solar calculation.
+- [x] Add the complete AI export under ai_logs/.
+- [x] Record and add the narrated video link to README line three. The submitted recording is approximately 5 minutes 18 seconds; confirm the evaluator accepts the longer duration.
 - [x] Current implementation run and tests verified; repeat after any further code changes.
 - [x] Tracked-file audit: no private pack, archive, GPS files, dependencies, profiles or scratch files; repeat before publication.
 - [ ] Publish the local repository as `sahil-awatramani` at the appropriate submission time; do not share the solution early.
 - [ ] Submit the official form with name, college, email, phone and repository link before the deadline.
 
-The implementation has not published a repository, created a recording, exported the user-facing chats, or submitted the form.
+The implementation has not published a repository or submitted the form. A local recording and AI export are now present.
 
 Run `python tools/check_submission.py` to catch obvious missing deliverables before publication. It checks file presence, README headers, placeholders, export-file presence, flags schema and obvious private-pack paths in Git history. It cannot certify personal authorship, full exports, video accessibility or a completed manual calculation.
 
