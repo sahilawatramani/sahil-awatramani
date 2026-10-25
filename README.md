@@ -5,73 +5,119 @@ Run: python checker.py "../ridgeline_data_pack (2)"
 
 # Ridgeline network checker
 
-Eight stations, six weeks, and two operational decisions: which measurements can enter the period summary, and where one technician should spend an hour. This checker preserves healthy channels, repairs only supported timestamp/duplicate problems, and leaves uncertain measurements out rather than inventing replacements.
+Ridgeline is a dependency-free Python checker for an eight-station weather
+network covering six weeks of observations. It supports two operational
+decisions:
 
-## Run
+1. Which measurements and intervals are suitable for a climate summary?
+2. Where should one technician spend a one-hour field visit?
 
-Python 3.10 or newer. **No packages, API keys, network calls, paid services, or installation step.** From this repository:
+The checker favors traceable decisions over false precision. It repairs only
+supported timestamp and duplicate problems, excludes affected channels rather
+than entire stations where possible, and abstains when peer evidence is
+insufficient. It does not invent calibration factors, redistribute missing
+rainfall, or replace disputed coordinates automatically.
+
+## Running the checker
+
+Requirements:
+
+- Python 3.10 or newer
+- No third-party packages
+- No network access or API keys
+
+From this repository, run:
 
 ```sh
 python checker.py "path/to/data_pack"
 ```
 
-The argument is the folder containing `stations.csv`, `data/`, `gps/`, and the maintenance notebook. Quote paths with spaces. Outputs are written in the **current working directory**, even when the script is elsewhere:
+The argument must be the private data-pack folder containing `stations.csv`,
+`data/`, `gps/`, and the maintenance notebook. Paths containing spaces should
+be quoted. Outputs are written to the current working directory, and input
+files are never modified.
+
+## Generated outputs
 
 | File | Purpose |
 |---|---|
-| `flags.csv` | Required incident intervals and decisions; exact prescribed seven-column schema |
-| `report.html` | Coordinator's report; self-contained and printable on A4 |
-| `evidence.html` | Derived clock, pressure, wind and temperature diagnostics; field procedure, station filter, ledger and GPS quality counts |
-| `audit.json` | Coverage, climate-use restrictions, unresolved checks, evidence, source provenance, input hashes and visit ranking |
-| `manifest.json` | Generation identifier and hashes of the four outputs; detects mixed files after an interrupted run |
+| `flags.csv` | Required seven-column incident and decision ledger |
+| `report.html` | Printable coordinator report, designed for one A4 page |
+| `evidence.html` | Interactive evidence notebook with charts, filters and audit details |
+| `audit.json` | Coverage, restrictions, unresolved checks, provenance and visit ranking |
+| `manifest.json` | SHA-256 manifest tying the four generated outputs to one generation |
 
-Open `report.html` in a browser. Print at A4, 100% scale, with browser headers/footers disabled. All assets are embedded; an internet connection is unnecessary. A complete generation is staged before publication; ordinary write failures roll back previous outputs. Verify `manifest.json` after an interrupted run. Input files are never modified.
+The output process stages a complete generation before publishing it. The
+manifest makes mixed outputs from an interrupted run detectable.
 
-## Checks, in execution order
+## What the checker does
 
-1. Validate inventory, weather schema, timestamps, numeric values and logging cadence.
-2. Reject malformed, checksum-failed or inactive GPS evidence; compare trustworthy RMC time with logger time, using original row order to resolve clock changes.
-3. Compare persistent RMC/GGA location with inventory; withhold disputed spatial metadata without substituting coordinates automatically.
-4. Resolve exact retransmissions and conflicting duplicates **after** supported time repair; identify absent intervals without filling them.
-5. Detect saturated humidity, invalid values, long frozen readings, isolated temperature reversals, bounded error bursts and persistent GHI during astronomical night.
-6. Use nearby, comparable-elevation references to check bounded pressure/wind incidents and recoveries, sunlight-dependent warming and rain blockage/release.
-7. Explicitly retain coherent high-elevation cold when supported by regional behavior.
+Checks run in this order:
 
-No station IDs, fault dates or known fault magnitudes are encoded. Maintenance dates do not trigger flags; derived notebook themes are shown separately as context. [METHODS.md](METHODS.md) explains thresholds, assumptions and limitations.
+1. Validate station inventory, schemas, timestamps, numeric values and cadence.
+2. Validate GPS checksums and fix quality, then use trustworthy RMC evidence to
+   identify supported logger-clock regimes.
+3. Compare persistent GPS locations with inventory metadata without silently
+   choosing which disputed source is correct.
+4. Repair supported clock changes before resolving duplicates, preserving
+   distinct observations that only appear to share a raw timestamp.
+5. Detect invalid values, saturated humidity, frozen sensors, isolated
+   temperature reversals, bounded bursts and implausible night-time sunlight.
+6. Use nearby, elevation-comparable references for bounded pressure and wind
+   incidents, recovery, sunlight-dependent warming and rain blockage/release.
+7. Retain coherent high-elevation cold when regional evidence supports it.
 
-## Read the supplied-pack result
+Maintenance notes provide context only; they do not define flags or fault
+boundaries. No station ID, known fault date or supplied fault magnitude is
+hard-coded.
 
-The checker flags **44 intervals**, including **30 separate sunlit windows for one probable temperature-drift incident**. The count is not a station health score. There are 48,314 raw weather rows, 144 proven extra copies, and 48,170 unique observations after clock repair. Across 48,384 expected time slots, 214 are absent.
+## Supplied-pack result
 
-Supported repairs recover S06's timing and remove S08 retransmissions. Exclusions affect S02 pressure, S03 temperature, S04 sunlit temperature/rain, S05 humidity and S07 wind speed in the intervals recorded in `flags.csv`. S07's conservative hold begins March 26 16:00 UTC, the earliest boundary found across tested reference choices. S05's location remains disputed. S01's cold is retained.
+The supplied pack produces 44 ledger intervals, including 30 sunlit windows
+for one probable S04 temperature-drift incident. The input contains 48,314
+raw weather rows. After supported S06 clock repair and removal of 144 proven
+S08 retransmissions, there are 48,170 unique observations across 48,384
+expected slots; 214 slots are absent.
 
-The first visit is **S07**, with **S02** the runner-up. S07's fault survives 4/4 reference omissions; fitted starts span March 26 16:00-19:50 UTC. Checking model, units and logger coefficient is a practical first task. S04's warming is the least certain diagnosis: 3/4 omissions detect it, with fitted starts from March 12 to April 2. That reference sensitivity is not a confidence interval or proof that repainting caused the problem. These judgments are explained in the report and [DECISIONS.md](DECISIONS.md).
+Key decisions:
 
-Usable percentages are sample availability after these checks, not certification of accuracy. Climate comparisons need shared valid periods; partial rain totals cannot be treated as complete. No whole-spring climatology can be inferred from six weeks alone.
+- **S06:** repair a supported six-hour clock regime on the internal timeline,
+  preserving 2,639 observations.
+- **S07:** hold the continuing wind-speed issue; it is the first technician
+  visit because the sensor model, units and logger coefficient can be checked
+  directly.
+- **S04:** hold sunlit temperatures cautiously, retain nights, and do not
+  apply a numerical correction. The sunny-warming pattern is supported, but
+  its onset and physical cause remain uncertain.
+- **S02:** hold the pressure change; it is the runner-up visit because it
+  requires a calibrated pressure reference.
+- **S01:** retain coherent high-elevation cold rather than treating altitude
+  differences as a sensor fault.
+- **S05:** restrict coordinate-dependent peer use while its inventory/GPS
+  discrepancy remains unresolved.
+- **S08:** record the outage as missing data and remove only exact repeated
+  copies; missing values are not filled.
 
-The supplied pack credits ERA5 reanalysis (Copernicus Climate Change Service), via the Open-Meteo archive API, CC BY 4.0. Its station names and maintenance narratives are fictional. These derived outputs are for this assignment; the source pack is not included.
-
-The separate [supplied-pack review](PACK_REVIEW.md) checks all 44 intervals directly from raw CSV/NMEA, including per-reference S04 evidence and the cost of alternative holding policies. [DEFENSE_GUIDE.md](DEFENSE_GUIDE.md) explains the main technical tradeoffs for your walkthrough.
+The detailed reasoning is in [DECISIONS.md](DECISIONS.md). The independent
+raw-data review is in [PACK_REVIEW.md](PACK_REVIEW.md), and implementation
+thresholds and limitations are in [METHODS.md](METHODS.md).
 
 ## Validation
 
-The [engineering review](ENGINEERING_REVIEW.md) exposed pressure over-exclusion after recovery, missed temporary wind faults, missed temperature bursts and reference contamination. The redesigned detector closes the three identifiable counterexamples at recovery and records an unanchored two-against-two reference split as unresolved. [BENCHMARKS.md](BENCHMARKS.md) records seeded synthetic evaluation with sample/event metrics, healthy-data loss, small-fault misses and abstention; it is **not a field-accuracy claim**. A second, different weather model exposed outage/baseline/reference failures that are now addressed; its 34 reserved cases and remaining common-fault misses are reported separately.
+The regression suite contains 49 tests:
 
 ```sh
 python -m unittest discover -s tests -v
-python benchmarks/review_cases.py --output tmp/review_results.json
-python benchmarks/evaluate.py --split evaluation --output tmp/evaluation.json
-python benchmarks/challenge.py --split reserved --output tmp/challenge_reserved.json
 ```
 
-The 49 regression tests cover parser/time-repair provenance, ambiguous clocks, duplicate/cadence behavior, direct/peer checks, bounded recovery and bursts, shared-reference abstention, inventory order, missing sources, invocation-directory output, generation manifests and rollback on write failures. Tests use synthetic fixtures only. On a healthy pack, `flags.csv` contains just its header. [VALIDATION.md](VALIDATION.md) records the observed engineering checks.
+Additional disclosed synthetic evaluations are documented in
+[BENCHMARKS.md](BENCHMARKS.md). They cover severe identifiable faults,
+recovery, bursts, drift, ambiguous references, outages and healthy controls.
+They are engineering evidence for the disclosed synthetic cases, not a claim
+of field calibration accuracy. Small faults, common-mode failures, faulty
+reference majorities, sparse peers and pack-edge events remain limitations.
 
-## Scope left open
-
-There is no attempt to estimate lost rain, certify snow-gauge catch efficiency, derive an exact anemometer conversion from neighboring stations, or identify the physical cause of warming from a maintenance coincidence. The implementation detects multiple abrupt pressure/wind incidents with recovery, plus one dominant noisy-wind split and one daylight-drift regime. Small faults, sparse coverage, pack-edge events and shared network faults remain limitations. Sparse peers cause abstention rather than false precision. See METHODS.md for details.
-
-Before submission: publish a repository named `sahil-awatramani` and submit the official form. The personal decisions, unaided calculation, AI export and recording link are included locally; verify the public repository and recording access before submitting.
-
-[VIDEO_GUIDE.md](VIDEO_GUIDE.md) provides a three-minute evidence sequence; [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) tracks remaining submission work. The observed validation results are in [VALIDATION.md](VALIDATION.md).
-
-Before publishing, run `python tools/check_submission.py`. This read-only readiness check identifies obvious missing files/placeholders and source-pack paths in Git history. Human requirements such as recording access, personal authorship and the unaided calculation still need a final review.
+The repository also contains the complete AI conversation export under
+`ai_logs/`, the submission decision record, validation evidence and the
+recording link above. The private source data pack and its ZIP archive are not
+part of this repository.
